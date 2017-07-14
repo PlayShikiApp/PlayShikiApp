@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <title>{{title}}</title>
+    <style>
+      body {
+        font-family: "Helvetica", "Arial", sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Nunjucks/Jinja demo</h1>
+
+    <div id="target-area">
+    {% block main %}
+    {% endblock %}
+    </div>
+    <script src='/static/js/jquery-3.2.1.min.js'></script>
+    <script src='/static/js/nunjucks-slim.min.js'></script>
+    <script src='/static/js/templates.min.js'></script>
+    <script src='/static/js/demo.min.js'></script>
+
+  </body>
+</html>
