@@ -1,0 +1,16 @@
+                        <script>
+                           function update_src(url, active_id) {
+                           	console.log("should update url to " + url);
+                           	document.getElementById('player').src  = url;
+                           
+                           	for (id_ of [ {{  anime_videos["ids"]}} ]) {
+                           		document.getElementById(id_).classList.remove("active");
+                           	}
+                           
+                           	for (id_ of [ {{ anime_videos["ids"] }} ]) {
+                           		document.getElementById("kind_" + id_).classList.remove("active");
+                           	}
+                           	console.log("set " + active_id + " active");
+                           	document.getElementById(active_id).classList.add("active");
+                           }
+                        </script>

@@ -1,0 +1,85 @@
+                           <div class="b-video_player" data-episode="{{anime_videos['active_video']['episode']}}" data-kind="fandub" data-video_id="{{anime_videos['active_video']['id']}}" data-video_ids="[{{anime_videos['active_video']['id']}}]" data-watch-delay="480000" data-watch-url="{{static}}/animes/{{anime_id}}/video_online/{{anime_videos['active_video']['id']}}/track_view">
+                              <div class="player-area"><iframe id="player" src="{{anime_videos['active_video']['url']}}" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" scrolling="no" allowfullscreen="allowfullscreen" style="height: 502px;"></iframe></div>
+                              <div class="cc-anime_video_report-new">
+                                 <div class="cc-2a">
+                                    <div class="c-column">
+                                       <p class="m5"><b>Жалоба на видео</b></p>
+                                       <div class="m15">
+                                          <div class="b-prgrph">Сайт ничего своего не добавляет к видео плеерам: ни рекламу, ни редиректы на другие сайты.</div>
+                                          <div class="b-prgrph">Всё, что происходит при просмотре видео, это действия</div>
+                                          <ul class="b-list">
+                                             <li> либо самого видео хостинга, с которого проигрывается видео;<br>  </li>
+                                             <li> либо плагинов, установленных в твоём браузере;<br>  </li>
+                                             <li> либо вирусов, живущих на твоём компьютере;<br></li>
+                                          </ul>
+                                          <div class="b-prgrph">Шикимори никак не влияет на работу видео плеера!</div>
+                                       </div>
+                                    </div>
+                                    <div class="c-column">
+                                       <form class="simple_form b-form new_anime_video_report" id="new_anime_video_report" novalidate="novalidate" action="https://shikimori.one/moderations/anime_video_reports" accept-charset="UTF-8" data-remote="true" method="post">
+                                          <input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="e17xLvXk2hUtPPNybBmOBIJ2/PPYX82QyydhOTbItgl/ggTHoKvHKygj+/9VVAhP/KLi422Tv3wrWVUH58PmHw==">
+                                          <div class="b-input hidden anime_video_report_anime_video_id"><input class="hidden" type="hidden" value="901945" name="anime_video_report[anime_video_id]" id="anime_video_report_anime_video_id"></div>
+                                          <div class="b-input hidden anime_video_report_user_id"><input class="hidden" type="hidden" value="0" name="anime_video_report[user_id]" id="anime_video_report_user_id"></div>
+                                          <div class="b-input hidden anime_video_report_state"><input class="hidden" type="hidden" value="pending" name="anime_video_report[state]" id="anime_video_report_state"></div>
+                                          <div class="b-input select required anime_video_report_kind">
+                                             <label class="select required control-label" for="anime_video_report_kind"><abbr title="Обязательное поле">*</abbr> Причина</label>
+                                             <select class="select required" name="anime_video_report[kind]" id="anime_video_report_kind">
+                                                <option selected="selected" value="broken">видео не работает</option>
+                                                <option value="wrong">видео не к тому аниме</option>
+                                                <option value="other">прочее</option>
+                                             </select>
+                                          </div>
+                                          <div class="b-input string optional anime_video_report_message field_with_hint"><label class="string optional control-label" for="anime_video_report_message">Сообщение модератору</label><input class="string optional" type="text" name="anime_video_report[message]" id="anime_video_report_message"><span class="hint">не обязательно</span></div>
+                                          <div class="buttons">
+                                             <div class="cancel">Отмена</div>
+                                             <input type="submit" name="commit" value="Отправить" class="btn-primary btn-submit btn" data-disable-with="Отправка…" id="submit_anime_video_report" autocomplete="off" tabindex="0">
+                                          </div>
+                                       </form>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="cc-player_controls cc-2a">
+                                 <div class="c-column">
+                                    <div class="cc-navigation">
+                                       <a class="c-control prev" href="/anime_id={{anime_id}}&episode={{anime_videos['active_video']['episode'] - 1}}">
+                                          <div class="icon"></div>
+                                          <div class="label">Предыдущий</div>
+                                       </a>
+                                       <div class="c-control episode-num">
+                                          <span>Эпизод</span><b> #</b><input data-href="/?anime_id={{anime_id}}&episode={{anime_videos['active_video']['episode'] }}" type="text" value="{{anime_videos['active_video']['episode']}}">
+                                          <div class="video-link"><a href="{{anime_videos['active_video']['url']}}" target="_blank">прямая ссылка</a></div>
+                                       </div>
+                                       <a class="c-control next" href="/?anime_id={{anime_id}}&episode={{anime_videos['active_video']['episode'] + 1}}">
+                                          <div class="icon"></div>
+                                          <div class="label">Следующий</div>
+                                       </a>
+                                    </div>
+                                    <div class="cc-optional_controls">
+                                    </div>
+                                 </div>
+                                 <div class="c-column">
+                                    <div class="cc-options">
+                                       <div class="c-buttons cc-3a">
+                                          <a class="c-column c-control increment-user_rate" data-method="post" data-next_url="/?anime_id={{anime_id}}&episode={{anime_videos['active_video']['episode'] + 1}}" data-remote="true" href="/?anime_id={{anime_id}}&episode={{anime_videos['active_video']['episode']}}&viewed=true">
+                                             <div class="icon"></div>
+                                             <div class="label">Просмотрено</div>
+                                          </a>
+                                          <div class="c-column c-control show-options">
+                                             <div class="icon"></div>
+                                             <div class="label">Опции</div>
+                                          </div>
+                                          <div class="c-column c-control report">
+                                             <div class="icon"></div>
+                                             <div class="label">Пожаловаться</div>
+                                          </div>
+                                       </div>
+                                       <div class="c-video_stats">
+                                          <div class="views_count">1425 просмотров</div>
+                                          <div class="uploader">
+                                             <div class="b-user16"><a href="https://shikimori.one" title="{{anime_videos['active_video']['uploader']}}"><img alt="{{anime_videos['active_video']['uploader']}}" src="https://desu.shikimori.one/system/users/x32/16178.png?1506795242" srcset="https://desu.shikimori.one/system/users/x32/16178.png?1506795242 2x"><span>{{anime_videos['active_video']['uploader']}}</span></a></div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
