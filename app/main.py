@@ -50,7 +50,7 @@ def get_variable_from_request(variable):
 
 @app.route('/', methods=['GET'])
 def homepage():
-    return render_page('video_template.html', {'anime_info': {'duration': 0}, 'anime_videos': {'active_video': {'episode': 0, 'anime_english': ''}}, 'static': '', 'time': str(time())})
+    return render_page('video_template.html', {'static': '', 'time': str(time())})
 
 
 @app.route('/', methods=['POST'])

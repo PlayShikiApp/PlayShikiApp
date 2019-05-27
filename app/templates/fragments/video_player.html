@@ -41,15 +41,15 @@
                               <div class="cc-player_controls cc-2a">
                                  <div class="c-column">
                                     <div class="cc-navigation">
-                                       <a class="c-control prev" href="/anime_id={{anime_id}}&episode={{anime_videos['active_video']['episode'] - 1}}">
+                                       <a class="c-control prev" href="/index.html#/anime_id={{anime_id}}&episode={{anime_videos['active_video']['episode'] - 1}}">
                                           <div class="icon"></div>
                                           <div class="label">Предыдущий</div>
                                        </a>
                                        <div class="c-control episode-num">
-                                          <span>Эпизод</span><b> #</b><input data-href="/?anime_id={{anime_id}}&episode={{anime_videos['active_video']['episode'] }}" type="text" value="{{anime_videos['active_video']['episode']}}">
+                                          <span>Эпизод</span><b> #</b><input data-href="/index.html#/?anime_id={{anime_id}}&episode={{anime_videos['active_video']['episode'] }}" type="text" value="{{anime_videos['active_video']['episode']}}">
                                           <div class="video-link"><a href="{{anime_videos['active_video']['url']}}" target="_blank">прямая ссылка</a></div>
                                        </div>
-                                       <a class="c-control next" href="/?anime_id={{anime_id}}&episode={{anime_videos['active_video']['episode'] + 1}}">
+                                       <a class="c-control next" href="/index.html#/?anime_id={{anime_id}}&episode={{anime_videos['active_video']['episode'] + 1}}">
                                           <div class="icon"></div>
                                           <div class="label">Следующий</div>
                                        </a>
@@ -60,7 +60,7 @@
                                  <div class="c-column">
                                     <div class="cc-options">
                                        <div class="c-buttons cc-3a">
-                                          <a class="c-column c-control increment-user_rate" data-method="post" data-next_url="/?anime_id={{anime_id}}&episode={{anime_videos['active_video']['episode'] + 1}}" data-remote="true" href="/?anime_id={{anime_id}}&episode={{anime_videos['active_video']['episode']}}&viewed=true">
+                                          <a class="c-column c-control increment-user_rate" data-method="post" data-next_url="/index.html#/?anime_id={{anime_id}}&episode={{anime_videos['active_video']['episode'] + 1}}" data-remote="true" href="/index.html#/?anime_id={{anime_id}}&episode={{anime_videos['active_video']['episode']}}&viewed=true">
                                              <div class="icon"></div>
                                              <div class="label">Просмотрено</div>
                                           </a>

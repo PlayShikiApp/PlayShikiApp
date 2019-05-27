@@ -36,25 +36,8 @@
       <script src="/static/js/vendor-327c50279581c48a75bd.js" data-turbolinks-track="reload"></script>
       <script src="/static/js/application-72c2fdbb8b0c05595f08.js" data-turbolinks-track="reload"></script>
 	  -->
-	  <script>
-			var getUrlParameter = function getUrlParameter(sParam) {
-				var sPageURL = window.location.search.substring(1),
-					sURLVariables = sPageURL.split('&'),
-					sParameterName,
-					i;
-
-				for (i = 0; i < sURLVariables.length; i++) {
-					sParameterName = sURLVariables[i].split('=');
-
-					if (sParameterName[0] === sParam) {
-						return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
-					}
-				}
-			};
-
-			var anime_id = getUrlParameter('anime_id');
-			var episode = getUrlParameter('episode');
-	  </script>
+	  <script src="/static/js/parse_url.js"></script>
+	  <script src="background.js" type="text/javascript" charset="utf-8"></script>
    </head>
    <body class="p-anime_videos p-anime_videos-index p-db_entries p-db_entries-index p-animes p-animes-index x1200 chrome" data-camo_url="https://camo-v2.shikimori.one/" data-env="production" data-faye="[&quot;/user-0&quot;]" data-faye_url="/faye" data-js_export_supervisor_keys="[&quot;user_rates&quot;,&quot;topics&quot;,&quot;comments&quot;,&quot;polls&quot;]" data-locale="ru" data-localized_genres="ru" data-localized_names="ru" data-server_time="2019-05-18T00:51:31+03:00" data-user="{&quot;id&quot;:0,&quot;url&quot;:&quot;https://shikimori.one/User&quot;,&quot;is_moderator&quot;:false,&quot;ignored_topics&quot;:[],&quot;ignored_users&quot;:[],&quot;is_day_registered&quot;:true,&quot;is_week_registered&quot;:true,&quot;is_ignore_copyright&quot;:true,&quot;is_comments_auto_collapsed&quot;:true,&quot;is_comments_auto_loaded&quot;:true}" id="anime_videos_index">
       <style id="custom_css" type="text/css">@media only screen and (min-width: 1024px) { .l-page:before, .l-page:after, .l-footer:before, .l-footer:after { display: none; } }</style>
@@ -208,7 +191,9 @@
 							
                            </div>
                         </div>
+						<div id="update_src_script">
 						<!-- script update src url -->
+						</div>
                         <div class="c-anime_video_episodes">
                            <div class="title">Эпизоды</div>
 						   <div id="episodes_list">
@@ -239,53 +224,10 @@
          <div class="slide"></div>
          <div class="arrow"></div>
       </div>
-	 
 		<script src='/static/js/jquery-3.2.1.min.js'></script>
-		<script src="https://mozilla.github.io/nunjucks/files/nunjucks.js"></script>
-		<script src='/static/js/templates.min.js?time={{time}}'></script>
-		<script>
-			$(document).ready(function () {
-			  render();
-			});
-
-			function render() {
-				/*  $('#videos_list').html(
-						nunjucks.render('videos_list.html',  
-							{
-								'anime_id': 21,
-								'episode': 1,
-								'anime_info': {"duration": 621, "anime_russian": "one piece", "anime_english": "One Piece"},
-								'anime_videos':  {"fandub": [], "raw": [], "subtitles": [{"url": "http://video.sibnet.ru/shell.php?videoid=351236", "video_hosting": "video.sibnet.ru", "author": "Helix Group (Prosya & Gurcha & Dink & Lumen)", "uploader": "", "language": "tv", "id": 529628, "anime_id": 21, "active": " active", "episode": 1}], "ids": [529628], "active_kind": "subtitles", "active_video": {"id": 529628, "url": "http://video.sibnet.ru/shell.php?videoid=351236", "anime_id": 21, "anime_english": "One Piece", "anime_russian": "\u0412\u0430\u043d-\u041f\u0438\u0441", "episode": 1, "kind": "\u0441\u0443\u0431\u0442\u0438\u0442\u0440\u044b", "quality": "russian", "language": "tv", "author": "Helix Group (Prosya & Gurcha & Dink & Lumen)", "watches_count": 542, "uploader": ""}}, 
-								'static': ''
-							}) 
-					);*/
-					
-					$.get('http://45.79.78.155:8101/api/' + anime_id + '/' + episode,  function (anime_videos, anime_videos_textStatus, anime_videos_jqXHR) {
-						$.get('http://45.79.78.155:8101/' + anime_id,  function (anime_info, anime_info_textStatus, anime_info_jqXHR) {
-							var render_kwargs = {
-										'anime_id': anime_id,
-										'episode': episode,
-										'anime_info': JSON.parse(anime_info),
-										'anime_videos':  JSON.parse(anime_videos),
-										'static': ''
-							};
-
-							$('#title').html(nunjucks.render("title.html", render_kwargs));
-							$('#videos_list').html(nunjucks.render('videos_list.html',  render_kwargs));
-							$('#episodes_list').html(nunjucks.render('episodes_list.html', render_kwargs));
-							$('#breadcrumbs').html(nunjucks.render('breadcrumbs.html', render_kwargs));
-							$('#video_player').html(nunjucks.render('video_player.html', render_kwargs));
-							$('#menu_logo').html(nunjucks.render('menu_logo.html', render_kwargs));
-							
-						});
-					});
-			}
-			
-			/*window.onhashchange = function() { 
-				console.dir(window.location);
-				//code  
-			}*/
-		</script>
+		<script src='/static/js/nunjucks.js'></script>
+		<script src='/static/js/templates.min.js'></script>
+		<script src='/static/js/render.js'></script>
       <div id="cursorMessageDiv" style="display: none;">&nbsp;</div>
    </body>
 </html>
