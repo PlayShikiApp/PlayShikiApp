@@ -107,3 +107,4 @@ node_modules/
 
 # app specific generated files
 #app/static/js
+app/static/js/templates.min.js
