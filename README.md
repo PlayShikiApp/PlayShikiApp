@@ -4,10 +4,10 @@
 
 ## Установка
 ### Установка из официального магазина
-1. Для Firefox/Firefox для Android: TODO
+1. Для [Firefox/Firefox для Android]: (https://addons.mozilla.org/ru/firefox/addon/playshikimori-app)
 2. Для Opera: TODO
 3. Для Chrome: TODO
-4. На данный момент установка расширения возможна только по инструкциям ниже
+4. На данный момент установка расширения возможна только по инструкциям ниже (кроме Firefox)
 
 ### Установка для Chrome (не из магазина)
 1. Скачайте архив .zip [отсюда](https://github.com/PlayShikimoriApp/PlayShikiApp/releases)
