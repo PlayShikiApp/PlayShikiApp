@@ -21,7 +21,7 @@ gulp.task('nunjucks', gulp.parallel(() =>
 		.pipe(nunjucks.precompile())
     .pipe(concat('templates.min.js'))
     .pipe(uglify())
-    .pipe(gulp.dest('app/static/js'))
+    .pipe(gulp.dest('src/static/js'))
 ));
 
 
