@@ -1,10 +1,16 @@
 {
     "manifest_version": 2,
     "name": "PlayShikimori App",
-    "description": "Расширение возвращает функционал просмотра на сайте shikimori.one (shikimori.org)",
+    "description": "Расширение возвращает функционал просмотра аниме на сайте shikimori.one (shikimori.org)",
     "homepage_url": "https://github.com/PlayShikimoriApp/PlayShikiApp",
     "version": "1.0.2",
     "icons": {"64": "logo.png"},
+    "browser_specific_settings": {
+      "gecko": {
+        "id": "playshikimoriapp@example.com",
+        "strict_min_version": "42.0"
+      }
+    },
     "permissions": [
         "proxy",
         "storage",
