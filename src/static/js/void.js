@@ -1,3 +1,0 @@
-function void_() {
-	return;
-}
