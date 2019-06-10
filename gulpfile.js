@@ -1,20 +1,9 @@
 var gulp        = require('gulp'),
     concat      = require('gulp-concat'),
-    nunjucks    = require('gulp-nunjucks');
+    nunjucks    = require('gulp-nunjucks'),
     uglify      = require('gulp-uglify');
 
-
-gulp.task('script', gulp.parallel(function() {
-    return gulp.src('script/*.js')
-        .pipe(concat('demo.min.js'))
-        .pipe(uglify())
-        .pipe(gulp.dest('app/static/js'))
-}));
-
-gulp.task('vendor', gulp.parallel(function() {
-    return gulp.src('vendor/*.js')
-        .pipe(gulp.dest('app/static/js'))
-}));
+const { spawn } = require('child_process');
 
 gulp.task('nunjucks', gulp.parallel(() =>
 	gulp.src('app/templates/fragments/*')
@@ -24,7 +13,13 @@ gulp.task('nunjucks', gulp.parallel(() =>
     .pipe(gulp.dest('src/static/js'))
 ));
 
+gulp.task("keys", gulp.parallel(function(cb) {
+  console.info('Starting python');
+  var PIPE = {stdio: 'inherit'};
+  spawn('python3', ["./utils/genkeys.py", "keys/key.priv", "src/keys/key.js"], PIPE).on('close', cb);
+  spawn('python3', ["./utils/genkeys.py", "keys/key2.priv", "src/keys/key2.js"], PIPE).on('close', cb);
+}));
 
-gulp.task('build', gulp.parallel(['script', 'vendor', 'nunjucks']));
+gulp.task('build', gulp.parallel(['nunjucks', 'keys']));
 gulp.task('default', gulp.parallel(['build'])); // Have gulp run the 'build' task as a default
 

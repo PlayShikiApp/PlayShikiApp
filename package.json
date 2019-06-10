@@ -1,16 +1,16 @@
 {
-  "name": "nunjucks-jinja-demo",
-  "version": "0.0.1",
-  "description": "Demo of use of nunjucks and jinja2 templates",
+  "name": PlayShikimori App",
+  "version": "1.0.1",
+  "description": "Возвращает shikimori к жизни",
   "main": "index.js",
   "scripts": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bimblehq/nunjucks-jinja-demo.git"
+    "url": "git+https://github.com/PlayShikimoriApp/PlayShikiApp.git"
   },
-  "author": "Tomi Novak",
-  "license": "UNLICENSED",
-  "homepage": "https://github.com/bimblehq/nunjucks-jinja-demo#readme",
+  "author": "Kuroyasha",
+  "license": "OSL",
+  "homepage": "https://github.com/PlayShikimoriApp/PlayShikiApp",
   "dependencies": {
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
