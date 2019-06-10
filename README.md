@@ -24,10 +24,10 @@
 4. Кликните "Загрузить временное расширение" и выберите файл с расширением .
 
 ### Установка для Opera
-1. Скачивайте архив .crx [отсюда](https://github.com/PlayShikimoriApp/PlayShikiApp/releases)
-2. Ставим расширение [Install Chrome Extensions](https://addons.opera.com/en/extensions/details/install-chrome-extensions)
-2. Находим вкладку с расширениями в своем браузере
-3. Перетаскиваем скачанный файл туда
+1. Скачайте архив .crx [отсюда](https://github.com/PlayShikimoriApp/PlayShikiApp/releases)
+2. Установите расширение [Install Chrome Extensions](https://addons.opera.com/en/extensions/details/install-chrome-extensions)
+2. Найдите вкладку с расширениями в своем браузере
+3. Перетащите скачанный файл туда
 4. Готово!
 
 ## Функционал
