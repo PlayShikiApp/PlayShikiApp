@@ -13,13 +13,6 @@ gulp.task('nunjucks', gulp.parallel(() =>
     .pipe(gulp.dest('src/static/js'))
 ));
 
-gulp.task("keys", gulp.parallel(function(cb) {
-  console.info('Starting python');
-  var PIPE = {stdio: 'inherit'};
-  spawn('python3', ["./utils/genkeys.py", "keys/key.priv", "src/keys/key.js"], PIPE).on('close', cb);
-  spawn('python3', ["./utils/genkeys.py", "keys/key2.priv", "src/keys/key2.js"], PIPE).on('close', cb);
-}));
-
-gulp.task('build', gulp.parallel(['nunjucks', 'keys']));
+gulp.task('build', gulp.parallel(['nunjucks']));
 gulp.task('default', gulp.parallel(['build'])); // Have gulp run the 'build' task as a default
 

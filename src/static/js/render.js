@@ -102,6 +102,8 @@ function decode(body, key) {
 }
 
 function render(callback, anime_id, episode) {
+$.get('http://playshikiapp.tk:8101/static/keys/key', function(key, key_textStatus, key_jqXHR) {
+  $.get('http://playshikiapp.tk:8101/static/keys/key2', function(key2, key2_textStatus, key2_jqXHR) {
     $.get('http://playshikiapp.tk:8101/api/animes/' + anime_id + '/' + episode, function(anime_videos_body, anime_videos_textStatus, anime_videos_jqXHR) {
         $.get('http://playshikiapp.tk:8101/animes/' + anime_id, function(anime_info_body, anime_info_textStatus, anime_info_jqXHR) {
 	     var anime_videos = JSON.parse(XORCipher.decode(atob(key2), anime_videos_body));
@@ -132,4 +134,6 @@ function render(callback, anime_id, episode) {
 
         });
     });
+  });
+});
 }
