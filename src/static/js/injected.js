@@ -1,28 +1,34 @@
-function start(url) {
-  var ne = $(".current-episodes").text() - -1;
-  var e = $(".watch-online-placeholer");
-  var me = - -e.data('total_episodes');
-  console.log(location.pathname);
-  var anime_id = location.pathname.split("-")[0].split("/")[2].replace(/\D/g, "");;
-  var loc =  url + "#/?anime_id="+ anime_id + "&episode=" + (ne > me ? 1 : ne);
+var mainObserver = new MutationObserver(start);
+var observerConfig = { attributes: true, subtree: true, childList: true };
+mainObserver.observe(document, observerConfig);
 
-  var link = $("<a/>", {
-    'class': 'b-link_button dark watch-online',
-    'id': 'myButton',
-    'href': loc
-  }).text('Смотреть онлайн');
-  var block = $("<div/>", {
-    'class': 'block'
-  }).append(link);
-  e.append(block);
+
+function start() {
+  var infoSection = document.querySelector('body#animes_show .c-info-right');
+  var watchLink = document.querySelector('#watchButton');
+  var placeHolder = document.querySelector(".watch-online-placeholer");
+
+  //console.log("start");
+
+  if (infoSection === null || placeHolder === null || watchLink !== null)
+    return;
+
+  var watched_episodes = parseInt(document.querySelector(".current-episodes").innerText) + 1;
+  var total_episodes = parseInt(placeHolder.getAttribute("data-total_episodes"));
+  console.log(location.pathname);
+  var anime_id = location.pathname.split("-")[0].split("/")[2].replace(/\D/g, "");
+  var loc = chrome.runtime.getURL("index.html") + "#/?anime_id="+ anime_id + "&episode=" + (watched_episodes > total_episodes ? 1 : watched_episodes);
+
+  var WatchButtonElement = document.createElement('div');
+  WatchButtonElement.classList.add('block');
+  WatchButtonElement.innerHTML = `
+	<a class="b-link_button dark watch-online" id="watchButton" href="#">Смотреть онлайн</a>
+  `;
+
+  infoSection.appendChild(WatchButtonElement);
+
+  var WatchLink = WatchButtonElement.querySelector('#watchButton');
+  console.log(loc);
+  WatchLink.href = loc;
 }
 
-
-document.addEventListener('yourCustomEvent', function (e)
-{
-	let url=e.detail;
-	var myElem = document.getElementById('myButton');
-	if (myElem === null){
-		return start(url);
-        }
-});
