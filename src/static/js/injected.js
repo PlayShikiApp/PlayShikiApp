@@ -19,7 +19,7 @@ function start() {
 
   if (watchedEl !== null) {
 	  var watched_episodes = parseInt(watchedEl.innerText) + 1;
-	  console.log("watched_episodes = " + watched_episodes);
+	  //console.log("watched_episodes = " + watched_episodes);
   }
 
   var total_episodes = parseInt(placeHolder.getAttribute("data-total_episodes"));
@@ -41,14 +41,12 @@ function start() {
 
   var WatchLink = document.querySelector('#watchButton');
   if (WatchLink !== null) {
-	  console.log(loc);
+	  //console.log(loc);
 	  WatchLink.href = loc;
   }
 
-  if (desc !== null) {
-	console.dir(desc);
-	mainObserver.disconnect();
-	return;
-  }
+  //console.dir(desc);
+  mainObserver.disconnect();
+  return;
 }
 
