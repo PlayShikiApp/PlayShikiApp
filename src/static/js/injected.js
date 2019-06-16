@@ -8,9 +8,12 @@ function start() {
   var placeHolder = document.querySelector(".watch-online-placeholer");
   var desc = document.querySelector(".c-description");
 
+  var watchLink = document.querySelector('#watchButton');
+
+
   //console.log("start");
 
-  if (infoSection === null || placeHolder === null || desc === null)
+  if (infoSection === null || placeHolder === null || desc === null || watchLink !== null)
     return;
 
   var watched_episodes = 1;
@@ -27,23 +30,15 @@ function start() {
   var anime_id = location.pathname.split("-")[0].split("/")[2].replace(/\D/g, "");
   var loc = chrome.runtime.getURL("index.html") + "#/?anime_id="+ anime_id + "&episode=" + (watched_episodes > total_episodes ? 1 : watched_episodes);
 
-  var watchLink = document.querySelector('#watchButton');
+  var WatchButtonElement = document.createElement('div');
+  WatchButtonElement.classList.add('block');
+  WatchButtonElement.innerHTML = `
+	<a class="b-link_button dark watch-online" id="watchButton" href="#" style="margin-top: 10px;">Смотреть онлайн</a>
+  `;
 
-  if (watchLink === null) {
-	  var WatchButtonElement = document.createElement('div');
-	  WatchButtonElement.classList.add('block');
-	  WatchButtonElement.innerHTML = `
-		<a class="b-link_button dark watch-online" id="watchButton" href="#">Смотреть онлайн</a>
-	  `;
-
-	  infoSection.appendChild(WatchButtonElement);
-  }
-
-  var WatchLink = document.querySelector('#watchButton');
-  if (WatchLink !== null) {
-	  //console.log(loc);
-	  WatchLink.href = loc;
-  }
+  infoSection.appendChild(WatchButtonElement);
+  watchLink = WatchButtonElement.querySelector('#watchButton');
+  watchLink.href = loc;
 
   //console.dir(desc);
   mainObserver.disconnect();
