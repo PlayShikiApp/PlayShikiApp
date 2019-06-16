@@ -1,3 +1,71 @@
+function IsJsonString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
+
+function get_or_set_user(callback) {
+	var user = window.localStorage.getItem('user');
+
+	if (user === null || !IsJsonString(user)) {
+		$.get("https://shikimori.one/api/users/whoami", function(data) {
+			user = JSON.stringify(data);
+			window.localStorage.setItem('user', user);
+			try {
+				callback(JSON.parse(user));
+			} catch(e) {
+				callback(null);
+			}
+		});
+	} else {
+		callback(JSON.parse(user));
+	}
+}
+
+function get_user_rates(anime_id, callback) {
+	get_or_set_user(function(user) {
+		if (user === null) {
+			console.log("error retrieving user data");
+			return null;
+		}
+
+		var rate_ident = 'rates-' + anime_id;
+
+		var rates = window.localStorage.getItem(rate_ident);
+
+		if (rates === null || !IsJsonString(rates)) {
+			$.get("https://shikimori.one/api/v2/user_rates?user_id=" + user.id + 
+					  "&target_id=" + anime_id + "&target_type=Anime", function(data) {
+				rates = JSON.stringify(data);
+				window.localStorage.setItem(rate_ident, rates);
+				try {
+					callback(JSON.parse(rates));
+				} catch (e) {
+					callback(null);
+				}
+			});
+		} else {
+			callback(JSON.parse(rates));
+		}
+	});
+}
+
+function onLocalSessionStore() {
+	var anime_id = getUrlParameter(window.location.href, 'anime_id');
+
+	get_user_rates(anime_id, function(rates) {
+		if (rates === null) {
+			console.log("error retrieving user rates");
+			return;
+		}
+
+ 		console.dir(rates);
+	});
+}
+
 function do_nothing() {
     console.log("click");
 }
@@ -5,6 +73,8 @@ function do_nothing() {
 function rerender(href) {
     var anime_id = getUrlParameter(href, 'anime_id');
     var episode = getUrlParameter(href, 'episode');
+
+    onLocalSessionStore();
 
     render(function() {
         console.log("ready");
@@ -35,6 +105,52 @@ function rerender(href) {
             if (href.indexOf("index.html") >= 0)
 	            $(this).click(handler);
         })
+	$("#watched").click(function() { 
+		chrome.tabs.query({}, function(tabs) {
+			var foundTab = undefined;
+			for (var i = 0; i < tabs.length; ++i) {
+				if (tabs[i].url.indexOf("shikimori.org") > 0 || tabs[i].url.indexOf("shikimori.one") > 0) {
+					console.log("found tab with url=" + tabs[i].url);
+					foundTab = tabs[i];
+					break;
+				}
+			}
+
+			var anime_id = getUrlParameter(window.location.href, 'anime_id');
+
+			if (foundTab !== undefined) {
+				get_user_rates(anime_id, function(rates) {
+					if (rates === null || rates.length == 0) {
+						console.log("error retrieving user rates, rates = " + rates);
+						return;
+					}
+
+					var rate_id = rates[0].id;
+
+					try {
+				                chrome.tabs.sendMessage(foundTab.id, {method: "incrementRate", "id": rate_id}, function(response) {
+							console.dir(response);
+						});
+					} catch (e) {
+						console.dir(e);
+					}
+
+					setTimeout(function() {
+						$("#watched").addClass("b-ajax");
+						$("#watched").addClass("disabled");
+						$("#watched").click(function(){});
+						var anime_id = getUrlParameter(href, 'anime_id');
+					        var episode = parseInt(getUrlParameter(href, 'episode')) + 1;
+
+						rerender("#/?anime_id=" + anime_id + "&episode=" + episode);
+					}, 1000);
+
+				});
+			} else {
+				console.log("couldn't find a satisfying tab to send message to :(");
+			}
+		});
+	});
     }, anime_id, episode);
 }
 

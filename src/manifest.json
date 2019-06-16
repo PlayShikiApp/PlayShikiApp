@@ -23,6 +23,8 @@
             "*://shikimori.one/animes/*"
         ],
         "js": [
+	    "jquery-3.2.1.min.js",
+            "justice.js",
             "static/js/injected.js"
         ],
         "run_at": "document_end"
