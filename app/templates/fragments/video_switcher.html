@@ -1,0 +1,24 @@
+			    Варианты видео
+	                    {% if anime_videos["active_kind"] == "fandub" %}
+                                 <div class="video-variant-switcher active" data-kind="fandub">озвучка</div>
+                            {% else %}
+                                 <div class="video-variant-switcher" data-kind="fandub">озвучка</div>
+                            {% endif %}
+
+	                    {% if anime_videos["active_kind"] == "subtitles" %}
+                                 <div class="video-variant-switcher active" data-kind="subtitles">субтитры</div>
+                            {% else %}
+                                 <div class="video-variant-switcher" data-kind="subtitles">субтитры</div>
+                            {% endif %}
+
+	                    {% if anime_videos["active_kind"] == "raw" %}
+                                 <div class="video-variant-switcher active" data-kind="raw">оригинал</div>
+                            {% else %}
+                                 <div class="video-variant-switcher" data-kind="raw">оригинал</div>
+                            {% endif %}
+
+	                    {% if anime_videos["active_kind"] == "all" %}
+                                 <div class="video-variant-switcher active" data-kind="all">все</div>
+                            {% else %}
+                                 <div class="video-variant-switcher" data-kind="all">все</div>
+                            {% endif %}

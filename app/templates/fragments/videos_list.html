@@ -1,4 +1,4 @@
-                            {% for kind in ["fandub", "subtitles", "raw"] %}
+                            {% for kind in ["subtitles", "fandub", "raw"] %}
                             {% if anime_videos["active_kind"] == kind %}
                             <div class="video-variant-group active" kind="{{kind}}">
                             {% else %}
@@ -18,8 +18,7 @@
                                  {% for a in anime_videos[kind] %}
                                  <div class="b-video_variant" video_id="{{a['id']}}" id="video_all_{{a['id']}}" video_url="{{a['url']}}">
                                  <a class="video_link" id="all_a_{{a['id']}}">
-                                 <span class="video-kind {{a['language']}}">{{a['kind']}}</span><span class="video-hosting">{{a['video_hosting']}}</span><span class="video-author">{{a['author']}}</span>
+                                 <span class="video-kind {{a['language']}}">{{a['kind']}}</span><span class="video-hosting">{{a['video_hosting']}}</span><span class="video-author">{{a['author']}}</span> </a>
+                                 {% endfor %}
+                                 {% endfor %}
                               </div>
-                              </a>
-                              {% endfor %}
-                              {% endfor %}

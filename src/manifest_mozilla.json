@@ -3,7 +3,7 @@
     "name": "PlayShikimori App",
     "description": "Расширение возвращает функционал просмотра аниме на сайте shikimori.one (shikimori.org)",
     "homepage_url": "https://github.com/PlayShikimoriApp/PlayShikiApp",
-    "version": "1.0.3",
+    "version": "1.1.0",
     "browser_specific_settings": {
       "gecko": {
         "id": "playshikimoriapp@example.com",
