@@ -35,11 +35,14 @@ function get_user_rates(anime_id, callback) {
 		var rate_ident = 'rates-' + anime_id;
 
 		var rates = window.localStorage.getItem(rate_ident);
+		//console.log(rates == null);
 
-		if (rates === null || !IsJsonString(rates)) {
+		if (rates == null || !Array.isArray(rates) || !IsJsonString(rates)) {
+			console.log("!rates");
 			$.get("https://shikimori.one/api/v2/user_rates?user_id=" + user.id + 
 					  "&target_id=" + anime_id + "&target_type=Anime", function(data) {
 				rates = JSON.stringify(data);
+				console.log("set rates: " + rates);
 				window.localStorage.setItem(rate_ident, rates);
 				try {
 					callback(JSON.parse(rates));
@@ -48,13 +51,36 @@ function get_user_rates(anime_id, callback) {
 				}
 			});
 		} else {
+			//console.dir(rates);
 			callback(JSON.parse(rates));
 		}
 	});
 }
 
+function invalidate_user_rates(anime_id) {
+	var rate_ident = 'rates-' + anime_id;
+	window.localStorage.removeItem(rate_ident);
+}
+
+var watched_button_disabled = false;
+var watched_button_handler;
+
+function set_watched_button_disabled(status) {
+	if (status) {
+		$("#watched").addClass("b-ajax");
+		$("#watched").addClass("disabled");
+		$("#watched").click(function(){});
+	} else {
+		$("#watched").removeClass("b-ajax");
+		$("#watched").removeClass("disabled");
+		$("#watched").click(watched_button_handler);
+	}
+	
+}
+
 function onLocalSessionStore() {
 	var anime_id = getUrlParameter(window.location.href, 'anime_id');
+	var episode = getUrlParameter(window.location.href, 'episode');
 
 	get_user_rates(anime_id, function(rates) {
 		if (rates === null) {
@@ -63,6 +89,13 @@ function onLocalSessionStore() {
 		}
 
  		console.dir(rates);
+		console.log("rates[0].episodes = " + rates[0].episodes + " episode=" + episode)
+
+		watched_button_disabled = false;
+		if (parseInt(rates[0].episodes) >= parseInt(episode)) {
+			//set_watched_button_disabled();
+			watched_button_disabled = true;
+		}
 	});
 }
 
@@ -78,6 +111,8 @@ function rerender(href) {
 
     render(function() {
         console.log("ready");
+	set_watched_button_disabled(watched_button_disabled);
+
         $(".video_link").each(function(index) {
             $(this).click(do_nothing);
         })
@@ -105,7 +140,8 @@ function rerender(href) {
             if (href.indexOf("index.html") >= 0)
 	            $(this).click(handler);
         })
-	$("#watched").click(function() { 
+
+	watched_button_handler = function() { 
 		chrome.tabs.query({}, function(tabs) {
 			var foundTab = undefined;
 			for (var i = 0; i < tabs.length; ++i) {
@@ -117,6 +153,7 @@ function rerender(href) {
 			}
 
 			var anime_id = getUrlParameter(window.location.href, 'anime_id');
+			var episode = parseInt(getUrlParameter(window.location.href, 'episode'));
 
 			if (foundTab !== undefined) {
 				get_user_rates(anime_id, function(rates) {
@@ -125,24 +162,23 @@ function rerender(href) {
 						return;
 					}
 
-					var rate_id = rates[0].id;
+					var rate = rates[0];
+					rate.episodes = episode;
 
 					try {
-				                chrome.tabs.sendMessage(foundTab.id, {method: "incrementRate", "id": rate_id}, function(response) {
+				                chrome.tabs.sendMessage(foundTab.id, {method: "incrementRate", "rate": rate}, function(response) {
 							console.dir(response);
 						});
+						invalidate_user_rates(anime_id);
 					} catch (e) {
 						console.dir(e);
 					}
 
 					setTimeout(function() {
-						$("#watched").addClass("b-ajax");
-						$("#watched").addClass("disabled");
-						$("#watched").click(function(){});
-						var anime_id = getUrlParameter(href, 'anime_id');
-					        var episode = parseInt(getUrlParameter(href, 'episode')) + 1;
+						watched_button_disabled = true;
+						set_watched_button_disabled(watched_button_disabled);
 
-						rerender("#/?anime_id=" + anime_id + "&episode=" + episode);
+						rerender("#/?anime_id=" + anime_id + "&episode=" + (episode + 1));
 					}, 1000);
 
 				});
@@ -150,7 +186,9 @@ function rerender(href) {
 				console.log("couldn't find a satisfying tab to send message to :(");
 			}
 		});
-	});
+	};
+
+	$("#watched").click(watched_button_handler);
     }, anime_id, episode);
 }
 
