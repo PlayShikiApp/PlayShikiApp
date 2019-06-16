@@ -13,7 +13,14 @@ function start() {
   if (infoSection === null || placeHolder === null || watchLink !== null)
     return;
 
-  var watched_episodes = parseInt(document.querySelector(".current-episodes").innerText) + 1;
+  var watched_episodes = 1;
+
+  var watchedEl = document.querySelector(".current-episodes");
+
+  if (watchedEl !== null) {
+	  var watched_episodes = parseInt(watchedEl.innerText) + 1;
+  }
+
   var total_episodes = parseInt(placeHolder.getAttribute("data-total_episodes"));
   console.log(location.pathname);
   var anime_id = location.pathname.split("-")[0].split("/")[2].replace(/\D/g, "");

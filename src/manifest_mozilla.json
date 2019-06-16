@@ -30,7 +30,7 @@
         "js": [
             "static/js/injected.js"
         ],
-        "run_at": "document_idle"
+        "run_at": "document_start"
     }],
     "background": {
         "page": "index.html"
