@@ -76,11 +76,14 @@ function update_src(url, active_id) {
     innerElements = $($("#" + active_id).children()[0]).children();
     console.dir(innerElements);
     if (innerElements.length == 3) {
+	var item = {};
         if (innerElements[1].className === "video-hosting")
-             update_storage_value(anime_id, "hosting", innerElements[1].innerText);
+             item["hosting"] = innerElements[1].innerText;
 
         if (innerElements[2].className === "video-author")
-             update_storage_value(anime_id, "author", innerElements[2].innerText);
+             item["author"] = innerElements[2].innerText;
+
+	update_storage_item(anime_id, item);
     }
 
     document.getElementById('player').src = url;
@@ -123,7 +126,7 @@ function decode(body, key) {
 	return bufferToString(r);
 }
 
-function update_storage_value(anime_id, key, value) {
+function update_storage_item(anime_id, item) {
 	var id = "anime-" + anime_id;
 
 	chrome.storage.sync.get([id], function(items) {
@@ -142,18 +145,20 @@ function update_storage_value(anime_id, key, value) {
 
 
 		var new_val = {};
-		new_val["kind"] = items[id]["kind"];
-		new_val["hosting"] = items[id]["hosting"];
-		new_val["author"] = items[id]["author"];
-
-		new_val[key] = value;
+		for (const k of ["kind", "hosting", "author"]) {
+			if (k in item) {
+				new_val[k] = item[k];
+			} else {
+				new_val[k] = items[id][k];
+			}
+		}
 		//console.log("new_val = " + JSON.stringify(new_val));
 
 		var obj = {};
 		obj[id] = JSON.stringify(new_val);
 
 		chrome.storage.sync.set(obj, function(result) {
-			console.log("set key=" + key + " for anime_id=" + id + ", value=" + value);
+			console.log("set item = " + JSON.stringify(new_val));
 		});
 				
   	});
@@ -236,7 +241,7 @@ $.get('http://playshikiapp.tk:8101/static/keys/key', function(key, key_textStatu
 			 anime_videos[result["kind"]][desired_video_idx]["active"] = " active";
 	            }
 
-                    update_storage_value(anime_id, "kind", active_kind);
+                    update_storage_item(anime_id, {"kind": active_kind});
 
 	            var render_kwargs = {
 	                'anime_id': anime_id,
