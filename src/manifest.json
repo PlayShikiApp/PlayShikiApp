@@ -25,7 +25,7 @@
         "js": [
             "static/js/injected.js"
         ],
-        "run_at": "document_start"
+        "run_at": "document_end"
     }],
     "background": {
         "page": "index.html"
