@@ -19,8 +19,8 @@
     ],
     "content_scripts": [{
         "matches": [
-            "*://shikimori.org/animes/*",
-            "*://shikimori.one/animes/*"
+            "*://shikimori.org/*",
+            "*://shikimori.one/*"
         ],
         "js": [
 	    "jquery-3.2.1.min.js",

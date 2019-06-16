@@ -62,7 +62,28 @@ function invalidate_user_rates(anime_id) {
 	window.localStorage.removeItem(rate_ident);
 }
 
-var watched_button_disabled = false;
+var is_watched_button_disabled = function(callback) {
+	var anime_id = getUrlParameter(window.location.href, 'anime_id');
+	var episode = getUrlParameter(window.location.href, 'episode');
+	var watched_button_disabled = false;
+
+	get_user_rates(anime_id, function(rates) {
+		if (rates === null) {
+			console.log("error retrieving user rates");
+			return;
+		}
+
+ 		console.dir(rates);
+		console.log("rates[0].episodes = " + rates[0].episodes + " episode=" + episode)
+
+		if (parseInt(rates[0].episodes) >= parseInt(episode)) {
+			//set_watched_button_disabled();
+			watched_button_disabled = true;
+		}
+
+		callback(watched_button_disabled);
+	});
+};
 var watched_button_handler;
 
 function set_watched_button_disabled(status) {
@@ -79,23 +100,8 @@ function set_watched_button_disabled(status) {
 }
 
 function onLocalSessionStore() {
-	var anime_id = getUrlParameter(window.location.href, 'anime_id');
-	var episode = getUrlParameter(window.location.href, 'episode');
-
-	get_user_rates(anime_id, function(rates) {
-		if (rates === null) {
-			console.log("error retrieving user rates");
-			return;
-		}
-
- 		console.dir(rates);
-		console.log("rates[0].episodes = " + rates[0].episodes + " episode=" + episode)
-
-		watched_button_disabled = false;
-		if (parseInt(rates[0].episodes) >= parseInt(episode)) {
-			//set_watched_button_disabled();
-			watched_button_disabled = true;
-		}
+	is_watched_button_disabled(function(status) { 
+		console.log("watch button is " + status ? "disabled" : "enabled");
 	});
 }
 
@@ -111,7 +117,9 @@ function rerender(href) {
 
     render(function() {
         console.log("ready");
-	set_watched_button_disabled(watched_button_disabled);
+	is_watched_button_disabled(function(status) {
+		set_watched_button_disabled(status);
+	});
 
         $(".video_link").each(function(index) {
             $(this).click(do_nothing);
@@ -145,6 +153,7 @@ function rerender(href) {
 		chrome.tabs.query({}, function(tabs) {
 			var foundTab = undefined;
 			for (var i = 0; i < tabs.length; ++i) {
+				//console.log(tabs[i].url);
 				if (tabs[i].url.indexOf("shikimori.org") > 0 || tabs[i].url.indexOf("shikimori.one") > 0) {
 					console.log("found tab with url=" + tabs[i].url);
 					foundTab = tabs[i];
@@ -174,11 +183,10 @@ function rerender(href) {
 						console.dir(e);
 					}
 
+					set_watched_button_disabled(true);
 					setTimeout(function() {
-						watched_button_disabled = true;
-						set_watched_button_disabled(watched_button_disabled);
-
-						rerender("#/?anime_id=" + anime_id + "&episode=" + (episode + 1));
+						window.location.href = "#/?anime_id=" + anime_id + "&episode=" + (episode + 1);
+						rerender(window.location.href);
 					}, 1000);
 
 				});
