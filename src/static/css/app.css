@@ -1,3 +1,31 @@
 .disabled{
   pointer-events: none;
 }
+
+.mytooltip {
+  display: inline-block;
+  border-bottom: 1px black;
+}
+
+.mytooltip .mytooltiptext {
+  visibility: hidden;
+  background-color: #eeeeee;
+  color: black;
+  width: 120;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.mytooltip .mytooltiptext {
+  top: -5px;
+  left: 35%; 
+}
+
+.mytooltip:hover .mytooltiptext {
+  visibility: visible;
+}

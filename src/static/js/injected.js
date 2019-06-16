@@ -9,6 +9,7 @@ function start(url) {
   var link = $("<a/>", {
     'class': 'b-link_button dark watch-online',
     'id': 'myButton',
+    'target': '_blank',
     'href': loc
   }).text('Смотреть онлайн');
   var block = $("<div/>", {
