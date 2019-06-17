@@ -1,8 +1,8 @@
-chrome.runtime.onMessage.addListener(function (message) {
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
-	if (message.method === "incrementRate") {
+	if (request.method === "incrementRate") {
 		console.log("incrementRate");
-		var rate = message.rate;
+		var rate = request.rate;
 		var matches = location.href.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
 
 		$.get(matches[0] + "user_rates/" + rate.id + "/edit", function(rateData) {
@@ -46,7 +46,7 @@ chrome.runtime.onMessage.addListener(function (message) {
 		});
 	}
 
-        if (message.method === "addButton") {
+        if (request.method === "addButton") {
             if (window.location.href.indexOf('shikimori.org/animes/') !== -1 ||
                window.location.href.indexOf('shikimori.one/animes/') !== -1) {
                 setTimeout(function () {
@@ -63,6 +63,6 @@ chrome.runtime.onMessage.addListener(function (message) {
             }
         }
 
-	return true;
+	sendResponse({ok: "ok"});
 });
 
