@@ -40,7 +40,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 				data: rateFormData,
 				success: function(data) {
 					console.log("posted user_rate");
-					console.dir(data);
+					//console.dir(data);
 				},
 				dataType: "json"
 			});
@@ -68,7 +68,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 				console.log("posted user_rate");
 				//respData = JSON.stringify(data);
 				//sendResponse(respData);
-				console.dir(data);
+				//console.dir(data);
 			},
 			dataType: "json"
 		})

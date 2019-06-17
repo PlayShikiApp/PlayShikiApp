@@ -178,10 +178,10 @@ function do_nothing() {
 
 function send_message_to_tab(method, options, onSuccess, onFailure, onResponse) {
     chrome.tabs.query({}, function(tabs) {
-	console.dir(tabs);
+	//console.dir(tabs);
 	var foundTab = false;
         for (var i = 0; i < tabs.length; ++i) {
-	    console.log(tabs[i].url);
+	    //console.log(tabs[i].url);
             if (tabs[i].url.indexOf("shikimori.org") < 0 &&
                 tabs[i].url.indexOf("shikimori.one") < 0)
                 continue;
@@ -256,14 +256,14 @@ function rerender(href) {
                 var episode = parseInt(getUrlParameter(window.location.href, 'episode'));
 				
 		// Dirty HACK to prevent triggering handler twice
-		console.log("ev.timeStamp = " + ev.timeStamp + " lastClick=" + lastClick);
+		//console.log("ev.timeStamp = " + ev.timeStamp + " lastClick=" + lastClick);
 		if (ev.timeStamp == lastClick) {
-			console.log("stopPropagation");
+			//console.log("stopPropagation");
 			return;
 		}
 		lastClick = ev.timeStamp;
 		ev.stopPropagation();
-		console.log("click");
+		//console.log("click");
 		// END HACK
 
                 get_or_set_user_rate(anime_id, true, function(rates) {
@@ -323,12 +323,6 @@ function set_active_group(el) {
     el.addClass("active");
 }
 
-function link_id_to_db(id) {
-    id = Number("id".split("_")[1])
-
-    return id;
-}
-
 function update_src(url, active_id) {
     if (active_id === undefined)
         return;
@@ -336,7 +330,7 @@ function update_src(url, active_id) {
     var anime_id = getUrlParameter(window.location.href, 'anime_id');
 
     innerElements = $($("#" + active_id).children()[0]).children();
-    console.dir(innerElements);
+    //console.dir(innerElements);
     if (innerElements.length == 3) {
         var item = {};
         if (innerElements[1].className === "video-hosting")
@@ -354,38 +348,6 @@ function update_src(url, active_id) {
     });
     console.log("set " + active_id + " active");
     document.getElementById(active_id).classList.add("active");
-}
-
-
-function xor(arr1, arr2) {
-    var res = new Int32Array(arr1.length);
-    for (var i = 0; i < arr1.length; i++) {
-        res[i] = (arr1[i] ^ arr2[i]);
-    }
-
-    return res;
-}
-
-function bufferToString(arr) {
-    var str = "";
-    for (i in arr) {
-        str += String.fromCharCode(arr[i]);
-    }
-    return str;
-}
-
-function decode(body, key) {
-    if (body === undefined)
-        return "";
-
-    console.dir(body);
-
-    var buff = btoa(body)
-    //console.dir(buff);
-    //console.dir(key);
-    var r = xor(buff, key);
-
-    return bufferToString(r);
 }
 
 function update_storage_item(anime_id, item) {
@@ -484,7 +446,7 @@ function render(callback, anime_id, episode) {
                     }
 
                     get_storage_item(anime_id, function(result) {
-                        console.dir(result);
+                        //console.dir(result);
 
                         if ("kind" in result && result["kind"] in anime_videos) {
                             var desired_video_idx = 0;
