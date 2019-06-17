@@ -17,12 +17,6 @@
 5. Выберите папку, в которую распаковали расширение
 6. Готово! В правом верхнем углу должна появиться иконка расширения
 
-### Установка для Firefox
-1. Скачайте архив .xpi [отсюда](https://github.com/PlayShikimoriApp/PlayShikiApp/releases)
-2. Откройте страницу отладки, перейдя по адресу about:debugging
-3. Отметьте галочку "Включить отладку дополнений"
-4. Кликните "Загрузить временное расширение" и выберите файл с расширением .xpi
-
 ### Установка для Opera
 1. Скачайте архив .crx [отсюда](https://github.com/PlayShikimoriApp/PlayShikiApp/releases)
 2. Установите расширение [Install Chrome Extensions](https://addons.opera.com/en/extensions/details/install-chrome-extensions)
