@@ -1,8 +1,9 @@
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+	//console.dir(request);
 
 	if (request.method === "updateWatched") {
 		console.log("updateWatched");
-		var rate = request.rate;
+		var rate = request.options.rate;
 		var matches = location.href.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
 
 		$.get(matches[0] + "user_rates/" + rate.id + "/edit", function(rateData) {
@@ -38,15 +39,42 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 				url: matches[0] + "api/v2/user_rates/" + rate.id,
 				data: rateFormData,
 				success: function(data) {
-					console.log("posted increment user_rates");
+					console.log("posted user_rate");
 					console.dir(data);
 				},
 				dataType: "json"
 			});
 		});
-	}
 
-        if (request.method === "addButton") {
+		sendResponse({ok: "ok"});
+	} else if (request.method === "createRate") {
+		console.log("createRate");
+		var matches = location.href.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
+
+		var rateFormData = {
+			"frontend": "1",
+			"user_rate[user_id]": request.options.user_id,
+			"user_rate[target_id]": request.options.target_id,
+			"user_rate[status]": "watching",
+			"user_rate[score]:": "",
+		};
+
+		console.dir(rateFormData);
+			
+			
+		$.ajax({
+			type: "POST",
+			url: matches[0] + "api/v2/user_rates/",
+			data: rateFormData,
+			success: function(data) {
+				console.log("posted user_rate");
+				console.dir(data);
+			},
+			dataType: "json"
+		})
+
+		sendResponse({ok: "ok"});
+	} else if (request.method === "addButton") {
             if (window.location.href.indexOf('shikimori.org/animes/') !== -1 ||
                window.location.href.indexOf('shikimori.one/animes/') !== -1) {
                 setTimeout(function () {
@@ -61,6 +89,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
                     };
                 }, 200);
             }
+
+            sendResponse({ok: "ok"});
         }
 
 	sendResponse({ok: "ok"});

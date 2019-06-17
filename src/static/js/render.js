@@ -128,6 +128,38 @@ function do_nothing() {
     console.log("click");
 }
 
+function send_message_to_tab(method, options, onSuccess, onFailure) {
+    chrome.tabs.query({}, function(tabs) {
+	console.dir(tabs);
+	var foundTab = false;
+        for (var i = 0; i < tabs.length; ++i) {
+	    console.log(tabs[i].url);
+            if (tabs[i].url.indexOf("shikimori.org") < 0 &&
+                tabs[i].url.indexOf("shikimori.one") < 0)
+                continue;
+            try {
+                chrome.tabs.sendMessage(tabs[i].id, {
+                    method: method,
+                    options: options
+                }, function(response) {
+                    console.dir(response);
+                });
+
+		foundTab = true;
+                onSuccess();
+
+                break;
+            } catch (e) {
+                console.dir(e);
+                continue;
+            }
+        }
+
+	if (!foundTab)
+		onFailure();
+    });
+}
+
 function rerender(href) {
     var anime_id = getUrlParameter(href, 'anime_id');
     var episode = getUrlParameter(href, 'episode');
@@ -169,62 +201,34 @@ function rerender(href) {
             })
 
             watched_button_handler = function() {
-                chrome.tabs.query({}, function(tabs) {
-                    var anime_id = getUrlParameter(window.location.href, 'anime_id');
-                    var episode = parseInt(getUrlParameter(window.location.href, 'episode'));
+                var anime_id = getUrlParameter(window.location.href, 'anime_id');
+                var episode = parseInt(getUrlParameter(window.location.href, 'episode'));
 
-                    get_user_rates(anime_id, function(rates) {
-                        if (rates === null || rates.length == 0) {
-                            console.log("error retrieving user rates, rates = " + rates);
-                            return;
-                        }
+                get_user_rates(anime_id, function(rates) {
+                    if (rates === null || rates.length == 0) {
+                        console.log("error retrieving user rates, rates = " + rates);
+                        return;
+                    }
 
-                        var rate = rates[0];
-                        rate.episodes = episode;
+                    var rate = rates[0];
+                    rate.episodes = episode;
 
-                        var anyAliveTab = false; // TODO: properly detect not responding tabs?
-                        var foundTab = false;
-
-                        for (var i = 0; i < tabs.length; ++i) {
-                            if (tabs[i].url.indexOf("shikimori.org") < 0 &&
-                                tabs[i].url.indexOf("shikimori.one") < 0)
-                                continue;
-                            foundTab = true;
-                            try {
-                                chrome.tabs.sendMessage(tabs[i].id, {
-                                    method: "updateWatched",
-                                    "rate": rate
-                                }, function(response) {
-                                    console.dir(response);
-                                });
-                                invalidate_user_rates(anime_id);
-                                anyAliveTab = True;
-				break;
-                            } catch (e) {
-                                console.dir(e);
-				anyAliveTab = true;
-                                continue;
-                            }
-                        }
-
-                        if (!foundTab) {
-                            console.log("couldn't find a satisfying tab to send message to :(");
-                            set_watched_button_disabled(true, "no_more_tabs");
-                            return;
-                        }
-
-                        if (!anyAliveTab) {
-                            set_watched_button_disabled(true, "no_alive_tabs");
-                            console.log("all tabs were dead and couldn't respond :(");
-                            return;
-                        }
-
-                        set_watched_button_disabled(true, false);
-                        setTimeout(function() {
-                            window.location.href = "#/?anime_id=" + anime_id + "&episode=" + (episode + 1);
-                            rerender(window.location.href);
-                        }, 1000);
-                    });
+		    send_message_to_tab(
+			"updateWatched",
+                 	{"rate": rate},
+                        function() {
+                            invalidate_user_rates(anime_id);
+                        },
+			function() {
+	                    console.log("couldn't find a satisfying tab to send message to :(");
+	                    set_watched_button_disabled(true, "no_more_tabs");
+			}
+                    );
+		    set_watched_button_disabled(true, false);
+                    setTimeout(function() {
+                        window.location.href = "#/?anime_id=" + anime_id + "&episode=" + (episode + 1);
+                        rerender(window.location.href);
+                    }, 1000);
                 });
             };
 
