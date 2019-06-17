@@ -25,7 +25,21 @@ function get_or_set_user(callback) {
     }
 }
 
-function get_user_rates(anime_id, callback) {
+function get_user_rate(anime_id, user_id, callback) {
+    $.get("https://shikimori.one/api/v2/user_rates?user_id=" + user_id +
+        "&target_id=" + anime_id + "&target_type=Anime", function(data) {
+            rates = [];
+            try {
+                rates = JSON.stringify(data);
+            } catch (e) {
+                console.dir(e);
+            }
+
+            callback(rates);
+     });
+}
+
+function get_or_set_user_rate(anime_id, create_rate, callback) {
     get_or_set_user(function(user) {
         if (user === null) {
             console.log("error retrieving user data");
@@ -39,17 +53,43 @@ function get_user_rates(anime_id, callback) {
 
         if (rates == null || !Array.isArray(rates) || !IsJsonString(rates)) {
             console.log("!rates");
-            $.get("https://shikimori.one/api/v2/user_rates?user_id=" + user.id +
-                "&target_id=" + anime_id + "&target_type=Anime",
-                function(data) {
-                    rates = JSON.stringify(data);
-                    console.log("set rates: " + rates);
-                    window.localStorage.setItem(rate_ident, rates);
-                    try {
-                        callback(JSON.parse(rates));
-                    } catch (e) {
-                        callback(null);
-                    }
+            get_user_rate(anime_id, user.id, function(rates) {
+		    if (!create_rate) {
+			callback(rates);
+			return;
+		    }
+
+		    if (rates == [] || rates == "[]") {
+			console.log("send_message_to_tab(createRate)");
+			send_message_to_tab(
+				"createRate",
+                 		{
+				   target_id: anime_id,
+				   user_id: user.id,
+				},
+                        	function() {
+					console.log("createRate(onSuccess)");
+                        	    	invalidate_user_rates(anime_id);
+					get_user_rate(anime_id, user.id, function(rates) {
+						console.log("(get_user_rate) set rates: ");
+						console.dir(rates);
+						window.localStorage.setItem(rate_ident, rates);
+						callback(rates);
+					});
+                       		},
+				function() {
+	                    		console.log("couldn't find a satisfying tab to send message to :(");
+	                    		set_watched_button_disabled(true, "no_more_tabs");
+				});
+		    } else {
+	                    console.log("set rates: " + rates);
+	                    window.localStorage.setItem(rate_ident, rates);
+	                    try {
+	                        callback(JSON.parse(rates));
+	                    } catch (e) {
+	                        callback(null);
+	                    }
+		    }
                 });
         } else {
             //console.dir(rates);
@@ -68,7 +108,7 @@ var is_watched_button_disabled = function(callback) {
     var episode = getUrlParameter(window.location.href, 'episode');
     var watched_button_disabled = false;
 
-    get_user_rates(anime_id, function(rates) {
+    get_or_set_user_rate(anime_id, false, function(rates) {
         if (rates === null) {
             console.log("error retrieving user rates");
             return;
@@ -128,7 +168,7 @@ function do_nothing() {
     console.log("click");
 }
 
-function send_message_to_tab(method, options, onSuccess, onFailure) {
+function send_message_to_tab(method, options, onSuccess, onFailure, onResponse) {
     chrome.tabs.query({}, function(tabs) {
 	console.dir(tabs);
 	var foundTab = false;
@@ -142,7 +182,8 @@ function send_message_to_tab(method, options, onSuccess, onFailure) {
                     method: method,
                     options: options
                 }, function(response) {
-                    console.dir(response);
+		    if (onResponse)
+	                    onResponse(response);
                 });
 
 		foundTab = true;
@@ -200,18 +241,22 @@ function rerender(href) {
                     $(this).click(handler);
             })
 
-            watched_button_handler = function() {
+            watched_button_handler = function(ev) {
                 var anime_id = getUrlParameter(window.location.href, 'anime_id');
                 var episode = parseInt(getUrlParameter(window.location.href, 'episode'));
+		ev.stopPropagation();
+		console.log("click");
 
-                get_user_rates(anime_id, function(rates) {
-                    if (rates === null || rates.length == 0) {
-                        console.log("error retrieving user rates, rates = " + rates);
-                        return;
+                get_or_set_user_rate(anime_id, true, function(rates) {
+                    if (!rates || rates.length == 0) {
+                        console.log("error retrieving user rates");
+			return;
                     }
 
                     var rate = rates[0];
                     rate.episodes = episode;
+
+		    console.log("send_message_to_tab");
 
 		    send_message_to_tab(
 			"updateWatched",

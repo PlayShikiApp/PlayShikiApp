@@ -55,25 +55,26 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 			"frontend": "1",
 			"user_rate[user_id]": request.options.user_id,
 			"user_rate[target_id]": request.options.target_id,
+			"user_rate[target_type]": "Anime",
 			"user_rate[status]": "watching",
-			"user_rate[score]:": "",
+			"user_rate[score]": "0"
 		};
 
-		console.dir(rateFormData);
-			
-			
 		$.ajax({
 			type: "POST",
-			url: matches[0] + "api/v2/user_rates/",
+			url: matches[0] + "api/v2/user_rates",
 			data: rateFormData,
 			success: function(data) {
 				console.log("posted user_rate");
+				//respData = JSON.stringify(data);
+				//sendResponse(respData);
 				console.dir(data);
 			},
 			dataType: "json"
 		})
 
 		sendResponse({ok: "ok"});
+
 	} else if (request.method === "addButton") {
             if (window.location.href.indexOf('shikimori.org/animes/') !== -1 ||
                window.location.href.indexOf('shikimori.one/animes/') !== -1) {
