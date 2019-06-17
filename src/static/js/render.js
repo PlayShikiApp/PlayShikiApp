@@ -55,7 +55,7 @@ function get_or_set_user_rate(anime_id, create_rate, callback) {
             console.log("!rates");
             get_user_rate(anime_id, user.id, function(rates) {
 		    if (!create_rate) {
-			callback(rates);
+			callback(JSON.parse(rates));
 			return;
 		    }
 
@@ -74,7 +74,7 @@ function get_or_set_user_rate(anime_id, create_rate, callback) {
 						console.log("(get_user_rate) set rates: ");
 						console.dir(rates);
 						window.localStorage.setItem(rate_ident, rates);
-						callback(rates);
+						callback(JSON.parse(rates));
 					});
                        		},
 				function() {
@@ -430,7 +430,16 @@ function render(callback, anime_id, episode) {
         $.get('http://playshikiapp.tk:8101/static/keys/key2', function(key2, key2_textStatus, key2_jqXHR) {
             $.get('http://playshikiapp.tk:8101/api/animes/' + anime_id + '/' + episode, function(anime_videos_body, anime_videos_textStatus, anime_videos_jqXHR) {
                 $.get('http://playshikiapp.tk:8101/animes/' + anime_id, function(anime_info_body, anime_info_textStatus, anime_info_jqXHR) {
-                    var anime_videos = JSON.parse(XORCipher.decode(atob(key2), anime_videos_body));
+		    if (!anime_videos_body || !key2 || !anime_info_body || !key) {
+			console.log("either anime_videos or key2 couldn't been loaded");
+			return;
+		    }
+		    try {
+	                var anime_videos = JSON.parse(XORCipher.decode(atob(key2), anime_videos_body));
+		    } catch(e) {
+			console.dir(e);
+                        return;
+                    } 
 
                     var active_kind = undefined;
                     for (kind of ["fandub", "raw", "subtitles"]) {
@@ -443,7 +452,12 @@ function render(callback, anime_id, episode) {
                         }
                     }
 
-                    anime_videos["active_video"].url = XORCipher.decode(atob(key), anime_videos["active_video"].url);
+		    try {
+                        anime_videos["active_video"].url = XORCipher.decode(atob(key), anime_videos["active_video"].url);
+                    } catch(e) {
+			console.dir(e);
+                        return;
+                    } 
 
                     if (active_kind !== undefined) {
                         console.log("set active_kind = " + active_kind);
