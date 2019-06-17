@@ -192,7 +192,7 @@ function rerender(href) {
                             foundTab = true;
                             try {
                                 chrome.tabs.sendMessage(tabs[i].id, {
-                                    method: "incrementRate",
+                                    method: "updateWatched",
                                     "rate": rate
                                 }, function(response) {
                                     console.dir(response);

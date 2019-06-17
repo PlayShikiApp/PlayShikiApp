@@ -1,7 +1,7 @@
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
-	if (request.method === "incrementRate") {
-		console.log("incrementRate");
+	if (request.method === "updateWatched") {
+		console.log("updateWatched");
 		var rate = request.rate;
 		var matches = location.href.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
 
