@@ -61,6 +61,7 @@ function get_or_set_user_rate(anime_id, create_rate, callback) {
 
 		    if (rates == [] || rates == "[]") {
 			console.log("send_message_to_tab(createRate)");
+			set_watched_button_disabled(true, false);
 			send_message_to_tab(
 				"createRate",
                  		{
@@ -70,12 +71,15 @@ function get_or_set_user_rate(anime_id, create_rate, callback) {
                         	function() {
 					console.log("createRate(onSuccess)");
                         	    	invalidate_user_rates(anime_id);
-					get_user_rate(anime_id, user.id, function(rates) {
-						console.log("(get_user_rate) set rates: ");
-						console.dir(rates);
-						window.localStorage.setItem(rate_ident, rates);
-						callback(JSON.parse(rates));
-					});
+					setTimeout(function() {
+						get_user_rate(anime_id, user.id, function(rates) {
+							console.log("(get_user_rate) set rates: ");
+							console.dir(rates);
+							set_watched_button_disabled(false, false);
+							window.localStorage.setItem(rate_ident, rates);
+							callback(JSON.parse(rates));
+						});
+					}, 1000);
                        		},
 				function() {
 	                    		console.log("couldn't find a satisfying tab to send message to :(");
@@ -114,13 +118,17 @@ var is_watched_button_disabled = function(callback) {
             return;
         }
 
+	watched_button_disabled = false;
         console.dir(rates);
-        console.log("rates[0].episodes = " + rates[0].episodes + " episode=" + episode)
 
-        if (parseInt(rates[0].episodes) >= parseInt(episode)) {
-            //set_watched_button_disabled();
-            watched_button_disabled = true;
-        }
+	if (rates.length > 0) {
+	        console.log("rates[0].episodes = " + rates[0].episodes + " episode=" + episode)
+
+	        if (parseInt(rates[0].episodes) >= parseInt(episode)) {
+	            //set_watched_button_disabled();
+	            watched_button_disabled = true;
+	        }
+	}
 
         callback(watched_button_disabled);
     });
