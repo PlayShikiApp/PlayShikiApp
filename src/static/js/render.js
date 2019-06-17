@@ -201,6 +201,8 @@ function send_message_to_tab(method, options, onSuccess, onFailure, onResponse) 
     });
 }
 
+var lastClick = 0;
+
 function rerender(href) {
     var anime_id = getUrlParameter(href, 'anime_id');
     var episode = getUrlParameter(href, 'episode');
@@ -244,8 +246,17 @@ function rerender(href) {
             watched_button_handler = function(ev) {
                 var anime_id = getUrlParameter(window.location.href, 'anime_id');
                 var episode = parseInt(getUrlParameter(window.location.href, 'episode'));
+				
+		// Dirty HACK to prevent triggering handler twice
+		console.log("ev.timeStamp = " + ev.timeStamp + " lastClick=" + lastClick);
+		if (ev.timeStamp == lastClick) {
+			console.log("stopPropagation");
+			return;
+		}
+		lastClick = ev.timeStamp;
 		ev.stopPropagation();
 		console.log("click");
+		// END HACK
 
                 get_or_set_user_rate(anime_id, true, function(rates) {
                     if (!rates || rates.length == 0) {
