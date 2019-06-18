@@ -311,7 +311,7 @@ function set_active_group(el) {
     var anime_id = getUrlParameter(window.location.href, 'anime_id');
     console.log(el.data("kind"));
 
-    update_storage_value(anime_id, "kind", el.data("kind"));
+    update_storage_item(anime_id, {"kind": el.data("kind")});
     $(".video-variant-switcher").each(function(index) {
         $(this).removeClass("active");
     });
