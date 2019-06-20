@@ -406,104 +406,100 @@ function get_storage_item(anime_id, callback) {
     });
 }
 
-function render(callback, anime_id, episode) {
-    $.get('http://playshikiapp.tk:8101/static/keys/key', function(key, key_textStatus, key_jqXHR) {
-        $.get('http://playshikiapp.tk:8101/static/keys/key2', function(key2, key2_textStatus, key2_jqXHR) {
-            $.get('http://playshikiapp.tk:8101/api/animes/' + anime_id + '/' + episode, function(anime_videos_body, anime_videos_textStatus, anime_videos_jqXHR) {
-                $.get('http://playshikiapp.tk:8101/animes/' + anime_id, function(anime_info_body, anime_info_textStatus, anime_info_jqXHR) {
-		    if (!anime_videos_body || !key2 || !anime_info_body || !key) {
-			console.log("either anime_videos or key2 couldn't been loaded");
-			return;
-		    }
-		    try {
-	                var anime_videos = JSON.parse(XORCipher.decode(atob(key2), anime_videos_body));
-		    } catch(e) {
-			console.dir(e);
-                        return;
-                    } 
+async function render(callback, anime_id, episode) {
+    await getKeys();
+    var anime_videos_body = await getData(HOST_URL + '/api/animes/' + anime_id + '/' + episode);
+    var anime_info_body = await getData(HOST_URL + '/animes/' + anime_id);
 
-                    var active_kind = undefined;
-                    for (kind of ["fandub", "raw", "subtitles"]) {
-                        if (anime_videos[kind].length > 0 && active_kind === undefined)
-                            active_kind = kind;
+    if (!anime_videos_body || !key2 || !anime_info_body || !key) {
+        console.log("either anime_videos or key2 couldn't been loaded");
+        return;
+    }
+    try {
+        var anime_videos = JSON.parse(XORCipher.decode(atob(key2), anime_videos_body));
+    } catch (e) {
+        console.dir(e);
+        return;
+    }
 
-                        for (var i = 0; i < anime_videos[kind].length; i++) {
-                            anime_videos[kind][i]["url"] = XORCipher.decode(atob(key), anime_videos[kind][i].url);
-                            anime_videos[kind][i]["video_hosting"] = anime_videos[kind][i]["url"].split("/")[2];
-                        }
+    var active_kind = undefined;
+    for (kind of ["fandub", "raw", "subtitles"]) {
+        if (anime_videos[kind].length > 0 && active_kind === undefined)
+            active_kind = kind;
+
+        for (var i = 0; i < anime_videos[kind].length; i++) {
+            anime_videos[kind][i]["url"] = XORCipher.decode(atob(key), anime_videos[kind][i].url);
+            anime_videos[kind][i]["video_hosting"] = anime_videos[kind][i]["url"].split("/")[2];
+        }
+    }
+
+    try {
+        anime_videos["active_video"].url = XORCipher.decode(atob(key), anime_videos["active_video"].url);
+    } catch (e) {
+        console.dir(e);
+        return;
+    }
+
+    if (active_kind !== undefined) {
+        console.log("set active_kind = " + active_kind);
+        anime_videos["active_video"].url = anime_videos[active_kind][0]["url"];
+    }
+
+    get_storage_item(anime_id, function(result) {
+        //console.dir(result);
+
+        if ("kind" in result && result["kind"] in anime_videos) {
+            var desired_video_idx = 0;
+            active_kind = result["kind"];
+            console.log("override active_kind = " + active_kind);
+
+            if (("author" in result) && ("hosting" in result)) {
+                var idx = 0;
+                for (const video of anime_videos[active_kind]) {
+                    if (video["author"] === result["author"])
+                        desired_video_idx = idx;
+
+                    if (video["hosting"] === result["hosting"]) {
+                        break;
                     }
+                    idx++;
+                }
 
-		    try {
-                        anime_videos["active_video"].url = XORCipher.decode(atob(key), anime_videos["active_video"].url);
-                    } catch(e) {
-			console.dir(e);
-                        return;
-                    } 
+                console.log("found matching video variant idx = " + desired_video_idx);
+            }
 
-                    if (active_kind !== undefined) {
-                        console.log("set active_kind = " + active_kind);
-                        anime_videos["active_video"].url = anime_videos[active_kind][0]["url"];
-                    }
+            console.log(anime_videos[active_kind][desired_video_idx]["url"]);
 
-                    get_storage_item(anime_id, function(result) {
-                        //console.dir(result);
+            anime_videos["active_kind"] = active_kind;
 
-                        if ("kind" in result && result["kind"] in anime_videos) {
-                            var desired_video_idx = 0;
-                            active_kind = result["kind"];
-                            console.log("override active_kind = " + active_kind);
+            for (k in anime_videos[active_kind][desired_video_idx])
+                anime_videos["active_video"][k] = anime_videos[active_kind][desired_video_idx][k];
 
-                            if (("author" in result) && ("hosting" in result)) {
-                                var idx = 0;
-                                for (const video of anime_videos[active_kind]) {
-                                    if (video["author"] === result["author"])
-                                        desired_video_idx = idx;
+            anime_videos["fandub"][0]["active"] = "";
+            anime_videos[result["kind"]][desired_video_idx]["active"] = " active";
+        }
 
-                                    if (video["hosting"] === result["hosting"]) {
-                                        break;
-                                    }
-                                    idx++;
-                                }
-
-                                console.log("found matching video variant idx = " + desired_video_idx);
-                            }
-
-                            console.log(anime_videos[active_kind][desired_video_idx]["url"]);
-
-                            anime_videos["active_kind"] = active_kind;
-
-                            for (k in anime_videos[active_kind][desired_video_idx])
-                                anime_videos["active_video"][k] = anime_videos[active_kind][desired_video_idx][k];
-
-                            anime_videos["fandub"][0]["active"] = "";
-                            anime_videos[result["kind"]][desired_video_idx]["active"] = " active";
-                        }
-
-                        update_storage_item(anime_id, {
-                            "kind": active_kind
-                        });
-
-                        var render_kwargs = {
-                            'anime_id': anime_id,
-                            'episode': episode,
-                            'anime_info': JSON.parse(XORCipher.decode(atob(key2), anime_info_body)),
-                            'anime_videos': anime_videos,
-                            'static': ''
-                        };
-
-                        console.dir(render_kwargs);
-
-                        $('#title').html(nunjucks.render("title.html", render_kwargs));
-                        $('#video_switcher').html(nunjucks.render('video_switcher.html', render_kwargs));
-                        $('#videos_list').html(nunjucks.render('videos_list.html', render_kwargs));
-                        $('#episodes_list').html(nunjucks.render('episodes_list.html', render_kwargs));
-                        $('#breadcrumbs').html(nunjucks.render('breadcrumbs.html', render_kwargs));
-                        $('#video_player').html(nunjucks.render('video_player.html', render_kwargs));
-                        $('#menu_logo').html(nunjucks.render('menu_logo.html', render_kwargs));
-                        callback();
-                    });
-                });
-            });
+        update_storage_item(anime_id, {
+            "kind": active_kind
         });
+
+        var render_kwargs = {
+            'anime_id': anime_id,
+            'episode': episode,
+            'anime_info': JSON.parse(XORCipher.decode(atob(key2), anime_info_body)),
+            'anime_videos': anime_videos,
+            'static': ''
+        };
+
+        console.dir(render_kwargs);
+
+        $('#title').html(nunjucks.render("title.html", render_kwargs));
+        $('#video_switcher').html(nunjucks.render('video_switcher.html', render_kwargs));
+        $('#videos_list').html(nunjucks.render('videos_list.html', render_kwargs));
+        $('#episodes_list').html(nunjucks.render('episodes_list.html', render_kwargs));
+        $('#breadcrumbs').html(nunjucks.render('breadcrumbs.html', render_kwargs));
+        $('#video_player').html(nunjucks.render('video_player.html', render_kwargs));
+        $('#menu_logo').html(nunjucks.render('menu_logo.html', render_kwargs));
+        callback();
     });
 }
