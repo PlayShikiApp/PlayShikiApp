@@ -1,6 +1,6 @@
 {
   "name": "PlayShikiApp",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "Возвращает shikimori к жизни",
   "main": "index.js",
   "scripts": {},
