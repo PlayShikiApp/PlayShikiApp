@@ -21,9 +21,8 @@ function start(url) {
 
 document.addEventListener('yourCustomEvent', function (e)
 {
-	let url=e.detail;
 	var myElem = document.getElementById('myButton');
 	if (myElem === null){
-		return start(url);
+		return start(e.detail);
         }
 });
