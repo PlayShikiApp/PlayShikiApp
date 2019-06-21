@@ -18,8 +18,13 @@
 6. Готово! В правом верхнем углу должна появиться иконка расширения
 
 ### Установка для Opera
-1. Скачайте архив .crx [отсюда](https://github.com/PlayShikimoriApp/PlayShikiApp/releases)
-2. Установите расширение [Install Chrome Extensions](https://addons.opera.com/en/extensions/details/install-chrome-extensions)
+1. Скачайте архив .crx (не "oldbrowsers") [отсюда](https://github.com/PlayShikimoriApp/PlayShikiApp/releases)
+2. Найдите вкладку с расширениями в своем браузере
+3. Перетащите скачанный файл туда
+4. Готово!
+
+### Установка на старых версиях браузеров (Yandex 16)
+1. Скачайте архив .crx (PlayShikiApp_x.y.z_oldbrowsers.crx) [отсюда](https://github.com/PlayShikimoriApp/PlayShikiApp/releases)
 2. Найдите вкладку с расширениями в своем браузере
 3. Перетащите скачанный файл туда
 4. Готово!
