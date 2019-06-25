@@ -366,9 +366,24 @@ function set_active_group(el) {
     el.addClass("active");
 }
 
+function is_src_internal(url) {
+    if (url.startsWith("https://www.anilibria.tv"))
+	return true;
+
+    return false;
+}
+
+function get_internal_src(url) {
+    if (url.startsWith("https://www.anilibria.tv"))
+        return chrome.runtime.getURL("players/anilibria/index.html") + "#/?url=" + url;
+}
+
 function update_src(url, active_id) {
     if (active_id === undefined)
         return;
+
+    if (is_src_internal(url))
+        url = get_internal_src(url);
 
     var anime_id = getUrlParameter(window.location.href, 'anime_id');
 
@@ -475,12 +490,16 @@ async function render(callback, anime_id, episode) {
 
         for (var i = 0; i < anime_videos[kind].length; i++) {
             anime_videos[kind][i]["url"] = XORCipher.decode(atob(key), anime_videos[kind][i].url);
+            if (is_src_internal(anime_videos[kind][i]["url"]))
+                anime_videos[kind][i]["url"] = get_internal_src(anime_videos[kind][i]["url"]);
             anime_videos[kind][i]["video_hosting"] = anime_videos[kind][i]["url"].split("/")[2];
         }
     }
 
     try {
         anime_videos["active_video"].url = XORCipher.decode(atob(key), anime_videos["active_video"].url);
+        if (is_src_internal(anime_videos["active_video"].url))
+            anime_videos["active_video"].url = get_internal_src(anime_videos["active_video"].url);
     } catch (e) {
         console.dir(e);
         return;
