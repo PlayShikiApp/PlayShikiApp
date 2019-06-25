@@ -23,7 +23,7 @@ if (url) {
     var urls = url.split(",").map(function(x) { let url = x.split("]")[1]; let q = x.split("[")[1].split("]")[0]; return [url, q];} );
 
     var playerHTML = `
-        <video id="video_1" class="video-js vjs-default-skin vjs-big-play-centered" fluid="true" poster="https://www.anilibria.tv/img/pleer2.jpg" controls data-setup='{}' >`;
+        <video id="video_1" class="video-js vjs-default-skin vjs-big-play-centered" fluid="true" poster="` + chrome.runtime.getURL("players/anilibria/img/player2.png") +`" controls data-setup='{}' >`;
 
     for (const u of urls) {
         playerHTML += `<source src='` + u[0] + `' type='application/x-mpegURL' label='` + u[1] + `' res='` + u[1] + `' />`;
