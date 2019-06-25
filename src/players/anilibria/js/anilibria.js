@@ -33,18 +33,15 @@ if (url) {
 
     video.innerHTML = playerHTML;
 
-    try {
     videojs('video_1').ready(function() {
        this.hotkeys({
            volumeStep: 0.1,
            seekStep: 5,
            enableModifiersForNumbers: false
        });
+       videojs('video_1').videoJsResolutionSwitcher();
     });
-    videojs('video_1').videoJsResolutionSwitcher();
-    } catch (e) {
-        console.log(e)
-    }
+
 }
 
 

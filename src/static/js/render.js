@@ -490,9 +490,9 @@ async function render(callback, anime_id, episode) {
 
         for (var i = 0; i < anime_videos[kind].length; i++) {
             anime_videos[kind][i]["url"] = XORCipher.decode(atob(key), anime_videos[kind][i].url);
+            anime_videos[kind][i]["video_hosting"] = anime_videos[kind][i]["url"].split("/")[2];
             if (is_src_internal(anime_videos[kind][i]["url"]))
                 anime_videos[kind][i]["url"] = get_internal_src(anime_videos[kind][i]["url"]);
-            anime_videos[kind][i]["video_hosting"] = anime_videos[kind][i]["url"].split("/")[2];
         }
     }
 
