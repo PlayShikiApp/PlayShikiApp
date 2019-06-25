@@ -18,7 +18,7 @@
         "*://shikimori.one/*",
         "*://shikimori.org/*"
     ],
-    "content_security_policy": "script-src 'self' 'unsafe-eval' https://ssl.google-analytics.com https://www.google-analytics.com; object-src 'self'",
+    "content_security_policy": "script-src 'self' 'unsafe-eval' blob: https://ssl.google-analytics.com https://www.google-analytics.com; object-src 'self'; media-src 'self' blob: https://*.anilibria.tv",
     "content_scripts": [{
         "matches": [
             "*://shikimori.org/*",
