@@ -629,12 +629,24 @@ async function render(callback, anime_id, episode) {
         $('#episodes_list').html(nunjucks.render('episodes_list.html', render_kwargs));
         $('#video_player').html(nunjucks.render('video_player.html', render_kwargs));
         $('#menu_logo').html(nunjucks.render('menu_logo.html', render_kwargs));
+	callback();
+
+	get_or_set_user(function(user) {
+		var user_kwargs = {
+			'user_login': user["nickname"],
+			'user_avatar_src': user["image"]["x48"],
+			'user_avatar_srcset': user["image"]["x80"]
+		}
+
+		$('#user_profile').html(nunjucks.render('user_profile.html', user_kwargs));
+	});
+
 	const shiki_main_genre_url = await get_main_genre_url(anime_id);
 	const shiki_genre_ru_name = await get_main_genre_ru_name(anime_id);
 	render_kwargs["shiki_main_genre_url"] = shiki_main_genre_url;
 	render_kwargs["shiki_genre_ru_name"] = shiki_genre_ru_name;
 
         $('#breadcrumbs').html(nunjucks.render('breadcrumbs.html', render_kwargs));
-        callback();
+        
     });
 }
