@@ -1,0 +1,26 @@
+@import globals/variables
+@import mixins/ellipsis2
+
+.p-db_entries-edit
+  .b-list
+    .field
+      display: inline-block
+      color: $gray-3
+
+      &:after
+        content: ':'
+
+    .value
+      display: inline
+      margin-left: 5px
+
+      &.under_development
+        font-size: 11px
+
+    .sample
+      +ellipsis2
+      font-size: 12px
+
+    .b-js-action
+      margin-left: 5px
+      text-transform: lowercase

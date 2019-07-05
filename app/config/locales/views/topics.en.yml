@@ -1,0 +1,79 @@
+en:
+  topics:
+    show:
+      rss_title: Topic comments
+    header:
+      mini: &header_mini
+        topic_ignored: ignored
+      common:
+        <<: *header_mini
+        about: about
+        in: in
+    footer:
+      vote:
+        question:
+          review: Is this review useful?
+          cosplay: Do you like it?
+          collection: Is this collection useful?
+    comments:
+      your_comment: Your comment
+    inner:
+      read_more_link: Read more →
+    form:
+      form:
+        topic_text: Topic text
+        news_text: News text
+        edit:
+          title: Edit topic
+        new:
+          title: New topic
+      type:
+        pick_topic_type: Pick topic type
+        common_topic: Common topic
+        news_topic: News topic
+      rules:
+        go_next: Next →
+      news_form:
+        topic_video: News video
+        topic_posters: News posters
+        attach: Attach
+    status_line:
+      about: about
+      by: by
+      changed_at: Changed at %{date}
+      created_at: Created at %{date}
+    menu_actions:
+      create_topic: Create a Topic
+      reload_forum: refresh forum
+    page:
+      refresh: Refresh page
+    menu:
+      hide: '&mdash; hide'
+      new_club: New club
+      reviews: Reviews
+      show_more: '+ show more'
+      sticky_topics: Sticky Topics
+      to_clubs: To Clubs
+      to_reviews: To Reviews
+      user_review: "%{author}'s review"
+      contests: :dashboards.show.contests
+    cosplay:
+      info:
+        in_gallery: In gallery
+        character:
+          zero: Characters
+          one: Character
+          other: Characters
+        cosplayer:
+          zero: Cosplayers
+          one: Cosplayer
+          other: Cosplayers
+    contests:
+      started: &contest_started
+        name: Name
+        rounds: Number of Rounds
+        members: Number of Participants
+        dates: Dates
+      finished:
+        <<: *contest_started
+        winners: Winners

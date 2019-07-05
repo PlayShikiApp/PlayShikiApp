@@ -1,0 +1,14 @@
+ru:
+  animes:
+    page:
+      kind: &video_kinds
+        raw: оригинал
+        subtitles: субтитры
+        fandub: озвучка
+        unknown: озвучка
+    new:
+      kind:
+        <<: *video_kinds
+    edit:
+      kind:
+        <<: *video_kinds

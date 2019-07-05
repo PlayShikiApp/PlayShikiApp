@@ -1,0 +1,627 @@
+ru:
+  inflections:
+    cardinal:
+      achievement:
+        subjective:
+          one: ачивка
+          few: ачивки
+          many: ачивок
+          other: ачивки
+      author:
+        subjective:
+          one: автор
+          few: автора
+          many: авторов
+          other: авторы
+      comment:
+        subjective:
+          one: комментарий
+          few: комментария
+          many: комментариев
+          other: комментарии
+        accusative:
+          one: комментарий
+          few: комментария
+          many: комментариев
+          other: комментарии
+      summary:
+        subjective:
+          one: отзыв
+          few: отзыва
+          many: отзывов
+        accusative:
+          one: отзыв
+          few: отзыва
+          many: отзывов
+      review:
+        subjective:
+          one: рецензия
+          few: рецензии
+          many: рецензий
+          other: рецензии
+      collection:
+        subjective:
+          one: коллекция
+          few: коллекции
+          many: коллекций
+          other: коллекции
+      content_change:
+        subjective:
+          one: правка контента
+          few: правки контента
+          many: правок контента
+          other: правки контента
+      video_upload:
+        subjective:
+          one: загрузка видео
+          few: загрузки видео
+          many: загрузок видео
+          other: загрузок видео
+      video_change:
+        subjective:
+          one: правка видео
+          few: правки видео
+          many: правок видео
+          other: правок видео
+      record:
+        subjective:
+          one: запись
+          few: записи
+          many: записей
+      view:
+        subjective:
+          one: просмотр
+          few: просмотра
+          many: просмотров
+          other: просмотры
+      episode:
+        subjective:
+          one: эпизод
+          few: эпизода
+          many: эпизодов
+          other: эпизоды
+      volume:
+        subjective:
+          one: том
+          few: тома
+          many: томов
+          other: тома
+      chapter:
+        subjective:
+          one: глава
+          few: главы
+          many: глав
+          other: главы
+      years_old:
+        subjective:
+          one: год
+          few: года
+          many: лет
+      anime:
+        subjective:
+          one: аниме
+          few: аниме
+          many: аниме
+          other: аниме
+        dative:
+          one: аниме
+          few: аниме
+          many: аниме
+          other: аниме
+        genitive:
+          one: аниме
+          few: аниме
+          many: аниме
+          other: аниме
+        accusative:
+          one: аниме
+          few: аниме
+          many: аниме
+          other: аниме
+      manga:
+        subjective:
+          one: манга
+          few: манги
+          many: манг
+          other: манга
+        dative:
+          one: манге
+          few: мангам
+          many: мангам
+          other: манги
+        genitive:
+          one: манги
+          few: манги
+          many: манги
+          other: манги
+        accusative:
+          one: мангу
+          few: манги
+          many: манги
+          other: манги
+      ranobe:
+        subjective:
+          one: ранобэ
+          few: ранобэ
+          many: ранобэ
+          other: ранобэ
+        dative:
+          one: ранобэ
+          few: ранобэ
+          many: ранобэ
+          other: ранобэ
+        genitive:
+          one: ранобэ
+          few: ранобэ
+          many: ранобэ
+          other: ранобэ
+        accusative:
+          one: ранобэ
+          few: ранобэ
+          many: ранобэ
+          other: ранобэ
+      screenshot:
+        subjective:
+          one: кадр
+          few: кадра
+          many: кадров
+          other: кадры
+      video:
+        subjective:
+          one: видео
+          few: видео
+          many: видео
+          other: видео
+      tag:
+        subjective:
+          one: тег
+          few: тега
+          many: тегов
+          other: теги
+      type:
+        subjective:
+          one: тип
+          few: типа
+          many: типов
+          other: типы
+      email:
+        subjective:
+          one: письмо
+          few: письма
+          many: писем
+          other: письма
+      watching:
+        dative:
+          one: просмотру
+          few: просмотрам
+          many: просмотрам
+          other: просмотрам
+      reading:
+        dative:
+          one: чтению
+          few: чтениям
+          many: чтениям
+          other: чтениям
+      best_anime:
+        subjective:
+          one: лучшее аниме
+          few: лучших аниме
+          many: лучших аниме
+          other: лучшие аниме
+        genitive:
+          one: лучшего аниме
+          few: лучших аниме
+          many: лучших аниме
+          other: лучших аниме
+      best_manga:
+        genitive:
+          one: лучшей манги
+          few: лучших манг
+          many: лучших манг
+          other: лучших манг
+      best_ranobe:
+        genitive:
+          one: лучшего ранобэ
+          few: лучших ранобэ
+          many: лучших ранобэ
+          other: лучших ранобэ
+      club:
+        subjective:
+          one: клуб
+          few: клуба
+          many: клубов
+          other: клубы
+      collection:
+        subjective:
+          one: коллекция
+          few: коллекции
+          many: коллекций
+          other: коллекции
+      poll:
+        subjective:
+          one: опрос
+          few: опроса
+          many: опросов
+          other: опросы
+      contest:
+        subjective:
+          one: турнир
+          few: турнира
+          many: турниров
+          other: турниры
+      error:
+        subjective:
+          one: ошибка
+          few: ошибки
+          many: ошибок
+          other: ошибки
+      description:
+        subjective:
+          one: описание
+          few: описания
+          many: описаний
+          other: описания
+      logo:
+        subjective:
+          one: логотип
+          few: логотипа
+          many: логотипов
+          other: логотипы
+      character:
+        subjective:
+          one: персонаж
+          few: персонажа
+          many: персонажей
+          other: персонажи
+      admin:
+        subjective:
+          one: админ
+          few: админа
+          many: админов
+          other: админы
+      moderator:
+        subjective:
+          one: модератор
+          few: модератора
+          many: модераторов
+          other: модераторы
+      ban:
+        subjective:
+          one: бан
+          few: бана
+          many: банов
+          other: баны
+      abuse_request:
+        subjective:
+          one: жалоба
+          few: жалобы
+          many: жалоб
+          other: жалобы
+      action:
+        subjective:
+          one: действие
+          few: действия
+          many: действий
+          other: действия
+      invitation:
+        subjective:
+          one: приглашение
+          few: приглашения
+          many: приглашений
+          other: приглашения
+      member:
+        subjective:
+          one: участник
+          few: участника
+          many: участников
+          other: участники
+      administration:
+        subjective:
+          one: администрация
+          few: администрации
+          many: администраций
+          other: администрации
+      image:
+        subjective:
+          one: изображение
+          few: изображения
+          many: изображений
+          other: изображения
+      picture:
+        subjective:
+          one: картинка
+          few: картинки
+          many: картинок
+          other: картинки
+      discussion:
+        subjective:
+          one: обсуждение
+          few: обсуждения
+          many: обсуждений
+          other: обсуждения
+      vote:
+        subjective:
+          one: голос
+          few: голоса
+          many: голосов
+      site_user:
+        subjective:
+          one: пользователь сайта
+          few: пользователя сайта
+          many: пользователей сайта
+      vote:
+        subjective:
+          one: голос
+          few: голоса
+          many: голосов
+      person:
+        subjective:
+          one: человек
+          few: человека
+          many: людей
+          other: люди
+        genitive:
+          one: человека
+          few: человек
+          many: человек
+      forum:
+        subjective:
+          one: форум
+          few: форума
+          many: форумов
+      topic:
+        subjective:
+          one: топик
+          few: топика
+          many: топиков
+          other: топики
+      studio:
+        subjective:
+          one: студия
+          few: студии
+          many: студий
+          other: студии
+        genitive:
+          one: студии
+          few: студий
+          many: студий
+          other: студии
+      ongoing:
+        subjective:
+          one: онгоинг
+          few: онгоинга
+          many: онгоингов
+          other: онгоинги
+      publisher:
+        subjective:
+          one: издатель
+          few: издателя
+          many: издателей
+          other: издатели
+        genitive:
+          one: издателя
+          few: издателей
+          many: издателей
+          other: издатели
+      genre:
+        subjective:
+          one: жанр
+          few: жанра
+          many: жанров
+          other: жанры
+        genitive:
+          one: жанра
+          few: жанров
+          many: жанров
+          other: жанры
+      page:
+        subjective:
+          one: страница
+          few: страницы
+          many: страниц
+          other: страницы
+      sorting:
+        subjective:
+          one: сортировка
+          few: сортировки
+          many: сортировок
+          other: сортировки
+      season:
+        subjective:
+          one: сезон
+          few: сезона
+          many: сезонов
+          other: сезоны
+      list:
+        subjective:
+          one: список
+          few: списка
+          many: списков
+          other: списки
+      news:
+        subjective:
+          one: новость
+          few: новости
+          many: новостей
+          other: новости
+      score:
+        subjective:
+          one: оценка
+          few: оценок
+          many: оценок
+          other: оценки
+      kind:
+        subjective:
+          one: тип
+          few: типов
+          many: типов
+          other: типы
+      rating:
+        subjective:
+          one: рейтинг
+          few: рейтинга
+          many: рейтингов
+          other: рейтинги
+      name:
+        subjective:
+          one: название
+          few: названия
+          many: названий
+          other: названия
+      anons:
+        subjective:
+          one: анонс
+          few: анонса
+          many: анонсов
+          other: анонсы
+      rewatch:
+        subjective:
+          one: повторный просмотр
+          few: повторных просмотра
+          many: повторных просмотров
+          other: повторные просмотры
+      reread:
+        subjective:
+          one: повторное прочтение
+          few: повторных прочтения
+          many: повторных прочтений
+          other: повторные прочтения
+      site:
+        subjective:
+          one: сайт
+          few: сайта
+          many: сайтов
+          other: сайты
+      user:
+        subjective:
+          one: пользователь
+          few: пользователя
+          many: пользователей
+          other: пользователи
+      subtitle:
+        subjective:
+          one: субтитр
+          few: субтитра
+          many: субтитров
+          other: субтитры
+      role:
+        subjective:
+          one: роль
+          few: роли
+          many: ролей
+          other: роли
+
+      datetime:
+        second:
+          subjective:
+            one: секунда
+            few: секунды
+            many: секунд
+            other: секунды
+          accusative:
+            one: секунду
+            few: секунды
+            many: секунд
+            other: секунды
+        minute:
+          subjective:
+            one: минута
+            few: минуты
+            many: минут
+            other: минуты
+        hour:
+          subjective:
+            one: час
+            few: часа
+            many: часов
+            other: часы
+        day:
+          subjective:
+            one: день
+            few: дня
+            many: дней
+            other: дни
+        week:
+          subjective:
+            one: неделя
+            few: недели
+            many: недель
+            other: недели
+        month:
+          subjective:
+            one: месяц
+            few: месяца
+            many: месяцев
+            other: месяцы
+        year:
+          subjective:
+            one: год
+            few: года
+            many: лет
+            other: годы
+
+    ordinal:
+      episode:
+        one: эпизод
+        few: эпизоды
+      volume:
+        one: том
+        few: тома
+      chapter:
+        one: глава
+        few: главы
+      history:
+        one: история
+      producer:
+        one: студия
+        few: студии
+      publisher:
+        one: издатель
+        few: издатели
+      comment:
+        one: комментарий
+        few: комментарии
+      summary:
+        one: отзыв
+        few: отзывы
+      review:
+        one: рецензия
+        few: рецензии
+      collection:
+        one: коллекция
+        few: коллекци
+      genre:
+        one: жанр
+        few: жанры
+      user:
+        one: пользователь
+        few: пользователи
+      topic:
+        one: топик
+        few: топики
+      video_upload:
+        one: загрузка видео
+        few: загрузки видео
+      content_change:
+        one: правка контента
+        few: правки контента
+      video_change:
+        one: правка видео
+        few: правки видео
+      video_report:
+        one: жалоба на видео
+        few: жалобы на видео
+
+  i18n:
+    inflections:
+      gender:
+        m: мужской
+        f: женский
+        n: средний
+        male: :@m
+        female: :@f
+        neuter: :@n
+        default: m
+      user_signed_in:
+        signed_in: залогинен
+        not_signed_in: не залогинен

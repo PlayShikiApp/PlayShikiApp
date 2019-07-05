@@ -1,0 +1,30 @@
+@import mixins/block
+@import mixins/clear_left
+@import mixins/column
+@import mixins/ellipsis2
+@import mixins/link
+@import mixins/responsive
+
+.p-contests-edit
+  .variants
+
+    .variant
+      +ellipsis2
+
+      a
+        float: none
+
+  .contest_actions
+    +block_m
+
+  .action-misc
+    color: #9da2a8
+    display: block
+    font-size: 11px
+    line-height: $line_height
+
+    &.warn
+      color: $red
+
+  .grid
+    +link

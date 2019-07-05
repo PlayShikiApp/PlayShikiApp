@@ -1,0 +1,61 @@
+en:
+  application:
+    aside:
+      report_bug: Report a bug
+
+    top_menu:
+      legend:
+        database: Database
+        community: Community
+        misc: Miscellaneous
+        info: Information
+        profile: Account
+        site: Site
+      items:
+        play: Play
+        anime: :activerecord.models.anime
+        manga: :activerecord.models.manga
+        ranobe: :activerecord.models.ranobe
+        clubs: Clubs
+        collections: Collections
+        reviews: Reviews
+        forum: :forum
+        users: Users
+        contests: Contests
+        current_contest: Current Contest
+        calendar: :calendar
+        info: :about_site
+        socials: In social networks
+        moderation: Moderation
+
+        profile: Profile
+        anime_list: :anime_list
+        manga_list: :manga_list
+        mail: :mail
+        achievements: Achievements
+        clubs: Clubs
+        settings: :settings
+        site_rules: Site rules
+        faq: FAQ
+
+        characters: Characters
+        home: Home
+        play: Anime Online
+        # main: Shikimori
+        main_menu: Main Menu
+        other: Other
+        people: People
+        search: Search
+        sign_in: Sign In
+        sign_out: Sign Out
+
+    hot_topics:
+      hot_topics: Hot topics
+      content: Content
+      video: Video
+
+    footer:
+      terms: Terms
+      privacy: Privacy
+      for_right_holders: For rights holders
+      sitemap: Sitemap

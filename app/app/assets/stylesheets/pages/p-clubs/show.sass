@@ -1,0 +1,35 @@
+@import mixins/clearfix
+@import mixins/block
+@import mixins/responsive
+
+.p-clubs-show
+  header.head h1.censored::before
+    content: '[18+] '
+
+  .l-content
+    .logo
+      +gte_ipad
+        display: none
+
+      img
+        max-width: 100%
+
+  .l-menu
+    .b-menu_logo
+      +iphone
+        display: none
+
+  .b-topic-preview.mini
+    margin-bottom: $block-offset / 2
+
+    &:first-child
+      border-top: none
+
+    & > .inner
+      min-height: auto
+
+    .status-line
+      margin-bottom: 0
+
+    .body-truncated
+      display: none

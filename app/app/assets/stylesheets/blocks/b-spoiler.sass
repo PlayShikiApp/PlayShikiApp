@@ -1,0 +1,56 @@
+@import globals/variables
+@import mixins/link
+
+$border_color: #ffb3b3
+
+.b-spoiler
+  display: inline
+
+  label
+    +link_color
+    //+link_color($link-4)
+    cursor: pointer
+    border-bottom-style: dashed
+    border-bottom-width: 1px
+    font-size: 12px
+    letter-spacing: 0.5px
+
+  .content
+    cursor: pointer
+    display: none
+
+    .inner, .inner-prgrph
+      border-bottom: 1px dashed $border_color
+      display: inline
+
+    .b-spoiler_prgrph
+      cursor: default
+
+      .inner-prgrph
+        cursor: pointer
+
+    &:hover
+      .before, .after
+        color: $link-hover
+
+    .before, .after
+      color: $link-4
+      cursor: pointer
+      display: inline
+      font-size: 10px
+      letter-spacing: 0.8px
+
+      &:before
+        display: inline
+
+    .before
+      padding-right: 4px
+
+      &:before
+        content: '[spoiler]'
+
+    .after
+      padding-left: 4px
+
+      &:before
+        content: '[/spoiler]'

@@ -1,0 +1,36 @@
+ru:
+  devise:
+    common: &common
+      errors: Ошибки
+      forgot_password: Забыли пароль?
+      sign_in: Войти в уже существующий аккаунт
+      sign_up: Зарегистрировать новый аккаунт
+
+    registrations:
+      new:
+        <<: *common
+        title: Регистрация
+        notice: На данной странице вы сможете зарегистрироваться на нашем сайте.
+
+    sessions:
+      form:
+        <<: *common
+      new:
+        title: Авторизация
+        notice: На данной странице вы сможете авторизоваться на нашем сайте.
+
+    social:
+      social_networks: Вход через социальные сети
+      twitter: Вход через Twitter
+      facebook: Вход через Facebook
+      vkontakte: Вход через Вконтакте
+
+  users:
+    passwords:
+      new:
+        <<: *common
+        title: Восстановление пароля
+        notice: На данной странице вы сможете запустить процедуру восстановления пароля, введя ваш e-mail в расположенное ниже поле.
+        info:
+          first: Письма на
+          last: могут попать в спам, проверяйте в этой папке тоже.

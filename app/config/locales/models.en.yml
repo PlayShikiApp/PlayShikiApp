@@ -1,0 +1,154 @@
+en:
+  contest_round:
+    title: 'Round #%{number}%{additional}'
+
+  ban:
+    warn_message: warned. %{reason}.
+    ban_message: banned on %{duration}. %{reason}.
+
+  genre:
+    default_title: '%{name} %{kind}'
+    title:
+      common: &common
+        adventure: '%{kind} about adventures'
+        comedy: comedy %{kind}
+        demons: '%{kind} about demons'
+        drama: drama %{kind}
+        ecchi: ecchi %{kind}
+        fantasy: fantasy %{kind}
+        games: '%{kind} about games'
+        historical: historical %{kind}
+        horror: horror %{kind}
+        josei: josei %{kind}
+        kids: kids %{kind}
+        magic: '%{kind} about magic'
+        martial_arts: '%{kind} about martial arts'
+        mecha: mecha %{kind}
+        mystery: '%{kind} about mysteries'
+        police: '%{kind} about police'
+        romance: romance %{kind}
+        school: '%{kind} about school'
+        sci-fi: sci-fi %{kind}
+        seinen: seinen %{kind}
+        shoujo: shoujo %{kind}
+        shoujo_ai: shoujo-ai %{kind}
+        shounen: shounen %{kind}
+        shounen_ai: shounen-ai %{kind}
+        space: '%{kind} about space'
+        sports: '%{kind} about sport'
+        sumurai: '%{kind} about samurais'
+        supernatural: supernatural %{kind}
+        thriller: thriller %{kind}
+        vampire: '%{kind} about vampires'
+        yaoi: yaoi %{kind}
+        yuri: yuri %{kind}
+
+      subjective: &subjective
+        anime:
+          <<: *common
+
+
+
+
+
+
+        manga:
+          <<: *common
+
+
+
+
+
+
+        ranobe:
+          <<: *common
+
+
+
+
+
+
+
+      genitive:
+        <<: *subjective
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  topics/entry_topic:
+    title: Discussion
+    body:
+      anime: '[anime=%{id}]Anime[/anime] discussion thread.'
+      manga: '[manga=%{id}]Manga[/manga] discussion thread.'
+      ranobe: '[ranobe=%{id}]Light novel[/ranobe] discussion thread.'
+      character: '[character=%{id}]Character[/character] discussion thread.'
+      person: '[person=%{id}]Person[/person] discussion thread.'
+      review: '[review=%{id}]Review[/review] discussion thread.'
+      contest: '[contest=%{id}]Contest[/contest] discussion thread.'
+      club: '[club=%{id}]Club[/club] discussion thread.'
+      club_page: '[club=%{club_id}]Club[/club] [club_page=%{club_page_id}]page[/club_page] discussion thread.'
+      cosplay_gallery: 'Cosplay discussion thread.'
+      collection: '[collection=%{id}]Collection[/collection] discussion thread.'
+
+    full_title:
+      anime: Anime [anime]%{id}[/anime] discussion
+      manga: Manga [manga]%{id}[/manga] discussion
+      ranobe: Light novel [ranobe]%{id}[/ranobe] discussion
+      character: Character [character]%{id}[/character] discussion
+      person: Person [person]%{id}[/person] discussion
+      review:
+        anime: Anime %{target_name} review by %{author} discussion
+        manga: Manga %{target_name} review by %{author} discussion
+        ranobe: Light novel %{target_name} review by %{author} discussion
+      contest: Contest [contest]%{id}[/contest] discussion
+      club: Club [club]%{id}[/club] discussion
+      club_page: Club [club_page]%{club_id}[/club_page] page [club_page]%{club_page_id}[/club_page] discussion
+      cosplay_gallery: Cosplay discussion
+      collection: 'Collection [collection]%{id}[/collection] discussion'
+
+  topics/news_topic:
+    full_title:
+      anime: 'Anime [%{type}]%{id}[/%{type}] %{action_name_lower}'
+      manga: 'Manga [%{type}]%{id}[/%{type}] %{action_name_lower}'
+      ranobe: 'Light novel [%{type}]%{id}[/%{type}] %{action_name_lower}'
+
+  topics/news_topics/contest_status_topic:
+    title:
+      started: Contest started
+      finished: Contest finished
+
+  cosplay_gallery:
+    title: Cosplay of %{cosplay} by %{cosplayer}
+
+  message:
+    antispam:
+      interval: >-
+        Anti-spam protection. Try again in %{interval} %{seconds}.
+      per_day:
+        Anti-spam protection. Try again tomorrow.
+
+  list_import:
+    name: 'List Import #%{id}'
+
+  poll:
+    name: 'Poll #%{id}'

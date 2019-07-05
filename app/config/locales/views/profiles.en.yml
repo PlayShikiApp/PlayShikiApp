@@ -1,0 +1,187 @@
+en:
+  profiles:
+    show:
+      about: About me
+      activity: Activity
+      add_to_friends: Add to Friends
+      add_to_ignored: Add to Ignored
+      moderation: Moderation
+      ban_history: Ban History
+      my_bans: Bans
+      my_mail: Mail
+      my_profile_settings: Settings
+      no_clubs: No clubs
+      no_favourite: No favorites
+      no_friends: No friends
+      no_spent_time: No spent time
+      remove_from_friends: Remove from Friends
+      remove_from_ignored: Remove from Ignored
+      send_message: Send Message
+      user_profile_settings: User Profile Settings
+    achievements:
+      achievements: :profiles_controller.achievements
+      no_achievements: :profiles.page.no_achievements
+
+    activity:
+      activity_graph: Activity Graph
+      no_stat_text: Not sufficient data to display statistics
+      no_stats: No stats
+
+    status:
+      banned: banned
+
+    page:
+      pages:
+        account: Account
+        profile: Profile
+        styles: Site Appearance
+        list: Anime & Manga List
+        notifications: Notifications
+        misc: Misc
+      roles: Roles
+      banned: Banned
+      ban_removal: >-
+        Ban will be removed at
+        <span datetime="%{iso_date}" data-allow-future-time="true"
+        class="ban-time">%{formatted_date}</span>.
+      ban_warning_for_moderator: >
+        Use this page only if you cannot ban a user by comment.
+        E.g. when a comment has been removed.
+        In all other cases ban users in forum itself.
+      unread_messages: unread messages sorted by newest first
+      no_messages: No messages
+      mark_as_read: Mark all messages as read
+      remove_all: Remove all messages
+      no_messages: No messages
+      confirm_mark_as_read: Mark all messages as read?
+      confirm_remove_all: Remove all messages?
+      conversation_with_user: Conversation with %{user}
+      before_you_message_me: Before you message me
+      admin_message: >-
+        <li>
+          Don't forget to read the first post in
+          <a class='b-link' href='/clubs/1093-faq-chasto-zadavaemye-voprosy'>
+            FAQ club</a>.
+        </li>
+        <li>
+          If you have any questions about the site ask them in
+          <a class='b-link' href='/clubs/1093-faq-chasto-zadavaemye-voprosy'>
+            FAQ club</a> first.
+          Contact me only if you couldn't get an answer there.
+        </li>
+        <li>
+          Report any non-critical bugs in
+          <a class='b-link' href='/s/102-Tema-ob-oshibkah'>
+            the topic about bugs</a>.
+        </li>
+        <li>
+          Suggest you ideas about how to improve the site in
+          <a class='b-link' href='/s/10586-Pozhelaniya-po-saytu'>
+            the topic about ideas</a>.
+        </li>
+        <li>
+          All complaints about unfair bans are ignored.
+        </li>
+
+
+
+
+
+
+
+
+
+
+      admin_message_postscriptum: >-
+        Don't expect me to reply to your question quickly -
+        it might take a long time.
+      your_message: Your message
+      rss_title: '%{nickname} history'
+      logs: Logs
+      no_content_changes: No content changes
+      favourite:
+        anime: Animes
+        manga: Mangas
+        ranobe: Light Novels
+        character: Characters
+        seyu: Seiyu
+        producer: Producers
+        mangaka: Mangakas
+        person: Other people
+      export_anime: Export anime
+      export_manga: Export manga and light novels
+      no_achievements: No achievements yet.
+      moderation:
+        amount: Amount
+
+    edit:
+      account:
+        change_email_and_password: Change e-mail and password
+        connected_accounts: Connected accounts
+        not_connected_accounts: Not connected accounts
+        granted_oauth_apps: Apps that have access to your account
+        ignored_users: Ignored users
+        nickname: Login (nickname)
+        username: Username
+        disable_authentication: Disable authentication with %{provider}
+        enable_authentication: Enable authentication with %{provider}
+
+      profile:
+        display_activity_graph_since: Display activity graph since
+        about_me: About me
+
+      styles:
+        site_styles: Site styles
+
+      password:
+        new_password: New password
+
+      list:
+        list_import_export: List import / export
+        list_import_history: List imports history
+        list_import_history_blank: No history
+        import_list: Import list
+        export_list: Export list
+        my_list_scores: Scores in my list
+        reset_scores: Reset all %{kind} scores
+        confirm_to_reset_scores: Confirm that you want to reset all %{kind_genitive} scores (%{kind_subjective} won't be removed from list).
+        sure_to_reset_scores: Are you sure you want to reset all %{kind} scores?
+
+        my_list_history: My list history
+        remove_history_of_list_changes: Remove all history of %{kind} list changes?
+        confirm_to_remove_history_of_list_changes: Confirm that you want to remove all history of your %{kind} list changes.
+        sure_to_remove_history_of_list_changes: Are you sure you want to remove all history of %{kind} list changes?
+
+        my_list_contents: My list contents
+        clear_list_completely: Clear my %{kind} list completely
+        confirm_to_clear_list_completely: Confirm that you want to clear your %{kind_genitive} list completely and remove all of its history.
+        sure_to_clear_list_completely: Are you sure you want to clear your %{kind} list and lose all of its history?
+
+      misc:
+        ssl_hint: Experimental
+        anime_manga_recommendations: Anime and manga recommendations
+        restore_rejected_recommendations: Restore rejected %{kind} recommendations
+        confirm_to_restore_recommendations: Confirm that you want to restore all your rejected %{kind} recommendations.
+        sure_to_restore_recommendations: Are you sure you want to restore all your rejected %{kind} recommendations?
+        history_of_nickname_changes: History of nickname changes
+        clear_history: Clear history
+        confirm_to_clear_history_of_nickname_changes: Confirm that you want to clear all history of your nickname changes.
+        sure_to_clear_history_of_nickname_changes: Are you sure you want to clear all history of your nickname changes?
+        ignored_topics: Ignored topics
+        ignored_users: Ignored users
+        show_list_of_ignored: See list
+
+      ignored_topics:
+        topic_name: Topic name
+        topic_author: Author
+        stop_ignore: stop ignore
+        no_ignored_topics: No ignored topics
+
+      ignored_users:
+        user_nickname: User
+        stop_ignore: stop ignore
+        no_ignored_users: No ignored users
+        add_users: Add users
+
+    stats_bar:
+      similar_users: similar users

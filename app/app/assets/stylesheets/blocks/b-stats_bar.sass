@@ -1,0 +1,75 @@
+@import mixins/block
+@import mixins/brackets_surrounded
+@import mixins/dash_separated
+@import mixins/hover_underlined
+@import mixins/link
+
+$bar_height: 13px
+
+.b-stats_bar
+  line-height: 16px
+  min-height: 50px
+
+  .title
+    color: #456
+    display: inline-block
+    font-weight: bold
+    line-height: 18px
+
+  a.title
+    +link
+
+  &.lifetime .bar
+    .first
+      background: #f45151
+    .second
+      background: #f7a8a8
+
+  &.anime .bar
+    .first
+      background: #4682b4
+    .second
+      background: #79A9CF
+
+  &.manga .bar
+    .first
+      background: #b78bc7
+    .second
+      background: #edacd9
+
+  .bar
+    height: $bar_height
+    line-height: $bar_height
+    overflow: hidden
+    position: relative
+    white-space: nowrap
+    width: 100%
+
+    .first, .second, .third
+      color: white
+      cursor: default
+      display: inline-block
+      font-size: 11px
+      font-weight: normal
+      height: $bar_height
+      height: inherit
+      line-height: $bar_height
+      text-align: center
+      white-space: nowrap
+
+    .third
+      background: #aaa
+
+  .stat_names
+    font-size: 11px
+    line-height: $line-height
+
+    .stat_name
+      +dash_separated
+      display: inline-block
+
+      a
+        +link(#123)
+
+      .size
+        +brackets_surrounded

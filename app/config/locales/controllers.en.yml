@@ -1,0 +1,464 @@
+en:
+  dashboards_controller:
+    page_title: Shikimori - anime and manga encyclopedia
+    description: >-
+
+
+
+
+
+  topics_controller: &topics_controller
+    title: Shikimori Forum
+    new_topic: Add topic
+    new_news: Add news
+    topic:
+      created: Topic created
+      updated: Topic updated
+      deleted: Topic deleted
+
+  profiles_controller: &profiles_controller
+    profile: Profile
+    friends: Friends
+    favorites: Favorites
+    feed: Feed
+    achievements: Achievements
+    users: Users
+
+  dialogs_controller:
+    <<: *profiles_controller
+    conversation_removed: Conversation removed
+  messages_controller:
+    <<: *profiles_controller
+    site_news: Site news
+    private_messages: Unread private messages
+    site_notifications: Site notifications
+    unsubscribe: Notification preferences
+
+  user_history_controller:
+    <<: *profiles_controller
+    page_title:
+      history: History
+      logs: History journal
+  user_preferences_controller:
+    <<: *profiles_controller
+  user_rates_controller:
+    <<: *profiles_controller
+    messages:
+      imported:
+        anime:
+          one: 'One anime has been imported into your anime list:'
+          other: '%{count} anime have been imported into your anime list'
+
+        manga:
+          one: 'One manga has been imported into your manga list:'
+          other: '%{count} mangas have been imported into your manga list'
+
+      updated:
+        anime:
+          one: 'One anime has been updated in your anime list:'
+          other: '%{count} anime have been updated in your anime list'
+
+        manga:
+          one: 'One manga has been updated in your manga list:'
+          other: '%{count} mangas have been updated in your manga list'
+
+      not_imported:
+        anime:
+          add_manually: 'Please, add them to your anime list manually:'
+          one: 'Couldn''t import (parse) one anime.'
+          other: 'Couldn''t import (parse) %{count} anime.'
+
+        manga:
+          add_manually: 'Please, add them to your manga list manually'
+          one: 'Couldn''t import (parse) one manga.'
+          few: 'Couldn''t import (parse) %{count} mangas.'
+
+      nothing_imported: Nothing imported.
+      continuation_of_previous_message: (continuation of previous message)
+    error_incorrect_file_format: Import error. Maybe incorrect file format.
+  users/achievements_controller:
+    <<: *profiles_controller
+    franchises: Franchises
+  users/list_exports_controller:
+    <<: *profiles_controller
+    title: Export list
+  users/list_imports_controller:
+    <<: *profiles_controller
+    title: Import list
+  users/polls_controller:
+    <<: *profiles_controller
+    new: New poll
+
+  animes_collection_controller: &animes_collection_controller
+    search: Search "%{search}"
+    order:
+      in_alphabetical_order: in alphabetical order
+      by_popularity: by popularity
+      by_ranking: by ranking
+      by_released_date: by release date
+      by_add_date: by date when added on site
+    notice:
+      manga: &manga_variant |
+        This page contains search results for %{title} sorted %{order_name}
+      non_manga: *manga_variant
+
+    description:
+      anime: |
+
+
+
+      manga: |
+
+
+      ranobe: |
+
+
+
+  recommendations_controller:
+    <<: *animes_collection_controller
+    personalized_recommendations: Personalized recommendations
+    page_title:
+      anime: What anime I should watch next
+      manga: What manga I should read next
+      ranobe: What light novel I should read next
+
+  recommendation_ignores_controller:
+    ignores_cleared:
+      anime: Your rejected anime recommendations cleared
+      manga: Your rejected manga recommendations cleared
+
+  collections_controller:
+    new_collection: New collection
+    collection_created: Collection created
+    collection_deleted: Collection deleted
+
+  clubs_controller:
+    new_club: New club
+    club_created: Club created
+    club_members: Club members
+    club_anime: Club animes
+    club_manga: Club mangas
+    club_ranobe: Club light novels
+    club_characters: Club characters
+    club_images: Club images
+
+  clubs/club_images_controller:
+    image_uploaded: Image uploaded
+    no_images_uploaded: No images uploaded
+    image_deleted: Image deleted
+
+  clubs/club_pages_controller:
+    new:
+      title: New page
+    destroy:
+      success: Page deleted
+
+  clubs/club_topics_controller:
+    <<: *topics_controller
+    new:
+      title: New topic
+
+  club_roles_controller:
+    you_have_joined_club: You have joined the club "%{club_name}"
+    you_have_left_club: You have left the club "%{club_name}"
+
+  club_invites_controller:
+    invitation_sent: Invitation sent
+    invitation_accepted: Invitation accepted
+    invitation_rejected: Invitation rejected
+
+  contests_controller:
+    contests: Contests
+    new_contest: New contest
+    edit_contest: Edit contest
+    contest_created: Contest created
+    index_keywords: anime contests tournaments polls
+    index_description: Anime contests and tournaments of the site
+    show_keywords: anime contest tournament poll %{title}
+    show_description: >
+      Take part in anime tournament on our site and
+      make your contribution to the poll, we want to determine %{title}.
+
+  moderations_controller: &moderations_controller
+    title: Moderation and content
+    missing_screenshots_title: Missing screenshots
+
+  moderations/abuse_requests_controller:
+    <<: *moderations_controller
+    page_title:
+      index: Forum moderation journal
+      show: 'Complaint #%{id}'
+
+  moderations/anime_video_reports_controller:
+    <<: *moderations_controller
+    page_title: Video moderation
+    content_change: 'Content change #%{anime_video_report_id}'
+
+  moderations/bans_controller:
+    <<: *moderations_controller
+    page_title:
+      index: Bans journal
+      show: 'Ban #%{id}'
+
+  moderations/reviews_controller:
+    <<: *moderations_controller
+    page_title: Reviews moderation
+
+  moderations/collections_controller:
+    <<: *moderations_controller
+    page_title: Collections moderation
+
+  moderations/users_controller:
+    <<: *moderations_controller
+    page_title: Users
+
+  moderations/roles_controller:
+    <<: *moderations_controller
+    page_title: Users roles
+
+  moderations/user_rate_logs_controller:
+    <<: *moderations_controller
+    page_title:
+      index: History journal
+      show: 'History log #%{id}'
+
+  moderations/versions_controller:
+    <<: *moderations_controller
+    content_change: 'Content change #%{version_id}'
+    content_changes: Content changes journal
+    video_changes: Video changes journal
+    changes_accepted: Changes accepted
+    changes_rejected: Changes rejected
+    changes_deleted: Changes deleted
+    changes_failed: These changes cannot be applied
+    version_pending: &version_pending Content changes have been saved successfully and will be moderated soon. Thanks!
+    version_accepted: &version_accepted Content changes have been applied successfully.
+    version_taken: *version_accepted
+    version_auto_accepted: *version_accepted
+
+  moderations/anime_video_authors_controller:
+    <<: *moderations_controller
+    page_title: Anime video authors moderation
+
+  moderations/forums_controller:
+    <<: *moderations_controller
+
+  moderations/genres_controller:
+    <<: *moderations_controller
+
+  animes_controller: &animes_controller
+    version_pending: *version_pending
+    version_accepted: *version_accepted
+    version_taken: *version_accepted
+    version_auto_accepted: *version_accepted
+    no_changes: &no_changes No changes
+    entry_edit: Edit anime
+    edit: Edit
+    characters:
+      anime: Anime characters
+      manga: Manga characters
+      ranobe: Light novel characters
+    producers:
+      anime: Anime producers
+      manga: Manga authors
+      ranobe: Light novel authors
+    files: Files
+    similar:
+      anime: Similar animes
+      manga: Similar mangas
+      ranobe: Similar light novels
+    related:
+      anime: Related to anime
+      manga: Related to manga
+      ranobe: Related to light novel
+    reviews:
+      anime: Anime reviews
+      manga: Manga reviews
+      ranobe: Light novel reviews
+    breadcrumbs:
+      anime:
+        list: Anime
+        tv: TV series
+        movie: Anime movies
+      manga:
+        list: Manga
+      ranobe:
+        list: Light Novel
+
+  mangas_controller:
+    <<: *animes_controller
+    entry_edit: Edit manga
+
+  ranobe_controller:
+    <<: *animes_controller
+    entry_edit: Edit light novel
+
+  characters_controller:
+    <<: *animes_controller
+    all_characters: All characters
+    entry_edit: Edit character
+
+  people_controller:
+    <<: *animes_controller
+    all_people: All people
+    producers: Producers
+    mangakas: Mangakas
+    seyu: Seyu
+    entry_edit: Edit person
+    participation_in_projects: Participation in projects
+    roles_in_anime: Roles in anime
+    search_people: Search people
+    search_seyu: Search seiyu
+    search_producers: Search producers
+    search_mangakas: Search mangakas
+
+  screenshots_controller:
+    pending_version: Request have been accepted successfully and will be moderated soon. Thanks!
+    screenshot_deleted: Screenshot deleted
+
+  favourites_controller:
+    cant_add:
+      character: Only %{limit} characters can be added to favorite
+      anime: Only %{limit} animes can be added to favorite
+      manga: Only %{limit} mangas can be added to favorite
+      ranobe: Only %{limit} light novels can be added to favorite
+      person: Only %{limit} people can be added to favorite
+    added: Added to favorite
+    removed: Removed from favorite
+
+  videos_controller:
+    pending_version: Request have been accepted successfully and will be moderated soon. Thanks!
+    version_pending: *version_pending
+    version_accepted: *version_accepted
+    version_taken: *version_accepted
+    version_auto_accepted: *version_accepted
+    no_changes: *no_changes
+
+  pages_controller:
+    calendar_of_ongoings: Calendar of currently airing and upcoming anime
+    privacy_policy: Privacy policy
+    terms_of_service: Terms of service
+    how_to_edit_achievements: How to edit achievements
+    copyrighted_animes: According to demands of rightholders
+
+  studios_controller:
+    page_title: Anime studios
+    description:
+      List of major anime studios sorted by volume of media produced.
+
+
+  reviews_controller:
+    <<: *animes_controller
+    new_review: New review
+    edit_review: Edit review
+    review:
+      created: Review created
+      updated: Review updated
+      removed: Review removed
+    review_by: Review by %{nickname}
+
+  users_controller:
+    similar_users: Similar users
+
+  user_tokens_controller:
+    success: Authorization via %{type} is disabled
+    email: a email
+    password: a password
+    email_password: email and password
+    failure: >-
+      You can not disable the only authorization method until you specify
+      %{auth_methods}
+
+  userlist_comparer_controller:
+    page_title:
+      anime: Anime list comparison of users %{user_1} and %{user_2}
+      manga: Manga list comparison of users %{user_1} and %{user_2}
+    fetch_users_alert:
+      Cannot compare user's lists - user %{user} not found
+
+  users/omniauth_callbacks_controller:
+    already_linked: >-
+      This %{provider} account is already linked to another user account
+    account_linked: >-
+      %{provider} account is linked to your user account
+    authentication_failed: Authentication failed
+
+  statistics_controller:
+    page_title: Anime industry
+    page_description: >-
+      Have you ever thought about how many animes have been produced
+      in the world until now, their types and genres and how they were
+      changing over time?
+      On this page you'll find a few charts with anime statistics for
+      the last quarter-century.
+    keywords: >-
+      anime history, anime series statistics, anime industry,
+      anime ratings, anime studios, anime genres, top anime
+    kind: Type
+    score: Score
+    other: Others
+
+  comments_controller:
+    comment_by: Comment from %{nickname}
+
+  shikimori_controller:
+    you_are_banned: You are banned till %{datetime}
+
+  achievements_controller:
+    title: Achievements
+    level: Level %{level}
+
+  doorkeeper/oauth_applications_controller:
+    index:
+      title: OAuth Applications
+    new:
+      title: New OAuth Application
+
+  api/v1/topics_controller:
+    <<: *topics_controller
+
+  api/v1/comments_controller:
+    comment:
+      removed: Comment removed
+
+  api/v1/messages_controller:
+    messages:
+      read: Messages marked as read
+      removed: Messages removed
+    message:
+      created: Message sent
+      not_created: Message not sent
+      updated: Message changed
+      not_updated: Messaged not changed
+      removed: Message removed
+
+  api/v1/dialogs_controller:
+    conversation_removed: Conversation removed
+    no_messages: No messages to remove
+
+  api/v1/friends_controller:
+    added_to_friends:
+      male: '%{nickname} added to your friend list'
+      female: '%{nickname} added to your friend list'
+    removed_from_friends:
+      male: '%{nickname} removed from your friend list'
+      female: '%{nickname} removed from your friend list'
+
+  api/v1/ignores_controller:
+    ignored: Messages from %{nickname} are now ignored
+    not_ignored: Messages from %{nickname} are no longer ignored
+
+  api/v1/nickname_changes_controller:
+    cleared: Your history of nickname changes cleared
+
+  api/v1/topic_ignores_controller:
+    ignored: Topic ignored
+    not_ignored: Topic is visible now
+
+  api/v1/user_rates_controller:
+    list_and_history_cleared:
+      anime: Both your anime list and anime history cleared
+      manga: Both your manga list and manga history cleared
+    scores_reset:
+      anime: All scores in your anime list reset
+      manga: All scores in your manga list reset

@@ -1,0 +1,50 @@
+@import globals/variables
+@import mixins/responsive
+@import mixins/input
+@import mixins/textarea
+
+.b-input
+  margin-bottom: $block-offset / 2
+
+  // +gte_ipad
+    // margin-bottom: 10px
+
+  // +iphone
+    // margin-bottom: 15px
+
+  &:last-child
+    margin-bottom: 0
+
+  input
+    +input
+
+  textarea
+    +textarea
+
+  input[type=checkbox]
+    margin-right: 6px
+    width: auto !important
+
+  input[disabled]
+    background: #EEE
+    color: #666
+
+  select
+    max-width: 100%
+
+  label
+    display: block
+    line-height: $line_height
+
+  abbr
+    display: none
+
+  .error
+    display: block
+    color: $red
+
+  .hint
+    color: $gray-2
+    display: block
+    font-size: 11px
+    line-height: $line_height

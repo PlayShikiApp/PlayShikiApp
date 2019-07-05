@@ -1,0 +1,227 @@
+@import mixins/placeholder
+
+$input-height: 29px
+.l-top_menu-v2 .global-search
+  color: #123
+  // flex-grow: 1
+  // max-width: 600px
+  width: 100%
+
+  +lte_ipad
+    display: none
+
+  +gt_ipad
+    margin-right: 10px
+    position: relative
+
+  input
+    background: #fff
+    border-radius: 2px
+    border: 1px solid transparent
+    color: #123
+    font-size: 14px
+    line-height: $input-height - 1px
+    padding: 1px 42px 0 38px
+    text-overflow: ellipsis
+    width: 100%
+
+    +lte_ipad
+      font-size: 16px
+
+    +placeholder
+      color: $gray-1
+
+    &:focus ~ .hotkey-marker,
+    &.has-value ~ .hotkey-marker
+      display: none
+
+    &.has-value ~ .clear
+      display: block
+
+.l-top_menu-v2.is-search-focus .global-search
+  .hotkey-marker
+    display: none
+
+  .search-marker
+    color: $link-3
+
+.l-top_menu-v2 .global-search
+  .hotkey-marker
+    border-radius: 3px
+    border: 1px solid $gray-1
+    bottom: 0
+    color: $gray-1
+    content: '/'
+    font-size: 13px
+    height: 21px
+    line-height: 21px
+    margin: auto 0
+    position: absolute
+    right: 7px
+    text-align: center
+    top: 0
+    width: 20px
+
+    +lte_ipad
+      display: none
+
+    &:before
+      content: '/'
+
+  .search-marker,
+  .clear
+    font-size: 20px
+    height: $input-height + 2px
+    line-height: $input-height + 2px
+    position: absolute
+    text-align: center
+    top: 0
+
+  .search-marker
+    width: 42px
+    left: 0
+
+    &:before
+      +shikimori('s')
+
+  .clear
+    +link_color(#333)
+    display: none
+    right: 0
+    width: 38px
+    outline: none
+
+    &.active
+      display: block
+
+    &:before
+      +shikimori('\e828')
+      font-size: 23px
+
+  .search-results
+    background-color: #fff
+    display: none
+    top: $top_menu-height - 8px
+    min-height: 42px
+    position: absolute
+    width: 100%
+    z-index: 1001
+
+    &.b-ajax:after
+      display: none
+
+    .nothing_found:before
+      background: $red-check
+      margin-top: 5px !important
+      margin-bottom: 5px !important
+
+    .nothing_found,
+    .search-mode
+      color: #123
+      display: flex
+      font-size: 13px
+      letter-spacing: 0.25px
+      line-height: 41px
+      padding-top: 1px
+      user-select: none
+
+      &:before
+        margin: 5px 15px 5px 10px !important
+
+    .b-db_entry-variant-list_item
+      padding-bottom: 10px
+      padding-top: 10px
+
+      &.active
+        cursor: pointer
+
+      &:focus
+        outline: none
+
+    .search-mode
+      cursor: pointer
+
+      &:hover
+        +gt_ipad
+          background: linear-gradient(270deg, rgba($link-4, 0.1) 0%, rgba($link-4, 0.0) 100%), rgba($link-4, 0.01)
+
+          &:before
+            background: rgba($link-2, 0.35)
+
+    .nothing_found,
+    .b-db_entry-variant-list_item,
+    .search-mode
+      transition: border-top 0.2s ease, background 0.2s ease
+      border-top: 1px solid rgba($link-4, 0.2)
+      margin-bottom: 0
+
+      &:first-child
+        border-top: none !important
+
+      &:before
+        content: ''
+        display: block
+        margin: 0 10px 3px
+        width: 5px
+
+      &.active,
+      &:focus
+        background: linear-gradient(270deg, rgba($link-4, 0.2) 0%, rgba($link-4, 0.0) 100%), rgba($link-4, 0.01)
+        border-top-color: $link-3
+
+        & + .b-db_entry-variant-list_item,
+        & + .search-mode
+          border-top-color: $link-3
+
+        &:before
+          background: $link-2
+
+    .search-mode,
+    .b-db_entry-variant-list_item
+      outline: none
+
+      &:active
+        border-top-color: $link-2
+        background: linear-gradient(270deg, rgba($link-4, 0.2) 0%, rgba($link-4, 0.0) 100%), rgba($link-4, 0.1)
+
+        &:before
+          background: darken($link-2, 5%)
+
+        & + .b-db_entry-variant-list_item,
+        & + .search-mode
+          border-top-color: $link-2
+
+.l-top_menu-v2
+  +laptop
+    &.is-search-focus
+      .menu-dropdown.main,
+      & > .menu-icon
+        display: none
+
+  &.is-search-shade
+    .search-results
+      display: block
+
+  +lte_ipad
+    &.is-search-mobile
+      margin-bottom: 57px // = global-search height
+
+      .global-search
+        background: $top_menu_background_hover
+        display: block
+        left: 0
+        padding: 13px 0
+        position: absolute
+        top: $top_menu-height
+
+        label.field
+          display: block
+          padding: 0 10px
+          position: relative
+
+        .search-results
+          margin-top: 19px
+
+        .clear
+          display: block
+          right: 10px

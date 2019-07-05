@@ -1,0 +1,100 @@
+ru:
+  db_entry_decorator: &db_entry_decorator
+    no_description: Нет описания
+  ani_manga_decorator: &ani_manga_decorator
+    <<: *db_entry_decorator
+    time_ago_format: '%s назад'
+  anime_decorator:
+    <<: *ani_manga_decorator
+  anime_video_preview_decorator:
+    score:
+      excellent: отлично
+      good: хорошо
+      okay: нормально
+  character_decorator:
+    <<: *db_entry_decorator
+    job_title:
+      character: Персонаж
+      anime: Персонаж аниме
+      anime_manga: Персонаж аниме и манги
+      anime_manga_ranobe: Персонаж аниме, манги и ранобэ
+      anime_ranobe: Персонаж аниме и ранобэ
+      manga: Персонаж манги
+      manga_ranobe: Персонаж манги и ранобэ
+      ranobe: Персонаж ранобэ
+  contest_decorator:
+    <<: *db_entry_decorator
+  club_decorator:
+    <<: *db_entry_decorator
+  manga_decorator:
+    <<: *ani_manga_decorator
+  person_decorator: &person_decorator
+    <<: *db_entry_decorator
+    job_title:
+      producer: Режиссёр аниме
+      mangaka: Автор манги
+      composer: Композитор
+      vocalist: Вокалист
+      seyu: Сэйю
+      anime_manga_projects_participant: Участник аниме и манга проектов
+      # anime_manga_ranobe_projects_participant: Участник аниме, манга и ранобэ проектов
+      anime_projects_participant: Участник аниме проектов
+      # anime_ranobe_projects_participant: Участник аниме и ранобэ проектов
+      manga_projects_participant: Участник манга проектов
+      # manga_ranobe_projects_participant: Участник манга и ранобэ проектов
+      # ranobe_projects_participant: Участник ранобэ проектов
+      _projects_participant: ''
+  seyu_decorator:
+    <<: *person_decorator
+  collection_decorator:
+    <<: *db_entry_decorator
+  user_decorator: &user_decorator
+    always_online: всегда на сайте
+    always_online_bot: всегда на сайте (бот)
+    online: сейчас на сайте
+    offline: онлайн %{time_ago}%{ago}
+    ago: назад
+    registration_formats:
+      full: '%e %B %Y г.'
+      month_year: '%d %B %Y г.'
+      year: '%Y г.'
+  user_history_decorator:
+    actions:
+      add: Добавлено в список
+      delete: Удалено из списка
+      complete_with_score: '%{status_name} и оценено на <b>%{score}</b>'
+      episodes:
+        completed_movie: Просмотрен фильм
+        completed_anime: Просмотрены все эпизоды
+        completed_novel: Прочитана новелла
+        completed_manga: Прочитана манга
+        reset_anime: Сброшено число эпизодов
+        reset_manga: Сброшено число томов и глав
+      rate:
+        cancelled: Отменена оценка
+        changed: Изменена оценка c <b>%{prior_score}</b> на <b>%{score}</b>
+        rated: Оценено на <b>%{score}</b>
+      import:
+        anime: Импортировано аниме - %{records}
+        manga: Импортирована манга - %{records}
+      registration: Регистрация на сайте
+      anime_history_clear: Очистка истории аниме
+      manga_history_clear: Очистка истории манги
+    time_ago: '%{time_ago} назад'
+    watched_one_episode: '%{watched} %{number}%{suffix} %{division}'
+    watched_two_episodes: '%{watched} %{number_first}%{suffix} и %{number_second}%{suffix} %{division}'
+    watched_three_episodes: '%{watched} %{number_first}%{suffix}, %{number_second}%{suffix} и %{number_third}%{suffix} %{division}'
+    watched_episodes_range: '%{watched} с %{number_first}%{suffix_first} по %{number_last}%{suffix_last} %{division}'
+    watched_first_episodes: '%{watched} %{number}%{suffix} %{division}'
+  user_profile_decorator:
+    <<: *user_decorator
+    aka: Также %{known} как
+  version_decorator:
+    field_name:
+      screenshots_upload: Загрузка кадров
+      screenshots_delete: Удаление кадров
+      screenshots_reposition: Порядок кадров
+      video_upload: Загрузка видео
+      video_delete: Удаление видео
+      role_add: Добавление роли
+      role_remove: Удаление роли

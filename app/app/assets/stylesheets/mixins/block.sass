@@ -1,0 +1,31 @@
+@import globals/variables
+
+=block($margin: $block_offset)
+  margin-bottom: $margin
+  line-height: $line_height
+  position: relative
+
+  &:last-child
+    margin-bottom: 0
+
+=block0
+  +block
+  margin-bottom: 0
+
+=block2
+  +block($block_offset * 1.5)
+
+=block3
+  +block($block_offset * 2)
+
+=block_m
+  +block
+
+  &:last-child
+    margin-bottom: $block_offset !important
+
+=block2_m
+  +block2
+
+  &:last-child
+    margin-bottom: $block_offset * 1.5 !important

@@ -1,0 +1,51 @@
+@import mixins/column
+@import mixins/ellipsis2
+
+.p-animes-files, .p-mangas-files
+  .l-content
+    a
+      +ellipsis2
+
+
+  .b-table
+    margin-left: 0
+
+  .c-toshokan, .c-rutracker
+    +column(2)
+
+    a
+      display: block
+
+  table
+    font-size: 12px
+
+    th
+      font-size: 13px
+
+      &.num
+        text-align: left
+        width: 50px
+
+    td
+      &:first-child
+        padding-left: 5px
+
+      &.name.other-torrents a
+        width: 490px
+
+      &.name.subtitles a
+        width: 655px
+
+      &.name.full-subtitles a
+        width: 705px
+
+      &.num
+        text-align: left
+        width: 50px
+
+      a
+        line-height: 1.35
+        // hack to make ellipsis work inside TD
+        display: inline-block
+        min-width: 100%
+        width: 0

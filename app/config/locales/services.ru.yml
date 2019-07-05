@@ -1,0 +1,113 @@
+ru:
+  list_compare_service:
+    group_by_key:
+      both: В обоих списках
+      user_only: Только в списке %{nickname}
+    user_rate_status:
+      planned: в планах
+      dropped: брошено
+  messages/create_notification:
+    nickname_changed: >-
+      @{f:Твоя|m:Твой} @{f:подруга|m:друг} %{old_nickname}
+      @{f:изменила|m:изменил} никнейм на %{new_nickname}.
+    user_registered_message: >-
+      Добро пожаловать.
+
+      [url=%{faq_url}]Здесь[/url]
+      находятся ответы на наиболее часто задаваемые вопросы.
+
+      Импортировать список аниме и манги из
+      [url=http://myanimelist.net]myanimelist.net[/url] можно в
+      [url=/%{settings_path}/edit/account]настройках профиля[/url].
+      Там же можно изменить свой никнейм.
+
+      Перед постингом на форуме рекомендуем ознакомиться с
+      [url=%{site_rules_url}]правилами сайта[/url].
+
+      Если возникнут вопросы или пожелания - пиши на форуме,
+      мы постараемся тебе ответить.
+    moderatable_banned:
+      without_reason: >-
+        Твоя [entry=%{topic_id}]%{entry_name}[/entry] перенесена в оффтоп
+      reason: >-
+        по причине [quote=%{approver_nickname}]%{reason}[/quote]
+    bad_email_message: >-
+      Наш почтовый сервис не смог доставить письмо на твою почту %{email}.
+
+      Ты либо @{f:указала|m:указал} несуществующий почтовый ящик,
+      либо когда-то @{f:пометила|m:пометил} одно из наших писем как спам.
+
+      Рекомендуем сменить e-mail в настройках профиля,
+      иначе при утере пароля ты не сможешь восстановить пароль от аккаунт.
+
+
+  omniauth_service:
+    new_user: Новый пользователь
+  bb_codes/tags/replies_tag:
+    reply: 'Ответ: '
+    replies: 'Ответы: '
+  bb_codes/tags/contest_status_tag:
+    started: начат
+    finished: завершён
+  bb_codes/tags/contest_round_status_tag:
+    started: начат
+    finished: завершён
+
+  messages/generate_body:
+    profile_comment: >-
+      @{f:Написала|m:Написал} что-то в твоём
+      <a class='b-link' href='%{profile_url}'>профиле</a>.
+    friend_request:
+      add: Добавить @{f:её|m:его} в твой список друзей в ответ?
+      added: "@{f:Добавила|m:Добавил} тебя в список друзей."
+    quoted_by_user: >-
+      @{f:Написала|m:Написал} <a class="b-link" href="%{comment_url}">что-то</a>
+      тебе %{linked_name}
+    anons: Анонсировано аниме %{linked_name}
+    ongoing: Начат показ аниме %{linked_name}
+    episode: Вышел %{episode} эпизод аниме %{linked_name}
+    released: Завершён показ аниме %{linked_name}
+    subscription_commented: Новые сообщения %{linked_name}
+    warned:
+      comment: >-
+        Тебе вынесено предупреждение за комментарий %{linked_name}
+      removed_comment: >-
+        Тебе вынесено предупреждение за удалённый комментарий.
+        Причина: "%{reason}".
+    banned:
+      comment: >-
+        Ты @{f:забанена|m:забанен} на %{duration} за комментарий %{linked_name}
+      other: >-
+        Ты @{f:забанена|m:забанен} на %{duration}. Причина: "%{reason}".
+    club_request: Приглашение на вступление в клуб [club]%{club_id}[/club].
+    version_accepted: >-
+      Твоя [version=%{version_id}]правка[/version] для
+      [%{item_type}]%{item_id}[/%{item_type}] принята.
+    version_rejected: >-
+      Твоя [version=%{version_id}]правка[/version] для
+      [%{item_type}]%{item_id}[/%{item_type}] отклонена.
+    version_rejected_with_reason: >-
+      Твоя [version=%{version_id}]правка[/version] для
+      [%{item_type}]%{item_id}[/%{item_type}] отклонена по причине:
+      [quote=%{moderator}]%{reason}[/quote]
+
+  messages/mention_source:
+    texts:
+      nil: в <em>удалено</em>.
+      topic: в топике <a href="%{url}"%{bubble}>%{name}</a>.
+      profile: в профиле пользователя <a href="%{url}"%{bubble}>%{name}</a>.
+
+  messages/check_spam_abuse:
+    ban_text: >-
+      Ты @{f:забанена|m:забанен} за спам.
+      Напиши на %{email}, если ты @{f:невиновна|m:невиновен}.
+
+  users/check_hacked:
+    lock_text: >-
+      С этого аккаунта на сайте рассылается спам. Доступ к аккаунту заблокирован.
+      Для восстановления доступа воспользуйтесь страницей восстановления пароля. %{recovery_url}
+      Чтобы в дальнейшем избежать подобных ситуаций,
+      рекомендуем не использовать простые пароли вроде "123", "qwerty", "anime", "naruto" и т.п.
+
+  banhammer:
+    ban_reason: п.3 [url=%{url}]правил сайта[/url]

@@ -1,0 +1,232 @@
+ru:
+  profiles/view:
+    male: муж
+    female: жен
+    no_personal_data: Нет личных данных
+    personal_data_hidden: Личные данные скрыты
+    member_since: на сайте с
+    registration_formats: :user_decorator.registration_formats
+  profiles/compatibility_view:
+    text:
+      zero: нет совместимости
+      low: слабая совместимость
+      moderate: средняя совместимость
+      high: высокая совместимость
+      full: полная совместимость
+  profiles/stats_view:
+    time_spent:
+      anime: Время за аниме
+      manga: Время за мангой
+      anime_manga: Время за аниме и мангой
+    day:
+      one: день
+      few: дня
+      many: дней
+      other: дней
+    spent_time_in_days:
+      default: Всего %{total_days_count} %{total_days}
+      anime_manga: >-
+        Всего %{total_days_count} %{total_days}:
+        %{anime_days_count} %{anime_days} аниме и
+        %{manga_days_count} %{manga_days} манги
+      anime: '%{anime_days_count} %{anime_days} аниме'
+      manga: '%{manga_days_count} %{manga_days} манги'
+
+  topics/review_view:
+    title:
+      anime: Обзор аниме &laquo;%{target_name}&raquo;
+      manga: Обзор манги &laquo;%{target_name}&raquo;
+      ranobe: Обзор ранобэ &laquo;%{target_name}&raquo;
+
+  topics/comments_view: &comments
+    show_comments: Показать %{comment_count} %{comment_word}
+    hide_comments: Скрыть %{comment_count} %{comment_word}
+    load_comments: Загрузить ещё %{comment_count} %{of_total_comments} %{comment_word}
+
+  topics/generated_news_view:
+    titles:
+      # from Topics::NewsTopic.action
+      released: Завершён показ
+      anons: Анонсировано аниме
+      ongoing: Начало показа
+      episode: Вышел %{value} эпизод
+
+  topics/proxy_comments:
+    <<: *comments
+
+  titles/collection_title:
+    status:
+      anime:
+        one_kind: &anime_one_kind
+          anons: анонсы аниме
+          ongoing: онгоинги аниме
+          released: вышедшие аниме
+          latest: недавно вышедшие аниме
+        many_kinds:
+          <<: *anime_one_kind
+      manga:
+        one_kind: &manga_one_kind
+          anons: анонсы %{kind}
+          ongoing: онгоинги %{kind}
+          released: вышедшие %{kind}
+          latest: недавно вышедшие %{kind}
+        many_kinds:
+          anons: анонсы манги
+          ongoing: онгоинги манги
+          released: вышедшая манга
+          latest: недавно вышедшая манга
+      ranobe:
+        one_kind:
+          <<: *manga_one_kind
+        many_kinds:
+          anons: анонсы ранобэ
+          ongoing: онгоинги ранобэ
+          released: вышедшие ранобэ
+          latest: недавно вышедшие ранобэ
+
+    kind:
+      anime:
+        long:
+          movie: Полнометражные аниме
+          music: Аниме клипы
+          ona: ONA
+          ova/ona: OVA/ONA
+          ova: OVA
+          special: Спешлы
+          tv: Аниме сериалы
+          tv_13: Короткие аниме сериалы
+          tv_24: Средние аниме сериалы
+          tv_48: Длинные аниме сериалы
+        short:
+          movie: Фильмы
+          music: Клипы
+          ona: ONA
+          ova/ona: OVA/ONA
+          ova: OVA
+          special: Спешлы
+          tv: Сериалы
+          tv_13: Короткие сериалы
+          tv_24: Средние сериалы
+          tv_48: Длинные сериалы
+      manga:
+        long: &manga_long
+          doujin: Додзинси
+          manga: Манга
+          manhua: Маньхуа
+          manhwa: Манхва
+          novel: Ранобэ
+          one_shot: Ваншоты
+        short:
+          <<: *manga_long
+      ranobe:
+        long:
+          <<: *manga_long
+          novel: Ранобэ
+        short:
+          <<: *manga_long
+          novel: Ранобэ
+    of_genres: '%{genres} %{list}'
+
+  titles/localized_season_text:
+    winter_season: зимний аниме сезон %{year} года
+    fall_season: осенний аниме сезон %{year} года
+    summer_season: летний аниме сезон %{year} года
+    spring_season: весенний аниме сезон %{year} года
+    planned: анонсы
+    old: древности
+    latest_anime: последние аниме
+    latest_manga: последняя манга
+    winter_year: зимы %{year}
+    fall_year: осени %{year}
+    summer_year: лета %{year}
+    spring_year: весны %{year}
+    of:
+      year: '%{year} года'
+      years: '%{from}-%{to} годов'
+      decade: '%{decade}0х годов'
+
+  titles/anime_keywords:
+    kind:
+      tv: аниме сериалы
+      movie: полнометражные аниме
+      anime: аниме анимэ
+      manga: манга
+      ranobe: ранобэ
+    other: список каталог база
+
+  titles/generate_season:
+    season:
+      winter: Зима %{year}
+      spring: Весна %{year}
+      summer: Лето %{year}
+      fall: Осень %{year}
+    year: '%{year} год'
+    decade: '%{decade}0е годы'
+    ancient: Более старые
+
+  sticky_topic_view:
+    site_rules:
+      title: Правила сайта
+      description: Что не стоит делать на сайте
+      body: >-
+        Несколько правил общения на этом сайте:
+        [br]
+        [br]
+        [list]
+        [*]1. Будьте вежливы и уважайте собеседников.
+        Переходам на личности, грубости, хамству, оскорблениям и угрозам
+        здесь нет места. Ни в каком виде.
+        [*]2. Пишите грамотно. Мы любим русский язык и не будем его коверкать.
+        \r\n
+        [*]3. Здесь не матерятся. Нигде и ни в каком виде.
+        [*]4. Троллинг не поощряется, особенно в топиках обсуждения аниме,
+        манги и персонажей. [spoiler=Что есть троллинг?]Что есть троллинг?
+        Влезание в обсуждения и темы, которые вам не нравятся, и намеренное
+        разведение там срача. Так же троллингом считается всё, что таковым
+        посчитает модератор.[/spoiler]
+        [*]5. Законы РФ нарушаться не должны. Здесь запрещено всё, что
+        запрещено законами РФ.
+        [*]6. Отдельно запрещён постинг [spoiler=всего того]например, картинок
+        голых лолей или просто порнографии[/spoiler], что может потенциально
+        привести к бану сайта в роскомнадзоре.
+        [*]7. При раскрытии деталей сюжета, оборачивайте текст тегом спойлера
+        [spоiler].
+        [*]8. Разговоры, не касающиеся конкретного аниме, манги, героя и пр.,
+        перемещаются в
+        [url=/o/%{offtopic_topic_id}-Offtop-tred]оффтоп-тред[/url].
+        [*]9. Реклама чего-либо без прямого на то разрешения администрацией
+        запрещена. [spoiler=Исключения]Исключения: озвучка, субтитры, ролики
+        своего изготовления. В них не должно быть рекламы других тематических
+        сайтов.[/spoiler]
+        [*]10. Модератор всегда прав(а). Действия модератора не обсуждаются.
+        Требования модератора обязательны к выполнению.
+        [/list]
+    description_of_genres:
+      title: Описания жанров
+      description: Для желающих помочь сайту
+    contests_proposals:
+      title: Голосование по темам для турниров
+      description: Для участвующих в турнирах
+    ideas_and_suggestions:
+      title: Идеи и предложения
+      description: Было бы неплохо реализовать это...
+      body: >-
+        Пиши в этот топик все свои мысли и пожелания.
+        [br]
+        [br]
+        Флуд очень нежелателен.
+    site_problems:
+      title: Ошибки
+      description: Топик о любых проблемах на сайте
+      body: >-
+        Пишите сюда, если что-то на сайте не работает или работает некорректно.
+        [br]
+        [br]
+        О создателях аниме и манги с с неправильными описаниями пишите
+        [url=http://shikimori.one/s/100943-Spisok-lyudey-s-nepravilnymi-opisaniyami]
+        сюда
+        [/url].
+  sticky_club_view:
+    faq:
+      # name: FAQ
+      description: Часто задаваемые вопросы

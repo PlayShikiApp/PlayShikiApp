@@ -1,0 +1,120 @@
+@import globals/variables
+@import mixins/icons
+@import mixins/media_marker
+
+=image_editable
+  .controls
+    position: absolute
+    right: 0px
+    top: 0px
+    z-index: 1
+
+  .controls, .move-controls
+    display: none
+    z-index: 1
+
+  &.mobile-editing .controls,
+  &.mobile-editing .move-controls,
+    display: block
+
+  +gt_ipad
+    &:hover .controls,
+    &:hover .move-controls
+      display: block
+
+  &.mobile-editing
+    .mobile-edit
+      display: none
+
+  &.deletable,
+  &.deleted
+    img
+      opacity: 0.3
+
+    .controls
+      display: block
+
+      .edit,
+      .delete
+        display: none
+
+    .move-controls, .mobile-edit
+      display: none
+
+  &.deletable
+    .confirm,
+    .cancel
+      display: inline-block
+
+  &.deleted
+    .confirm,
+    .cancel,
+    .move-left,
+    .move-right
+      display: none
+
+  &:first-child .move-left,
+  &:last-child .move-right
+    display: none !important
+
+  .edit,
+  .delete,
+  .confirm,
+  .cancel,
+  .move-left,
+  .move-right,
+  .mobile-edit
+    background: $link-3
+    color: white
+    cursor: pointer
+    display: inline-block
+    margin: 0 !important
+    padding: 0
+    transition: background 0.25s ease
+    z-index: 999
+
+    &:hover
+      background-color: $link-4
+
+    &:active
+      background-color: $link-2
+
+  .edit
+    +icon('\e842', 12px)
+
+  .delete
+    +icon('✕', 12px)
+
+  .confirm
+    +icon('✓', 12px)
+    display: none
+
+  .cancel
+    +icon('✕', 12px)
+    display: none
+
+    &:hover
+      color: #fff
+
+  .move-left
+    +icon('\e83e', 12px)
+    left: 0
+    margin-top: -10px !important
+    position: absolute
+    top: 50%
+
+  .move-right
+    +icon('\e83f', 12px)
+    margin-top: -10px !important
+    position: absolute
+    right: 0
+    top: 50%
+
+  .mobile-edit
+    +icon('\e842', 12px)
+    position: absolute
+    right: 0
+    top: 0
+
+    +gt_ipad
+      display: none

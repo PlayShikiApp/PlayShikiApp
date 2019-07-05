@@ -1,0 +1,44 @@
+en:
+  dashboards:
+    show:
+      # all_contests: all contests
+      # all_news: all news
+      # all_reviews: all reviews
+      anime_updates: Anime Updates
+      # all_updates: all updates
+      currently_airing: Currently Airing
+      news_feed: News Feed
+      # other: Other
+      our_projects: Our projects
+
+    animes:
+      title: Animes
+      # all_animes: all animes
+      recommended: &anime_recommended
+        title: Recommended
+        favourite: Favorite
+        by_community: By Community
+        personalized: Personalized
+      others: Others
+
+    mangas:
+      title: Mangas
+      all_mangas: all mangas
+      recommended:
+        <<: *anime_recommended
+      others: Others
+
+    ranobe:
+      title: Light Novels
+      all_ranobe: all light novels
+      recommended:
+        <<: *anime_recommended
+      others: Others
+
+    user_list:
+      my_anime_list: My Anime List
+      my_manga_list: My Manga List
+      to_anime: anime
+      to_manga: manga
+      my_history: My History
+      all_history: all

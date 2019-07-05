@@ -1,0 +1,32 @@
+@import globals/variables
+@import mixins/log_entry
+
+.b-user_rate_log
+  +log_entry
+
+  .date
+    color: $gray-3
+
+  .action
+    &.create
+      color: $blue
+
+    &.update
+      color: $purple
+
+    &.destroy
+      color: $red
+
+  .info
+    line-height: 1.65
+    margin-bottom: 15px
+    margin-left: 5px
+    margin-top: 5px
+
+    .field
+      margin-bottom: 3px
+
+      .label
+        color: $gray-3
+        display: inline
+        padding-right: 5px

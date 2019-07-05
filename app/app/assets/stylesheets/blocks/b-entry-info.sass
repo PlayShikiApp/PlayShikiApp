@@ -1,0 +1,26 @@
+@import globals/variables
+@import mixins/block
+@import mixins/comma_separated
+@import mixins/link
+@import mixins/responsive
+
+.b-entry-info
+  +block
+
+  .line-container
+    margin-bottom: 4px
+
+  .line
+    line-height: $line-height
+
+    .key
+      color: $gray-3
+      cursor: default
+      display: inline
+
+    .value
+      color: #123
+      display: inline
+
+      +iphone
+        font-weight: bold

@@ -1,0 +1,21 @@
+ru:
+  frontend:
+    collections:
+      kind:
+        anime: Аниме
+        manga: Манга
+        ranobe: Ранобэ
+        character: Персонажи
+        person: Люди
+      group_name: Название группы
+      disabled_add_group_hint: >-
+        Для добавления следующей группы заполните пустое название группы
+      json_warning: >-
+        Не редактируйте это, если вы не уверены в том, что вы делаете!
+        Вставка неправильных данных сломает работу страницы.
+      autocomplete:
+        anime: Название аниме
+        manga: Название манги
+        ranobe: Название ранобэ
+        character: Имя персонажа
+        person: Имя человека

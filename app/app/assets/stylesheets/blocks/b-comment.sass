@@ -1,0 +1,42 @@
+@import mixins/shiki_comment
+
+.b-comment
+  +shiki_comment
+
+  &.tooltipped
+    & > .inner header
+      .hash
+        display: inline-block
+        margin-top: 5px
+
+      .name-date
+        .time
+          display: block
+          padding-left: 0
+          padding-top: 3px
+
+        time
+          line-height: $line_height
+          padding-left: 0
+
+  header
+    .hash
+      +link($gray-2)
+      display: none
+      font-size: 11px
+      margin-left: 6px
+      margin-top: 3px
+      position: absolute
+      vertical-align: middle
+
+    a.hash
+      color: $gray-2
+
+  &:hover
+    header .hash
+      display: inline
+
+  +lte_ipad
+    header .hash
+      display: inline-block
+      margin-top: 5px

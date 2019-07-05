@@ -1,0 +1,110 @@
+@import mixins/responsive
+@import mixins/ellipsis2
+
+.b-coub
+  display: flex !important
+  margin: 0 auto $block_offset * 2.5
+  max-width: 100%
+
+  +iphone
+    flex-direction: column
+    margin-bottom: $block_offset * 2
+
+  +laptop
+    flex-direction: column
+
+  .x1000 &
+    +gt_ipad
+      flex-direction: column
+
+  &:last-child
+    margin-bottom: 0
+
+  .content
+    flex-shrink: 0
+
+    +iphone
+      margin-bottom: 15px
+
+    +ipad
+      margin-right: 30px
+
+    +laptop
+      margin-bottom: 15px
+
+    +gt_laptop
+      margin-right: 30px
+
+    .x1000 &
+      +gt_ipad
+        margin-bottom: 15px
+
+    .video-link
+      display: inline-block
+      margin-bottom: 20px
+      max-width: 640px
+
+      img
+        border-radius: 5px
+        overflow: hidden
+        max-height: 360px
+
+    .footer
+      display: flex  // need for ellipsis in title
+      max-width: 640px
+
+      .author-avatar
+        border-radius: 50%
+        flex-shrink: 0
+        margin-right: 12px
+        overflow: hidden
+
+        img
+          height: 48px
+          width: 48px
+
+      .info
+        min-width: 0 // need for ellipsis in title
+
+        .title
+          +ellipsis2
+          font-size: 20px
+          font-weight: bold
+          line-height: 1.3
+          margin-bottom: 13px
+
+        .description
+          color: $gray-2
+          font-size: 12px
+
+          .author-name
+            font-weight: bold
+            padding: 0 6px
+
+  .tags
+    max-height: 355px
+    overflow: hidden
+    text-overflow: ellipsis
+
+    .tag
+      +ellipsis2
+      background-color: #f3f3f3
+      border-radius: 7px
+      color: $gray-3
+      display: inline-block
+      font-size: 12px
+      height: 24px
+      line-height: 24px
+      margin-bottom: 6px
+      margin-right: 6px
+      padding: 0 10px
+
+      &.category
+        background-color: #f8e71c
+        border-radius: 12px
+        color: #000
+        font-weight: bold
+
+      &.matched
+        color: #123
+        font-weight: bold

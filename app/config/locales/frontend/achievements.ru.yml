@@ -1,0 +1,6 @@
+ru:
+  frontend:
+    achievements:
+      title:
+        gained: Открыто достижение
+        lost: Потеряно достижение

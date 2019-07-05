@@ -110,3 +110,5 @@ node_modules/
 app/static/js/templates.min.js
 src/static/js/templates.min.js
 src/static/js/main.js
+src/static/js/application.js
+src/static/js/vendor.js

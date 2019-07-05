@@ -1,0 +1,17 @@
+@import globals/variables
+@import mixins/marker
+
+=new_marker
+  display: none
+  transition: opacity 0.5s ease
+
+  &.active
+    display: block
+
+body[data-locale=ru] .b-new_marker
+  +marker(40px, $link-3, $link-4, $link-2)
+  +new_marker
+
+body[data-locale=en] .b-new_marker
+  +marker(30px, $link-3, $link-4, $link-2)
+  +new_marker

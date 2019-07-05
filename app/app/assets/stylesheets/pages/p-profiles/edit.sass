@@ -1,0 +1,63 @@
+@import mixins/clearfix
+@import globals/variables
+@import mixins/block
+@import mixins/bracket_action
+@import mixins/link
+@import mixins/responsive
+
+.p-profiles-edit
+  .account
+    .change-password
+      margin-top: 20px
+      margin-bottom: 15px
+
+      a
+        +link
+
+    .avatar-edit
+      +clearfix
+      img
+        margin-top: 5px
+        margin-right: 10px
+        margin-bottom: 10px
+        float: left
+
+    .oauth img
+      margin-right: 5px
+
+    .ignore-suggest
+      +gt_ipad
+        width: 200px !important
+
+  .notifications
+    .b-input
+      & > label
+        font-weight: bold
+
+      #user_notification_settings_any_released,
+      #user_notification_settings_my_episode,
+      #user_notification_settings_private_message_email
+        margin-bottom: 18px
+
+  .misc, .list
+    .profile-action, .nickname-changes
+      +block
+
+      a:not(.b-button), .link
+        +link
+
+      .form
+        display: none
+
+      .control
+        margin-right: $block_offset
+
+      .warn
+        color: $red
+        padding-right: 5px
+
+
+  .list
+    .list_imports-history
+      .b-nothing_here
+        margin-left: 0

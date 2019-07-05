@@ -1,0 +1,35 @@
+ru:
+  versions:
+    version:
+      accept: принять
+      accept_changes: Принять правку
+      accept_with_author: Принять с добавлением пользователя в авторы
+      accept_wo_author: Принять без добавления пользователя в авторы
+      accepted_to_taken: принято → взято
+      delete: удалить
+      delete_changes: Удалить правку
+      reject: отклонить
+      reject_changes: Отклонить правку
+      reject_reason: Причина отказа (заполнять не обязательно)
+      show: показать
+      show_changes: показать правку
+      take: взять
+      take_changes: Взять правку
+      taken_to_accepted: взято → принято
+    changes:
+      text_diff: &text_diff
+        before: До изменения
+        after: После изменения
+        change: Изменение
+      versions:
+        <<: *text_diff
+      external_links:
+        <<: *text_diff
+      poster:
+        <<: *text_diff
+      screenshots_reposition:
+        <<: *text_diff
+      video:
+        deleted: Видео удалено
+      role:
+        role: Роль

@@ -1,0 +1,39 @@
+.mfp-webm-holder
+  &.loaded
+    .mfp-close, .mfp-webm
+      display: block
+
+    .b-fancy_loader
+      display: none
+
+  .mfp-close, .mfp-webm
+    display: none
+
+  .mfp-webm
+    box-sizing: border-box
+    display: none
+    line-height: 0
+    margin: 0 auto
+    max-height: 100vh
+    max-width: 100%
+    padding: 40px 0 40px
+    width: auto
+
+    &.fullscreen
+      padding: 0
+
+.mfp-coub
+  &:before
+    content: ''
+    cursor: pointer
+    height: 100%
+    left: 0
+    max-height: 100vh
+    position: absolute
+    top: 0
+    width: 100%
+    z-index: 1
+
+  &:hover
+    .mfp-close
+      opacity: 1

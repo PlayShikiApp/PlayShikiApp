@@ -1,0 +1,28 @@
+@import mixins/gray_block
+@import mixins/clear_left
+@import mixins/hover_underlined
+
+.b-postloader
+  +gray-block
+  clear: left
+  display: block
+  position: relative
+  text-align: center
+
+  &:first-child
+    margin-bottom: 5px
+
+  .next, .prev
+    position: absolute
+    +hover_underlined
+    font-size: 11px
+    line-height: 23px
+
+  .next
+    right: 10px
+
+  .prev
+    left: 10px
+
+  &.collapsed
+    display: block

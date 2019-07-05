@@ -1,0 +1,59 @@
+@import mixins/responsive
+@import mixins/shikimori
+
+$quote_odd: #f9f9f9
+$quote_even: #f6f6f6
+
+body[data-locale=ru]
+  .b-quote .quoteable
+    .text-en
+      display: none
+
+body[data-locale=en]
+  .b-quote .quoteable
+    .text-ru
+      display: none
+    .text-en:before
+      content: attr(data-text)
+
+.b-quote
+  background: $quote_odd
+  border: 1px dashed #DDDDDD
+  color: #333333
+  font-style: italic
+  margin: 5px 0 5px 5px
+  overflow: hidden
+  padding: 5px 10px
+
+  +lte_ipad
+    margin-left: 0
+    overflow: hidden
+
+  .quoteable
+    font-style: normal
+    line-height: 21px
+    margin: -4px 0 0 -3px
+    position: relative
+
+    a
+      margin-right: 0
+      padding-right: 4px
+
+    &:before
+      +shikimori('"')
+      color: #333
+      font-size: 12px
+      margin-right: 5px
+      position: relative
+      top: 2px
+
+  .b-quote
+    background: $quote_even
+    margin-left: 5px !important
+
+    .b-quote
+      background: $quote_odd
+
+      .b-quote
+        background: $quote_even
+

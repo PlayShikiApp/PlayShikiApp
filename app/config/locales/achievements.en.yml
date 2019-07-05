@@ -1,0 +1,50 @@
+en:
+  achievements:
+    group:
+      common: Common
+      genre: By Genres
+      franchise: By Franchises
+      author: By Authors
+    neko_name:
+      animelist: Anime List
+      dementia_psychological: Dementia / Psychological
+      horror_thriller: Horror / Thriller
+      longshounen: Long Title
+      mahou_shoujo: Mahou Shoujo
+      oldfag: Classic
+      scifi: Sci-Fi
+      slice_of_life: Slice of Life
+      world_masterpiece_theater: World Masterpiece Theater
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    hint:
+      default: '%{neko_name} level %{level}'
+      animelist: '%{threshold} watched anime'

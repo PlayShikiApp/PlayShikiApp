@@ -1,0 +1,57 @@
+@import globals/variables
+@import mixins/static_marker
+
+.b-anime_status_tag
+  &.released
+    +static_marker(white, $released_tag)
+
+    // &.light
+    //   background-color: #699e5d
+    //   border: 1px solid darken(#699e5d, 1.5%)
+
+  &.anons
+    +static_marker(white, $anons_tag)
+
+    // &.light
+    //   background-color: #c16348
+    //   border: 1px solid darken(#c16348, 1.5%)
+
+  &.ongoing
+    +static_marker(white, $ongoing_tag)
+
+    // &.light
+    //   background-color: #4f84ba
+    //   border: 1px solid darken(#4f84ba, 1.5%)
+
+  &.episode,
+  &.studio,
+    +static_marker(#123, #e8ebf0)
+
+  &.other
+    +static_marker(#fff, #678)
+  // &.studio
+    +marker(#123, #e8ebf0, darken(#e8ebf0, 6%), lighten(#e8ebf0, 6%))
+
+  &.summary
+    +static_marker(white, #c09eda)
+
+  &.news
+    +static_marker(white, #ff8a3c)
+
+  &.review
+    +static_marker(white, #f477ad)
+
+  &.collection
+    +static_marker(white, #1fd52f)
+
+  &.cosplay
+    +static_marker(white, #f7b42c)
+
+  &.offtopic
+    +static_marker(#f58ebb, #fdebf3)
+
+  &.ignored
+    +static_marker(white, $red)
+
+  &.broadcast
+    +static_marker(white, #f477ad)

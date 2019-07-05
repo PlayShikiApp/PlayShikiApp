@@ -1,0 +1,188 @@
+.l-top_menu-v2
+  .menu-icon,
+  .menu-dropdown > span
+    align-items: center
+    color: inherit
+    display: flex
+    height: $top_menu-height // need for mobile profile height
+    letter-spacing: 0.25px
+    outline: none
+    user-select: none
+
+    +iphone-s
+      padding: 0 10px
+
+    +iphone
+      padding: 0 12px
+
+    +gte_ipad
+      padding: 0 15px
+
+  .menu-icon,
+  .menu-dropdown
+    +gte_ipad
+      +mr(2px)
+
+  .menu-icon.active,
+  .menu-icon:focus,
+  .menu-dropdown.active > span,
+  .menu-dropdown > span:focus
+    transition: background 0.2s ease
+    background-color: $top_menu_background_hover
+
+  +gt_ipad
+    .menu-icon:hover,
+      transition: background 0.2s ease
+      background-color: $top_menu_background_hover
+
+    .menu-icon:active,
+      background-color: $top_menu_background_active
+
+  .menu-icon
+    &.mobile
+      +gte_ipad
+        display: none
+
+    &.search
+      +lte_ipad
+        display: block
+        margin-left: auto
+
+    &.contest,
+    &.mail
+      position: relative
+
+      &:after
+        background: #fff
+        border-radius: 50%
+        border: 1px solid $top_menu-background_color
+        color: $top_menu-background_color
+        font-size: 8px
+        height: 14px
+        line-height: 15px
+        position: absolute
+        right: 6px
+        text-align: center
+        top: 7px
+        width: 14px
+
+    &.contest:after
+      content: '\2713'
+      font-family: shikimori
+      margin-left: 5px
+
+    &.mail:after
+      content: attr(data-count)
+      margin-left: 10px
+
+  .menu-dropdown
+    +gte_ipad
+      position: relative // required to make .submenu width equal to .menu-dropdown width
+
+    & > span
+      +ellipsis2
+      background: lighten($top_menu-background_color, 4%)
+
+      +gt_ipad
+        cursor: default
+
+      span,
+      a
+        +ellipsis2
+        font-size: 15px
+        letter-spacing: 0.25px
+
+      a
+        align-items: center
+        color: #fff
+        display: inline-flex
+        height: $top_menu-height
+        flex-grow: 1
+        // compensates button gte_ipad padding. need to remove button padding around link
+        margin: 0 -15px
+        padding: 0 15px
+
+        // to prevent link click on mobile
+        +lte_ipad
+          pointer-events: none
+
+        +gt_ipad
+          &:hover
+            transition: background 0.2s ease
+            background-color: lighten($top_menu_background_active, 2%)
+
+          &:active
+            background-color: lighten($top_menu_background_active, 6%)
+
+      span
+        pointer-events: none
+        margin-left: 10px
+        margin-right: 25px
+
+      +iphone
+        & span,
+        & a span
+            display: none
+
+      +lte_ipad
+        a
+          pointer-events: none
+
+    +iphone
+      & > span[data-unread_count]:after
+        background: #fff
+        border-radius: 50%
+        border: 1px solid $top_menu-background_color
+        color: $top_menu-background_color
+        content: attr(data-unread_count)
+        font-size: 9px
+        height: 16px
+        line-height: 16px
+        position: absolute
+        right: 3px
+        text-align: center
+        top: 3px
+        width: 16px
+
+    +gte_ipad
+      .submenu-triangle:after
+        +shikimori('\e846')
+        font-size: 16px
+        line-height: 20px
+        margin-left: auto
+        transition: transform .2s ease-in-out
+        vertical-align: middle
+
+      &.active
+        .submenu-triangle:after
+          transform: rotate(90deg)
+
+    &.main
+      +gte_ipad
+        margin-right: 25px
+
+      & > span:not(.mobile)
+        padding-left: 0
+
+        +iphone
+          display: none
+
+        +gte_ipad
+          max-width: 275px
+          min-width: 190px
+
+        span
+          margin-left: -3px
+
+    &.profile
+      +gt_ipad
+        margin-left: auto
+
+      & > span
+        +gte_ipad
+          min-width: 180px
+          max-width: 250px
+
+        img
+          height: 30px
+          pointer-events: none

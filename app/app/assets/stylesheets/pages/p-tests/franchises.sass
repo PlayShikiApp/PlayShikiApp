@@ -1,0 +1,28 @@
+@import mixins/dash_separated
+@import mixins/link
+@import mixins/shiki_check
+
+.p-tests-franchises
+  .matched,
+  .not-matched,
+  .infos
+    display: inline-block
+    margin-left: 7px
+
+  .matched
+    +shiki_check($green-check)
+
+    a
+      +link($green-check)
+
+  .not-matched
+    +shiki_check($red-check)
+
+    a
+      +link($red-check)
+
+  .infos
+    margin-left: 12px
+    .info
+      +dash_separated
+      display: inline-block

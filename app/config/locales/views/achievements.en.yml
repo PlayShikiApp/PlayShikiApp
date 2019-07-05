@@ -1,0 +1,34 @@
+en:
+  achievements:
+    index:
+      list_of_all_site_achievements: List of all site achievements
+    group:
+      incomplete_achievement: Incomplete
+      level: 'Level %{level}:'
+      image: image
+      title: title
+      text: text
+    show:
+      level: Level %{level}
+      threshold: Threshold
+      users: Users with achievement
+    statistics:
+      statistics: Statistics
+      list_size: List size
+      users: Users<br>with achievement
+      percent: Percentage of<br>total users
+    info:
+      levels: Levels
+      author: Author
+      animes: Animes
+      rules: Rules
+      threshold: Threshold
+      source: Source
+      show_anime_list: Show anime list
+      of_duration: of duration
+      hide: Hide
+      your_list: The size of your list of completed
+      your_progress: Your progress to next level
+      your_overall_progress: Your overall progress
+    users:
+      nothing_here: No users

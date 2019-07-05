@@ -1,0 +1,595 @@
+ru:
+  activerecord:
+    models:
+      anime: Аниме
+      character: Персонаж
+      club: Клуб
+      collection: Коллекция
+      comment: Комментарий
+      contest: Турнир
+      forum: Раздел
+      genre: Жанр
+      manga: Манга
+      person: Человек
+      poll: Опрос
+      ranobe: Ранобэ
+      review: Рецензия
+      topic: Топик
+      topics/news_topic: Новостной топик
+      user: Пользователь
+      video: Видео
+
+    attributes:
+      anime: &anime_attributes
+        aired_on: Дата начала показа
+        cosplay: Косплей
+        description: Описание
+        description_en: Описание (англ)
+        description_en_source: Источник описания (англ)
+        description_ru: Описание
+        description_ru_source: Источник описания
+        license_name_ru: Лицензировано в РФ под названием
+        duration: Длительность эпизода
+        episodes: Эпизоды
+        episodes_aired: Эпизодов вышло
+        external_links: Ссылки
+        genres: Жанры
+        genre_ids: Жанры # used for item_diff in versions
+        image: &poster Постер
+        kind: Тип
+        name: Английское название
+        synonyms: Альтернативные названия
+        poster: *poster
+        rating: Рейтинг
+        released_on: Дата конца показа
+        russian: Русское название
+        score: Рейтинг
+        screenshots: Кадры
+        status: Статус
+        imageboard_tag: Тег имиджборд
+        coub_tags: Теги Coub
+        torrents_name: Название на торрентах
+        videos: Видео
+        franchise: Франшиза
+        fansubbers: Субтитры
+        fandubbers: Озвучка
+        options: Настройки
+      manga: &manga_attributes
+        <<: *anime_attributes
+        aired_on: Дата начала издания
+        released_on: Дата завершения
+        volumes: Тома
+        chapters: Главы
+      ranobe:
+        <<: &manga_attributes
+      character: &character_attributes
+        cosplay: Косплей
+        description: Описание
+        description_ru: Описание
+        description_en: Описание (англ)
+        japanese: Японское имя
+        name: Английское имя
+        poster: *poster
+        image: *poster
+        russian: Русское имя
+        imageboard_tag: Тег имиджборд
+      person:
+        <<: *character_attributes
+        birthday: Дата рождения
+        website: Сайт
+      external_link:
+        url: Ссылка
+      comment:
+        body: Текст
+      message:
+        body: Текст
+      contest:
+        title_ru: Название
+        title_en: Название (на английском)
+        description_ru: Описание
+        description_en: Описание (на английском)
+        description: Описание
+        matches_per_round: Число голосований этапа
+        match_duration: Длительность голосования
+        matches_interval: Число дней между этапами
+        user_vote_key: Ключ в таблице пользователя
+        strategy_type: Стратегия
+        member_type: Тип участника
+        started_on: Дата старта
+        suggestions_per_user: Число вариантов номинаций от одного пользователя
+      ban:
+        reason: Причина
+        duration: Срок
+      genre:
+        description: Описание
+      user:
+        avatar: Аватар
+        birth_on: Дата рождения
+        current_password: Текущий пароль
+        email: E-mail
+        location: Откуда
+        name: Реальное имя
+        nickname: Логин
+        password: Пароль
+        password_confirmation: Подтверждение пароля
+        sex: Пол
+        website: Сайт
+        locale: Язык интерфейса
+        notification_settings: Настройки уведомлений
+      user_rate:
+        status: Статус
+        episodes: Эпизоды
+        chapters: Главы
+        volumes: Тома
+        rewatches: Кол-во повторных просмотров
+        rereads: Кол-во повторных чтений
+        text: Комментарий
+        score: Оценка
+        scores:
+          '0': ''
+          '1': Хуже некуда
+          '2': Ужасно
+          '3': Очень плохо
+          '4': Плохо
+          '5': Более-менее
+          '6': Нормально
+          '7': Хорошо
+          '8': Отлично
+          '9': Великолепно
+          '10': Эпик вин!
+        statuses:
+          anime:
+            planned: Запланировано
+            watching: Смотрю
+            rewatching: Пересматриваю
+            completed: Просмотрено
+            on_hold: Отложено
+            dropped: Брошено
+          manga: &manga_statuses
+            planned: Запланировано
+            watching: Читаю
+            rewatching: Перечитываю
+            completed: Прочитано
+            on_hold: Отложено
+            dropped: Брошено
+          ranobe:
+            <<: *manga_statuses
+      list_import:
+        duplicate_policy: Уже находящееся в списке
+        list: Файл списка
+        list_type: Тип списка
+        state: Статус
+      review:
+        text: Текст
+        storyline: Сюжет
+        animation: Рисовка
+        characters: Персонажи
+        music: Звуковой ряд
+        overall: Итоговая оценка
+
+      user_preferences:
+        about_on_top: Отображать над статистикой
+        anime_in_profile: Отображать аниме в профиле
+        apply_user_styles: Применять пользовательские стили
+        body_width: Максимальная ширина сайта
+        favorites_in_profile: Количество избранного в профиле
+        comment_policy: Могут комментировать мой профиль
+        comments_in_profile: Отображать комментарии в профиле
+        achievements_in_profile: Отображать ачивки в профиле
+        is_comments_auto_collapsed: Сворачивать длинные комментарии
+        is_comments_auto_loaded: Автоподгрузка новых комментариев
+        list_privacy: Могут видеть мой список
+        manga_in_profile: Отображать мангу в профиле
+        postload_in_catalog: Подгрузка следующих страниц по мере прокрутки текущей страницы в каталоге аниме
+        russian_genres: Русские названия жанров
+        russian_names: Русские названия аниме и манги
+        show_hentai_images: Картинки с имиджборд без цензуры
+        show_smileys: Отображать смайлики
+        show_social_buttons: Отображать кнопки соц сетей
+        volumes_in_manga: Отображать тома у манги
+      anime_video:
+        url: Url
+        episode: Эпизод
+        kind: Перевод
+        language: Язык перевода
+        quality: Качество видео
+        state: Статус
+        author_name: Автор
+        anime_video_author_id: Автор
+        is_first: Отображать первым среди таких же
+      anime_video_author:
+        name: Название
+        is_verified: Проверен
+      video:
+        url: Url
+        kind: Тип
+        name: Название
+        hosting: Хостинг
+      club:
+        name: Название
+        owner: Основатель
+        display_images: Отображать раздел картинок
+        join_policy: Возможность вступления
+        comment_policy: Возможность комментирования
+        topic_policy: Возможность создания топиков
+        image_upload_policy: Возможность загрузки картинок
+        is_censored: Содержит материалы для взрослых (18+)
+        logo: Логотип
+      collection:
+        name: Название
+        kind: Тип
+        text: Описание
+        state: Статус
+      collection_link:
+        group: Группа
+        text: Комментарий
+      poll:
+        name: Название
+        text: Текст
+        state: Статус
+      club_invite:
+        dst: Пользователь
+        dst_id: Пользователь
+      club_page:
+        parent_page_id: Родительская страница
+        name: Название
+        text: Текст
+        layout: Расположение
+      topic:
+        title: Название
+        body: Текст
+        type: Тип
+        linked: Связанное
+        forum_id: Раздел
+      version:
+        reason: Причина правки
+        item_diff: Список изменений
+      anime_video_report:
+        kind: Причина
+        message: Сообщение модератору
+      style:
+        name: Название
+        css: CSS
+      oauth_application:
+        image: Картинка
+        name: Название
+        owner: Владелец
+        redirect_uri: Redirect URI
+        secret: Client Secret
+        uid: Client ID
+        description: Описание
+        description_ru: Описание
+        description_en: Описание (на английском)
+
+    errors:
+      messages:
+        taken: уже используется
+        abusive: содержит мат
+        invalid_transition: cannot transition
+      models:
+        comments:
+          not_a_moderator: '[ban] и [broadcast] теги трогать нельзя'
+          not_a_club_member: Комментирование разрешено только членам клуба
+          not_a_club_admin: Комментирование разрешено только админам клуба
+          in_club_black_list: Тебя внесли в чёрный список клуба. Комментирование невозможно
+          not_a_friend: Комментирование разрешено только друзьям
+          not_a_owner: Комментирование запрещено
+        messages:
+          ignored: Ты не можешь писать этому пользователю
+        club_invite:
+          attributes:
+            base:
+              banned: Пользователь забанен в этом клубе. Приглашение невозможно
+              joined: Пользователь уже находится в клубе
+              limited: Сегодня больше нельзя отправлять инвайты для этого клуба
+            dst_id:
+              taken: уже был приглашён в этот клуб
+            dst:
+              empty: не задан
+              blank: не найден
+        videos:
+          attributes:
+            url:
+              incorrect: некорректен, видео с данного хостинга не поддерживается
+              taken: видео с такой ссылкой уже добавлено
+            hosting:
+              incorrect: видео с данного хостинга не поддерживается
+        collection_link:
+          attributes:
+            linked:
+              censored: хентай/яой запрещён
+
+    state_machines:
+      contest:
+        states:
+          created: подготавливается
+          proposing: сбор номинантов
+          started: активно
+          finished: завершено
+      review: &review_states
+        states:
+          pending: ожидает модерации
+          accepted: принято
+          rejected: отклонено
+        events:
+          publish: Опубликовать
+          unpublish: Отменить публикацию
+      collection:
+        <<: *review_states
+      poll:
+        states:
+          pending: Создаётся
+          started: Запущен
+          stopped: Остановлен
+      anime_video:
+        states:
+          working: работает
+          uploaded: загружено, требует проверки
+          rejected: отказано
+          broken: сломано
+          wrong: не к этому аниме
+          copyrighted: copyrighted
+          banned_hosting: хостинг забанен
+      version:
+        states:
+          pending: ожидает модерации
+          accepted: принято
+          auto_accepted: принято автоматически
+          taken: взято
+          rejected: отклонено
+          deleted: удалено
+      abuse_request:
+        states:
+          pending: ожидает модерации
+          accepted: принято
+          rejected: отклонено
+      anime_video_report:
+        states:
+          pending: ожидает модерации
+          accepted: принято
+          taken: взято
+          rejected: отклонено
+          post_rejected: отклонено
+          deleted: удалено
+      list_import:
+        states:
+          pending: импортируется
+          finished: импортировано
+          failed: ошибка
+
+  activemodel:
+    errors:
+      messages:
+        invalid_transition: cannot transition
+
+  enumerize:
+    user:
+      locale:
+        ru: Русский
+        en: English
+      notification_settings:
+        any_anons: Новый анонс, появление нового анонсированного аниме на сайте
+        any_ongoing: Новый онгоинг, выход первой серии любого онгоинга
+        any_released: Новый релиз, выход последней серии любого онгоинга
+        my_ongoing: Мой онгоинг, выход первой серии добавленного в мой список онгоинга
+        my_released: Мой релиз, выход последней серии добавленного в мой список онгоинга
+        my_episode: Мой эпизод, выход эпизода добавленного в мой список онгоинга
+        private_message_email: Отсылать личные сообщения мне на e-mail
+        friend_nickname_change: Уведомления о смене ников друзей
+        contest_event: Уведомления о турнирах
+    user_preferences:
+      body_width:
+        x1200: 1200 пикселей
+        x1000: 1000 пикселей
+      list_privacy:
+        public: Все посетители сайта
+        users: Зарегистрированные пользователи сайта
+        friends: Только мои друзья
+        owner: Никто, кроме меня
+      comment_policy:
+        users: Все пользователи сайта
+        friends: Только мои друзья
+        owner: Никто, только я
+    anime:
+      status:
+        anons: Анонс
+        ongoing: Онгоинг
+        released: Вышло
+      kind:
+        tv: TV Сериал
+        movie: Фильм
+        music: Клип
+        ona: ONA
+        ova: OVA
+        special: Спешл
+        short:
+          movie: Фильм
+          music: Клип
+          ona: ONA
+          ova: OVA
+          special: Спешл
+          tv: Сериал
+      rating:
+        g: G
+        pg: PG
+        pg_13: PG-13
+        r: R-17
+        r_plus: R+
+        rx: Rx
+        none: Нет
+        hint:
+          none: Нет рейтинга
+          g: G - Нет возрастных ограничений
+          pg: PG - Рекомендуется присутствие родителей
+          pg_13: PG-13 - Детям до 13 лет просмотр не желателен
+          r: R - Лицам до 17 лет обязательно присутствие взрослого
+          r_plus: R+ - Лицам до 17 лет просмотр запрещён
+          rx: Rx - Хентай
+      options:
+        strict_torrent_name_match: |
+          искать только те торренты, у которых название полностью совпадаает
+          (для случаев с длинным названием, когда парсер самостоятельно не может найти эпизоды)
+        disabled_torrents_sync: отключение поиска новых эпизодов на торрентах
+        disabled_anime365_sync: отключение поиска новых эпизодов на anime365
+    manga: &manga_enumerize
+      status:
+        anons: Анонс
+        ongoing: Выходит
+        released: Издано
+      kind:
+        doujin: Додзинси
+        manga: Манга
+        manhua: Маньхуа
+        manhwa: Манхва
+        novel: Ранобэ
+        one_shot: Ваншот
+        short:
+          doujin: Додзинси
+          manga: Манга
+          manhua: Маньхуа
+          manhwa: Манхва
+          novel: Ранобэ
+          one_shot: Ваншот
+    ranobe:
+      <<: *manga_enumerize
+    genre:
+      kind:
+        anime: Аниме
+        manga: Манга
+    external_link:
+      kind:
+        official_site: Официальный сайт
+        wikipedia: Википедия
+        anime_news_network: Anime News Network
+        anime_db: AniDB
+        kage_project: Kage Project
+        ruranobe: РуРанобэ
+        world_art: World Art
+        myanimelist: MyAnimeList
+        readmanga: ReadManga
+        novelupdates: Novel Updates
+        mangaupdates: Baka-Updates
+        mangafox: MangaFox
+        mangachan: Mangachan
+        mangahub: Mangahub
+        smotret_anime: Anime 365
+      source:
+        shikimori: Shikimori
+        myanimelist: MyAnimeList
+        smotret_anime: Smotret-Anime
+    contest:
+      strategy_type:
+        double_elimination: Вылет после двух поражений
+        play_off: Вылет после первого поражения
+        swiss: Швейцарская система
+      member_type:
+        anime: Аниме
+        character: Персонажи
+    abuse_request:
+      kind:
+        offtopic: оффтоп
+        review: отзыв
+        spoiler: спойлер
+        abuse: нарушение
+    topics/news_topic:
+      action:
+        released: релиз
+        anons: анонс
+        ongoing: онгоинг
+        episode: эпизод
+    club:
+      join_policy:
+        free: Свободное для всех желающих
+        admin_invite: Только по приглашению администрации
+        owner_invite: Только по приглашению создателя
+      comment_policy:
+        free: Свободное для всех
+        members: Только члены клуба
+        admins: Только администрация клуба
+      topic_policy:
+        members: Только для участников клуба
+        admins: Только для администрации клуба
+      image_upload_policy:
+        members: Только для участников клуба
+        admins: Только для администрации клуба
+    club_page:
+      layout:
+        menu: Меню
+        none: Скрыто
+    collection:
+      kind:
+        anime: Аниме
+        manga: Манга
+        ranobe: Ранобэ
+        character: Персонажи
+        person: Люди
+      state:
+        unpublished: Не опубликовано
+        published: Опубликовано
+    anime_video:
+      kind:
+        unknown: озвучка
+        raw: оригинал
+        subtitles: субтитры
+        fandub: озвучка
+      language:
+        russian: русский
+        english: английский
+        original: оригинал
+        unknown: неизвестно
+      quality:
+        bd: BD
+        web: Web
+        tv: TV
+        dvd: DVD
+        unknown: Неизвестно
+      state:
+        working: работает
+        uploaded: загружено, требует проверки
+        rejected: отказано
+        broken: сломано
+        wrong: не к этому аниме
+        banned_hosting: хостинг забанен
+        copyrighted: copyrighted
+    anime_video_report:
+      kind:
+        uploaded: новое видео
+        broken: видео не работает
+        wrong: видео не к тому аниме
+        other: прочее
+    user_history_action:
+      action:
+        anime_import: Импорт аниме
+        manga_import: Импорт манги
+        ap_anime_import: Импорт с Anime-Planet
+        ap_manga_import: Импорт с Anime-Planet
+        mal_anime_import: Импорт с MyAnimeList
+        mal_manga_import: Импорт с MyAnimeList
+        registration: Регистрация на сайте
+    video:
+      kind:
+        op: OP
+        pv: PV
+        ed: ED
+        other: Прочее
+    list_import:
+      list_type:
+        anime: Аниме
+        manga: Манга и ранобэ
+      duplicate_policy:
+        ignore: Не заменять
+        replace: Заменять
+
+  # в bans#create отображаются
+  messages:
+    user_banned: Пользователь забанен
+    user_warned: Пользователь предупреждён
+
+  will_paginate:
+    previous_label: '<'
+    next_label: '>'
+    page_gap: ...
+
+  recaptcha:
+    errors:
+      verification_failed: Проверка reCAPTCHA не пройдена, пожалуйста, повторите попытку

@@ -1,0 +1,14 @@
+@import globals/variables
+@import lib/colors
+@import mixins/block
+
+.b-errors
+  +block
+
+  .subheadline
+    @extend .red
+    margin-bottom: 5px
+
+  .subcontent
+    color: $red
+    line-height: $line_height

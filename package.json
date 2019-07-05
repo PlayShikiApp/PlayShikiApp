@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "./node_modules/.bin/webpack --watch",
+    "build_shiki_assets": "./scripts/build_shiki_assets.sh",
     "build": "./scripts/build.sh"
   },
   "repository": {

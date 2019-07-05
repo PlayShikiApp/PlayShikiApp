@@ -1,0 +1,174 @@
+@import mixins/clearfix
+@import mixins/ellipsis2
+@import mixins/link
+@import globals/variables
+
+.b-edit_styles
+  &.expanded
+    & > .c-column
+      margin-right: 0
+      width: 100%
+      float: none
+
+      &:first-child
+        margin-bottom: 45px
+
+  & > .c-column
+    transition: width 0.25s ease, margin-right 0.25s ease
+
+  .edit_style,
+  .new_style
+    .style_css
+      textarea
+        display: block
+        max-height: 700px
+        min-height: 89px
+        width: 100%
+
+      .CodeMirror
+        border: 1px solid #ddd
+        box-shadow: none
+        clear: both
+        resize: vertical
+        min-height: 500px
+        min-height: 85vh
+
+        &.CodeMirror-fullscreen
+          z-index: 20
+
+      label
+        float: left
+        margin-top: 15px
+
+      .editor-expand, .editor-collapse
+        +js-link
+        display: none
+        margin-left: 5px
+
+        &.active
+          display: inline-block
+          font-weight: normal
+
+      .hint
+        color: $red
+
+  .preview
+    display: none
+    float: left
+    margin-left: 5px
+    width: 32px
+
+  .page_border
+    margin-bottom: 10px
+
+  .page_background_color
+    .range-slider
+      border-radius: 0
+      box-shadow: none
+      margin: 10px 16px 20px
+
+      .noUi-handle
+        border-radius: 0
+        box-shadow: none
+
+  .body_background
+    #body_background_input
+      +ellipsis2
+      width: 100%
+
+    .checkboxes
+      label
+        display: inline-block
+        width: 100px
+
+    .prepared-backgrounds
+      +clearfix
+      margin-top: 15px
+
+      .collapsed
+        clear: both
+
+      li
+        float: left
+        height: 104px
+        margin-bottom: 20px
+        cursor: pointer
+        margin-right: 20px
+        width: 104px
+
+      .bg1
+        background: asset_url('background/square_bg.png') repeat
+      .bg2
+        background: asset_url('background/agsquare.png') repeat
+      .bg3
+        background: asset_url('background/fabric_of_squares_gray.png') repeat
+      .bg4
+        background: asset_url('background/furley_bg.png') repeat
+      .bg5
+        background: asset_url('background/gplaypattern.png') repeat
+      .bg6
+        background: asset_url('background/grey.png') repeat
+      .bg7
+        background: asset_url('background/greyfloral.png') repeat
+      .bg8
+        background: asset_url('background/hexellence.png') repeat
+      .bg9
+        background: asset_url('background/light_wool.png') repeat
+      .bg10
+        background: asset_url('background/snow.png') repeat
+      .bg11
+        background: asset_url('background/ice_age.png') repeat
+      .bg12
+        background: asset_url('background/paper_fibers.png') repeat
+      .bg13
+        background: asset_url('background/scribble_light.png') repeat
+      .bg14
+        background: asset_url('background/redox_02.png') repeat
+      .bg15
+        background: asset_url('background/bright_squares.png') repeat
+      .bg16
+        background: asset_url('background/shattered.png') repeat
+      .bg17
+        background: asset_url('background/tactile_noise.png') repeat
+      .bg18
+        background: asset_url('background/twinkle_twinkle.png') repeat
+      .bg19
+        background: asset_url('background/wild_oliva.png') repeat
+      .bg20
+        background: asset_url('background/use_your_illusion.png') repeat
+      .bg21
+        background: asset_url('background/noisy_net.png') repeat
+      .bg22
+        background: asset_url('background/dirty_old_shirt.png') repeat
+      .bg23
+        background: asset_url('background/cartographer.png') repeat
+      .bg24
+        background: asset_url('background/px_by_Gre3g.png') repeat
+      .bg25
+        background: asset_url('background/diagmonds.png') repeat
+      .bg26
+        background: asset_url('background/type.png') repeat
+      .bg27
+        background: asset_url('background/crissXcross.png') repeat
+      .bg28
+        background: asset_url('background/random_grey_variations.png') repeat
+      .bg29
+        background: asset_url('background/crossword.png') repeat
+      .bg30
+        background: asset_url('background/congruent_pentagon.png') repeat
+      .bg31
+        background: asset_url('background/food.png') repeat
+      .bg32
+        background: asset_url('background/tree_bark.png') repeat
+      .bg33
+        background: asset_url('background/geometry2.png') repeat
+      .bg34
+        background: asset_url('background/skulls.png') repeat
+      .bg35
+        background: asset_url('background/footer_lodyas.png') repeat
+      .bg36
+        background: asset_url('background/pink_rice.png') repeat
+      .bg37
+        background: asset_url('background/restaurant_icons.png') repeat
+      .bg38
+        background: asset_url('background/restaurant.png') repeat

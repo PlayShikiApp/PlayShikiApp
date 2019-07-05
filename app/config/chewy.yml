@@ -1,0 +1,12 @@
+# config/chewy.yml
+# separate environment configs
+development: &development
+  host: 'localhost:9200'
+  prefix: 'shikimori_development'
+test:
+  <<: *development
+  prefix: 'shikimori_test'
+production:
+  <<: *development
+  host: '192.168.0.2:9200'
+  prefix: 'shikimori_production'

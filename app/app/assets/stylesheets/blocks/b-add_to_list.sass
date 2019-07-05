@@ -1,0 +1,165 @@
+@import mixins/ellipsis2
+@import mixins/hover_underlined
+@import mixins/icons
+@import mixins/responsive
+
+.b-add_to_list
+  margin-bottom: 10px
+  min-width: 196px
+
+  +lte_ipad
+    min-width: 220px
+
+  .trigger, .option
+    border: 1px solid #bce6ff
+    border-left-width: 5px
+    font-size: 14px
+    font-weight: bold
+    line-height: 30px
+    max-width: 227px
+    padding: 0 5px
+
+    .text
+      +ellipsis2
+      +hover_underlined
+      cursor: pointer
+
+      .status-name:after
+        content: attr(data-text)
+
+    &.trigger .text
+      &:after
+        margin-left: 2px
+
+  $icon-size: 18px
+  .plus
+    +link_color
+    +menu_icon($icon-planned, $icon-size + 2)
+    // +menu_icon('+')
+
+    &:before
+      line-height: inherit
+      width: 25px
+
+    &:hover
+      color: inherit
+
+  &.planned
+    .trigger, .option
+      background: #daf1ff
+      border-color: #bce6ff
+      color: $link
+
+    .trigger-arrow:hover
+      color: $link
+
+    .edit
+      +menu_icon($icon-planned, $icon-size + 2)
+
+  &.on_hold
+    .trigger, .option
+      background: #EBEEF1
+      border-color: #DBE0E6
+      color: $gray-3
+
+    .trigger-arrow:hover
+      color: $gray-3
+
+    .edit
+      +menu_icon($icon-on_hold, $icon-size)
+      color: $gray-3
+
+  &.watching,
+    .trigger, .option
+      background: #daf1ff
+      border-color: #bce6ff
+      color: $link
+
+    .trigger-arrow:hover
+      color: $link
+
+    .edit
+      +menu_icon($icon-watching, $icon-size)
+
+  &.rewatching
+    .trigger, .option
+      background: #daf1ff
+      border-color: #bce6ff
+      color: $link
+
+    .trigger-arrow:hover
+      color: $link
+
+    .edit
+      +menu_icon($icon-rewatching, $icon-size - 2)
+
+  &.completed
+    .trigger, .option
+      background: #EEF6DC
+      border-color: #E0EFC0
+      color: $released_tag
+
+    .trigger-arrow:hover
+      color: $released_tag
+
+    .edit
+      +menu_icon($icon-completed, $icon-size)
+      color: $released_tag
+
+  &.dropped
+    .trigger, .option
+      background: #FEDDDF
+      border-color: #FEC2C5
+      color: #FC575E
+
+    .trigger-arrow:hover
+      color: #FC575E
+
+    .edit
+      +menu_icon($icon-dropped, $icon-size - 2)
+      color: #FC575E
+
+      &:before
+        font-size: 18px
+
+  &.planned,
+  &.watching,
+  &.completed,
+  &.rewatching,
+  &.on_hold,
+  &.dropped
+    .edit:before
+      line-height: inherit
+      width: 25px
+
+  &.expanded .trigger-arrow
+    +menu_icon('\e81c')
+    &:before
+      margin-right: 0
+      line-height: inherit
+
+  .trigger-arrow
+    +menu_icon('\e846')
+    //+link_color($gray-2)
+    color: $gray-2
+    float: right
+
+    &:before
+      margin-right: 0
+      line-height: inherit
+
+  .expanded-options
+    display: none
+    overflow: hidden
+    transition: height 0.3s ease
+
+    .option
+      font-weight: normal
+      font-size: 13px
+      border-top: none
+
+      .text
+        padding-left: 5px
+
+    .remove-trigger .text
+      color: $red

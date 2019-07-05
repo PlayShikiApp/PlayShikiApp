@@ -1,0 +1,20 @@
+en:
+  messages:
+    feed:
+      rss:
+        title: Notifications %{nickname} / Shikimori
+        description: Notifications for Shikimori user %{nickname}
+
+    message:
+      to_topic: to topic→
+      broadcast_by: from
+      broken:
+        header: This news was deleted
+        body: Please ignore this message.
+
+    unsubscribe:
+      notice: Unsubscribed from emails
+      text: Your e-mail has been unsubscribed from notifications about private messages.
+      text_2: >-
+        You can change other notification preferences on
+        <a class="b-link" href="%{profile_url}">the settings page</a>.

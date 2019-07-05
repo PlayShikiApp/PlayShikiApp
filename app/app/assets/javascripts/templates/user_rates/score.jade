@@ -1,0 +1,18 @@
+.b-rate.rateable(
+  data-notices=I18n.t('activerecord.attributes.user_rate.scores')
+)
+  // es5 only in pug. also only one root node
+  .stars-container
+    .hoverable-trigger
+    .stars.score(class='score-' + score)
+    .stars.hover
+    .stars.background
+  .text-score
+    .score-value(class='score-' + score)
+      = score
+
+    .score-notice
+      if score > 0
+        = I18n.t('activerecord.attributes.user_rate.scores.' + score)
+      else
+        | &nbsp;

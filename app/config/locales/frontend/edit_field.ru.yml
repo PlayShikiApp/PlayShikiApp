@@ -1,0 +1,17 @@
+ru:
+  frontend:
+    synonyms: &synonyms
+      nothing_here: Нет названий
+      name: Название
+    coub_tags:
+      <<: *synonyms
+    fansubbers:
+      <<: *synonyms
+    fandubbers:
+      <<: *synonyms
+    desynced:
+      nothing_here: Нет поля
+      name: Название поля
+    options:
+      nothing_here: Нет настроек
+      name: Настройка

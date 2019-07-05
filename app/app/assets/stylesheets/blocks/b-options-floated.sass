@@ -1,0 +1,116 @@
+@import mixins/brackets_surrounded
+@import mixins/dash_separated
+@import mixins/link
+@import mixins/responsive
+
+=top_line_options_floated
+  margin-bottom: 10px
+  padding-right: 0
+  position: initial
+  text-align: right
+
+  a
+    +link_color
+
+    &.selected
+      color: $link-hover
+
+      &:hover
+        color: $link-active
+
+.b-options-floated
+  font-size: 11px
+  line-height: 12px
+  margin-top: 6px
+  position: absolute
+  right: 10px
+
+  +lte_ipad
+    line-height: $line_height
+
+  // страница персонажа - переключение типов
+  a, .link
+    +link
+    +dash_separated
+    cursor: pointer
+    display: inline
+
+    span.brackets
+      +brackets_surrounded
+      margin-left: 5px
+
+  a.rss
+    margin-left: 10px
+
+  // список пользователя
+  .action
+    +js-link
+    cursor: pointer
+    transition: color 0.2s ease
+
+  .selected
+    color: $link-hover
+
+    &:hover
+      color: $link-active
+
+    &.always-active
+      +link_color(#123)
+      cursor: pointer
+
+  &.r-edit
+    +gte_ipad
+      margin-right: 15px
+
+    +lte_ipad
+      margin-right: 35px
+
+  &.for-headline
+    margin-top: 10px
+
+  .pointer
+    cursor: pointer
+
+  // страница контестов - options-floated, отображающий количество участников
+  &.count
+    color: $gray-3
+
+  &.before-buttons-2
+    +gt_ipad
+      padding-right: 70px
+    +ipad
+      padding-right: 110px
+    +iphone
+      padding-right: 0
+
+  &.before-buttons-3
+    +gt_ipad
+      padding-right: 105px
+    +ipad
+      padding-right: 165px
+    +iphone
+      padding-right: 0
+
+  &.mobile-desktop
+    +top_line_options_floated
+
+  &.mobile-phone_portrait
+    +iphone-portrait
+      +top_line_options_floated
+
+      &.r-edit
+        margin-right: 0
+
+  &.mobile-phone
+    +iphone
+      +top_line_options_floated
+
+      &.r-edit
+        margin-right: 0
+
+  &.mobile-tablet
+    +lte_ipad
+      +top_line_options_floated
+
+      &.r-edit
+        margin-right: 0

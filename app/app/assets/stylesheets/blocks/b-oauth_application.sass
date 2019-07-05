@@ -1,0 +1,57 @@
+@import mixins/ellipsis2
+@import mixins/link
+
+.b-oauth_application
+  display: block
+  width: 160px
+
+  &.mini
+    width: 96px
+
+    .name-logo
+      .name
+        font-size: 14px
+
+  &.inline
+    display: inline-block
+    margin-left: 20px
+    width: auto
+
+    .name-logo
+      .name
+        font-size: 13px
+        display: inline
+
+      .logo
+        height: 16px
+        margin-left: -20px
+        margin-top: 3px
+        max-width: auto
+        padding-right: 2px
+        position: absolute
+        width: 16px
+
+  .name
+    font-size: 18px
+    text-align: center
+
+  .name-logo
+    +ellipsis2
+
+    &:hover
+      .name
+        color: $link-hover
+        text-decoration: underline
+
+    .name
+      +ellipsis2
+      +link
+      display: block
+      font-weight: bold
+      line-height: 1
+
+    .logo
+      line-height: 0
+      margin-right: 10px
+      max-width: 100%
+      width: 160px

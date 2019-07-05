@@ -1,0 +1,22 @@
+ru:
+  verbs:
+    watched_episodes:
+      one: просмотрен
+      few: просмотрены
+      many: просмотрено
+    read_volumes:
+      one: прочитан
+      few: прочитаны
+      many: прочитано
+    read_chapters:
+      one: прочитана
+      few: прочитаны
+      many: прочитано
+    added_by:
+      one: '@{f:добавила|m:добавил}'
+      few: добавили
+      many: добавили
+    wrote:
+      one: '@{f:написала|m:написал}'
+      few: написали
+      many: написали

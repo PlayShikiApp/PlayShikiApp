@@ -1,0 +1,91 @@
+en:
+  users:
+    index:
+      list_of_similar_users: list of similar users
+      notice: >-
+        This page displays all users sorted by their last visit date.
+
+    similar:
+      by:
+        anime: by anime
+        manga: by manga
+      list_of_watched_anime: 'List of watched anime:'
+      list_of_read_manga: 'List of read manga:'
+      notice: >-
+        This page allows to find users with similar tastes.
+
+      searching_for_similar_users: >-
+        Searching for similar users.
+        Please wait - it might take some time.
+      cant_find_similar_users: >-
+        We couldn't find similar users!
+      meet_following_requirements: >-
+        To be able to search for similar users
+        make sure you meet the following requirements:
+      similar_users_requirements:
+        anime:
+          - you are registered on the site
+          - you have at least 20-30 watched and scored entries in your anime list
+
+        manga:
+          - you are registered on the site
+          - you have at least 20-30 read and scored entries in your manga list
+
+    list_imports:
+      show:
+        empty_list: Uploaded list is empty.
+        broken_file: The uploaded file can not be read. The file is either corrupted, or it is not a file with a list.
+        mismatched_list_type: Invalid list type selected.
+      pending:
+        please_wait: >-
+          Please wait until the end of import.
+          It may take some time.
+      finished:
+        added:
+          anime:
+            zero: 'No new animes added'
+            one: '%{count} new anime added'
+            other: '%{count} new animes added'
+
+          manga:
+            zero: 'No new mangas added'
+            one: '%{count} new manga added'
+            other: '%{count} new mangas added'
+
+        updated:
+          anime:
+            zero: 'No animes updated'
+            one: '%{count} anime updated'
+            other: '%{count} animes updated'
+
+          manga:
+            zero: 'No mangas updated'
+            one: '%{count} manga updated'
+            other: '%{count} mangas updated'
+
+        not_changed:
+          anime:
+            zero: 'No animes w/o changes'
+            one: '%{count} anime w/o changes'
+            other: '%{count} animes w/o changes'
+
+          manga:
+            zero: 'No mangas w/o changes'
+            one: '%{count} manga w/o changes'
+            other: '%{count} mangas w/o changes'
+
+        not_imported:
+          anime:
+            zero: 'No not imported animes'
+            one: '%{count} anime not imported'
+            other: '%{count} animes not imported'
+
+          manga:
+            zero: 'No not imported mangas'
+            one: '%{count} manga not imported'
+            other: '%{count} mangas not imported'
+
+      list_entry_details:
+        episodes: '%{value} ep'
+        volumes: '%{value} vol'
+        chapters: '%{value} ch'

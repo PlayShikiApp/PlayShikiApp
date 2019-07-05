@@ -1,0 +1,151 @@
+@import mixins/block
+@import mixins/clear_left
+@import mixins/column
+@import mixins/comma_separated
+@import mixins/ellipsis2
+@import mixins/link
+@import mixins/responsive
+@import mixins/shikimori
+
+.b-db_entry
+  +block_m
+  +clear_left
+
+  & > .c-image
+    // дополнительные стили для gte_ipad определены ниже
+    +gte_ipad
+      +column(2)
+    +iphone-portrait
+      +column_b(1)
+    +iphone-landscape
+      +column_b(2)
+      margin-right: 35px
+      width: 225px
+
+  & > .c-about
+    // дополнительные стили для gte_ipad определены ниже
+    +gte_ipad
+      +column(2)
+    +iphone-portrait
+      +column(1)
+    +iphone-landscape
+      +column(2)
+      width: calc(100% - 260px)
+
+  .x1200 & > .c-image
+    +gt_laptop
+      width: 26%
+    +ipad_laptop
+      width: 30.5%
+
+  .x1200 & > .c-about
+    +gt_laptop
+      width: 70%
+    +ipad_laptop
+      width: 65.5%
+
+  .x1200 & > .c-description
+    +gt_laptop
+      margin-left: 30%
+    +ipad_laptop
+      margin-left: 34.6%
+
+  .x1000 & > .c-image
+    +gte_ipad
+      width: 28.5%
+
+  .x1000 & > .c-about
+    +gte_ipad
+      width: 67.5%
+
+  .x1000 & > .c-description
+    +gte_ipad
+      margin-left: 32.5%
+
+
+  & > .c-image
+    img
+      max-width: 100%
+
+    +iphone-portrait
+      .c-poster
+        +column(2, 0.57, 7%)
+
+      .c-actions
+        +column(2, 0.43, 7%)
+
+        .b-subposter-action:not(:last-child)
+          margin-bottom: 10px
+
+  & > .c-about
+    z-index: 1 // без этого нижний блок с description перекрывает текущий
+
+    .c-info-left, .c-info-right
+      +column_bm(2, 0.5, 6%)
+
+      +iphone
+        +column(1)
+
+    .c-info-right .b-rate
+      margin: 0 auto
+
+    .contest_winners
+      +block
+      margin-top: -10px
+
+      .medal
+        float: left
+        width: 20px
+        height: 44px
+
+        &:before
+          +shikimori('\e817')
+          // content: '\e83b'
+          color: #f7b42c
+          font-size: 37px
+          line-height: 1.2
+          text-align: center
+          width: 20px
+
+      .winners
+        margin-left: 30px
+
+        .winner
+          +ellipsis2
+
+          &:first-child:last-child
+            line-height: 44px
+
+    &:after
+      display: block
+      clear: left
+
+    .additional-links
+      +clear_left
+      margin-top: 20px
+
+      .key
+        color: $gray-3
+        cursor: default
+        float: left
+
+      .line-container
+        +clear_left
+
+        & > .link,
+        & > a
+          +comma_separated(0)
+          +link
+          float: left
+          margin-left: 5px
+
+          &:first-child
+            margin-left: 0
+
+  & > .c-description
+    +block
+    padding-top: 1px // из-за странной баги в фаерфоксе
+
+    +iphone
+      clear: both
+      margin-left: 0

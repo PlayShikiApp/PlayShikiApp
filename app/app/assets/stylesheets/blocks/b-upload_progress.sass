@@ -1,0 +1,22 @@
+@import mixins/ellipsis2
+
+.b-upload_progress
+  height: 0
+  overflow: hidden
+
+  .bar
+    +ellipsis2
+    background-color: #2586D0
+    color: white
+    display: block
+    font-size: 11px
+    height: 12px
+    line-height: 12px
+    min-width: 35px
+    text-align: center
+    transition: all 0.25s ease
+    width: 0
+
+  &.active
+    height: 12px
+    margin-bottom: 5px

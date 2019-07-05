@@ -1,0 +1,25 @@
+//=require_directory ./p-topics
+@import mixins/link
+@import mixins/shikimori
+
+.p-topics
+  header h1 a.reload
+    +link(#123)
+    border-bottom: 1px dashed #bbb
+    cursor: default
+
+    &:hover
+      text-decoration: none !important
+      // border-bottom-color: $link-border-hover
+
+      &:after
+        +shikimori('\e801')
+        color: inherit
+        margin-top: 5px
+        opacity: 0.85
+        padding-left: 10px
+        position: absolute
+
+  .comments.zero-top-border
+    .comment-block:first-child
+      margin-top: -2px

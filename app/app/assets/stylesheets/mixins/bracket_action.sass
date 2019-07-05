@@ -1,0 +1,19 @@
+@import mixins/link
+
+=bracket_action
+  +link
+  cursor: pointer
+  display: inline-block
+  font-size: 11px
+  padding-left: 10px
+  text-decoration: none !important
+
+  &:before, &:after
+    color: $gray-1
+    padding: 0
+
+  &:before
+    content: '['
+
+  &:after
+    content: ']'

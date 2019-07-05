@@ -1,0 +1,32 @@
+ru:
+  people:
+    content: &content
+      best_roles: Лучшие роли
+      best_works: Лучшие работы
+    best_roles:
+      <<: *content
+    best_works:
+      <<: *content
+    page:
+      actions:
+        comment: Комментировать
+        add_to_favorites: Добавить в избранное
+        remove_from_favorites: Удалить из избранного
+        edit: Редактировать
+      moderators_only: только для модераторов
+      positions_in_anime: Роли в аниме
+      positions_in_manga: Роли в манге
+      positions_in_anime_manga: Роли в аниме и манге
+      and_more:
+        one: И ещё %{count} человек
+        few: И ещё %{count} человека
+        many: И ещё %{count} человек
+      works:
+        all: Все
+    index:
+      notice:
+        characters: Все персонажи аниме и манги
+        people: Все люди
+        producers: Режиссёры
+        mangakas: Мангаки
+        seyu: Сэйю

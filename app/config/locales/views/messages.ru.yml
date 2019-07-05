@@ -1,0 +1,20 @@
+ru:
+  messages:
+    feed:
+      rss:
+        title: Уведомления %{nickname} / Шикимори
+        description: Уведомления для пользователя %{nickname} на Шикимори
+
+    message:
+      to_topic: к новости→
+      broadcast_by: от
+      broken:
+        header: Новость удалена
+        body: Не обращайте внимание на это сообщение.
+
+    unsubscribe:
+      notice: Отписка от писем
+      text: Твой e-mail отписан от уведомлений о личных сообщениях на почту.
+      text_2: >-
+        Изменить прочие настройки уведомлений можно на
+        <a class="b-link" href="%{profile_url}">странице настроек</a>.

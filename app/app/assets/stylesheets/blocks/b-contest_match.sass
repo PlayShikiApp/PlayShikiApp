@@ -1,0 +1,190 @@
+@import globals/variables
+@import mixins/clearfix
+@import mixins/block
+@import mixins/column
+@import mixins/link
+@import mixins/clear_left
+@import mixins/responsive
+@import mixins/shikimori
+
+.b-contest_match
+  position: relative
+  min-height: 300px
+
+  .prev-match, .next-match
+    +link_color(#acb1b4)
+    cursor: pointer
+
+    +gte_ipad
+      width: 10%
+      padding-top: 12%
+    +iphone_landscape
+      width: 50px
+      padding-top: 15%
+    +iphone_portrait
+      width: 59px
+      padding-top: 325px
+
+    &:before
+      +shikimori
+      +gte_ipad
+        font-size: 54px
+      +iphone_landscape
+        font-size: 42px
+      +iphone_portrait
+        font-size: 54px
+
+  .prev-match
+    float: left
+    &:before
+      content: '\e83e'
+
+  .next-match
+    float: right
+    text-align: right
+    &:before
+      content: '\e83f'
+      margin-right: 1px
+
+  .current-match
+    overflow: hidden
+    padding: 10px 10px 0 10px
+
+    .match-members
+      +block_m
+      +clearfix
+      margin-bottom: 15px
+
+      .match-member, .vs
+        +gte_ipad
+          width: 33.333%
+          float: left
+        +iphone_landscape
+          width: 33.333%
+          float: left
+
+        & > .b-catalog_entry
+          width: 100%
+          +gte_ipad
+            max-width: 160px
+
+      .vs + .match-member
+        & > .b-catalog_entry
+          float: right
+
+    center
+      .match-members .match-member,
+      .match-losers .losers
+        float: none
+
+  .match-member
+    +clear_left
+    transition: opacity 0.3s ease
+
+    &.voted, &.hovered, &.winner
+      opacity: 1
+
+    &.unvoted, &.unhovered, &.loser
+      opacity: 0.4
+
+  .vs
+    text-align: center
+
+    +gte_ipad
+      font-size: 64px
+      margin-top: 12%
+    +iphone_landscape
+      font-size: 46px
+      margin-top: 11%
+    +iphone_portrait
+      font-size: 66px
+      margin-bottom: 25px
+      margin-top: -5px
+
+    &.empty
+      margin-top: 125px
+      font-size: 13px
+      width: 100%
+
+    .label
+      color: $gray-4
+      font-family: 'Arial', sans-serif
+      font-weight: 700
+
+    .invitation, .vote-voted, .vote-abstained, .thanks, .hint, .action, .not-selected
+      color: $gray-4
+      font-size: 11px
+      line-height: $line_height
+      margin-bottom: 10px
+      padding: 0 10px
+
+    .actions
+      .action
+        span
+          +js_link
+          line-height: 1
+
+  .match-losers
+    +block
+    +clearfix
+    padding-top: $block_offset / 2
+
+    +iphone_portrait
+      display: none
+
+    .losers
+      +column(2)
+
+      +gte_ipad
+        max-width: 160px
+
+      &:last-child
+        float: right
+
+      .b-catalog_entry
+        margin-bottom: 5px !important
+
+      .b-catalog_entry .image-decor::before,
+      .b-catalog_entry .image-decor::after
+        display: none
+
+  .votes-percents
+    display: block
+    font-size: 12px
+    line-height: 18px
+    padding: 0
+
+    .left-part
+      background-color: #4682b4
+      color: white
+      height: 18px
+      min-width: 45px
+      overflow: hidden
+      padding-left: 5px
+      width: 100%
+
+      &:hover
+        background-color: #79a9cf
+
+        .right-part
+          background-color: #edacd9
+
+          &:before
+            border-right: 30px solid #edacd9
+
+    .right-part
+      background-color: #b78bc7
+      color: white
+      float: right
+      height: 18px
+      min-width: 45px
+      padding-right: 5px
+      position: relative
+      text-align: right
+
+      &:before
+        border-right: 30px solid #b78bc7
+        border-top: 70px solid transparent
+        content: ''
+        left: -30px
+        position: absolute

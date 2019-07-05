@@ -1,0 +1,33 @@
+@import globals/variables
+@import mixins/responsive
+
+.b-comments-notifier
+  background: $link-3
+  box-sizing: border-box
+  color: white
+  cursor: pointer
+  height: 25px
+  line-height: 25px
+  margin: 8px
+  min-width: 25px
+  padding: 0 4px
+  position: fixed
+  right: 0
+  text-align: center
+  top: 46px
+  transition: background-color 300ms
+  z-index: 6
+
+  +ipad
+    height: 30px
+    line-height: 30px
+    min-width: 30px
+
+  +iphone
+    visibility: collapse
+
+  &:hover
+    background-color: $link-4
+
+  &:active
+    background-color: $link-2

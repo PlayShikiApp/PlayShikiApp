@@ -1,0 +1,32 @@
+:concurrency: 5
+:pidfile: tmp/pids/sidekiq.pid
+
+staging:
+  :concurrency: 5
+
+production:
+  :concurrency: 60
+
+:queues:
+  - [achievements, 6]
+  - [default, 5]
+  - [cpu_intensive, 5]
+  - [high_priority, 8]
+  - [imports, 4]
+  - [low_priority, 1]
+  - [mailers, 5]
+  - [mal_parsers, 3]
+  - [anime365_parsers, 3]
+  - [slow_parsers, 5]
+  - [webm_thumbnails, 5]
+  - [history_jobs, 5]
+
+:limits:
+  achievement: 10
+  cpu_intensive: 2
+  imports: 2
+  mal_parsers: 50
+  anime365_parsers: 3
+  slow_parsers: 2
+  webm_thumbnails: 1
+  history_jobs: 1

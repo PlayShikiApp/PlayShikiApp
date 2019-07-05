@@ -1,0 +1,18 @@
+ru:
+  characters:
+    page: &page
+      actions:
+        comment: Комментировать
+        add_to_favorites: Добавить в избранное
+        remove_from_favorites: Удалить из избранного
+        edit: Редактировать
+      moderators_only: только для модераторов
+      names: Имена
+      other: Прочие
+      and_more:
+        one: И ещё %{count} человек
+        few: И ещё %{count} человека
+        many: И ещё %{count} человек
+
+    show:
+      <<: *page

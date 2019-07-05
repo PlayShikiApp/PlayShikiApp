@@ -1,0 +1,12 @@
+en:
+  polls:
+    index:
+      new: Create new poll
+      notice: List of all your polls
+      no_polls: No polls yet
+    form: &form
+      poll_variants: Poll Options
+      start_hint: To run the poll, add at least two options.
+    show:
+      <<: *form
+      no_variants: No options

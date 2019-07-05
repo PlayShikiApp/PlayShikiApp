@@ -1,0 +1,79 @@
+ru:
+  topics:
+    show:
+      rss_title: Комментарии топика
+    header:
+      mini: &header_mini
+        topic_ignored: в игноре
+      common:
+        <<: *header_mini
+        about: о
+        in: в
+    footer:
+      vote:
+        question:
+          review: Эта рецензия полезна?
+          cosplay: Тебе нравится?
+          collection: Эта коллекция полезна?
+    comments:
+      your_comment: Ваш комментарий
+    inner:
+      read_more_link: Читать дальше →
+    form:
+      form:
+        topic_text: Текст топика
+        news_text: Текст новости
+        edit:
+          title: Редактирование топика
+        new:
+          title: Новый топик
+      type:
+        pick_topic_type: Выбери тип топика
+        common_topic: Обычный топик
+        news_topic: Новостной топик
+      rules:
+        go_next: Далее →
+      news_form:
+        topic_video: Видео к новости
+        topic_posters: Картинки к новости
+        attach: Прикрепить
+    status_line:
+      about: о
+      by: от
+      changed_at: Изменено %{date}
+      created_at: Создано %{date}
+    menu_actions:
+      create_topic: Создать топик
+      reload_forum: обновить форум
+    page:
+      refresh: Обновить страницу
+    menu:
+      hide: '&mdash; спрятать'
+      new_club: Создан новый клуб
+      reviews: Рецензии
+      show_more: '+ показать ещё'
+      sticky_topics: Прикреплённое
+      to_clubs: К клубам
+      to_reviews: К рецензиям
+      user_review: 'Рецензия %{author}'
+      contests: :dashboards.show.contests
+    cosplay:
+      info:
+        in_gallery: В галерее
+        character:
+          one: Персонаж
+          few: Персонажи
+          many: Персонажи
+        cosplayer:
+          one: Косплеит
+          few: Косплеят
+          many: Косплеят
+    contests:
+      started: &contest_started
+        name: Название
+        rounds: Число раундов
+        members: Число участников
+        dates: Даты
+      finished:
+        <<: *contest_started
+        winners: Победители

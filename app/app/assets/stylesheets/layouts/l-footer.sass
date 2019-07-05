@@ -1,0 +1,39 @@
+@import mixins/responsive
+
+.l-footer + .mrg-tag > div
+  margin-top: 20px
+
+.l-footer
+  clear: both
+  padding-top: 15px
+  padding-bottom: 5px
+
+  .links
+    color: #555555
+    font: bold 11px "Trebuchet MS", tahoma, arial, verdana
+    padding-top: 3px
+
+    a
+      margin-right: 15px
+
+      &:hover
+        text-decoration: underline
+
+  .copyright
+    color: #555555
+    float: right
+    font: bold 11px "Trebuchet MS", tahoma, arial, verdana
+    padding: 3px 1px 7px 0
+    vertical-align: middle
+    white-space: nowrap
+
+  +iphone_portrait
+    .privacy,
+    .for-right-holders,
+    .sitemap
+      display: none
+
+  +iphone_landscape
+    .for-right-holders,
+    .sitemap
+      display: none

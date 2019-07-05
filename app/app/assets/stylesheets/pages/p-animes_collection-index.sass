@@ -1,0 +1,116 @@
+@import mixins/block
+@import mixins/clear_left
+@import mixins/column
+@import mixins/input
+@import mixins/link
+@import mixins/responsive
+
+.p-animes_collection-index,
+.p-mangas_collection-index,
+.p-recommendations-index,
+.p-userlist_comparer-show
+  .l-content
+    &.b-ajax::after
+      display: none
+
+  .cc-entries
+    +clear_left
+
+    & > .c-column
+      +iphone-landscape
+        +column_b(3)
+
+      +iphone-portrait
+        +column_b(2)
+
+  &.x1200
+    .cc-entries > .c-column
+      +gt_laptop
+        +column_b(5)
+
+        //.image-cutter
+          max-height: 229px
+          max-width: 156px
+
+      +ipad_laptop
+        +column_b(4)
+
+    // +lte_laptop
+      .b-catalog_entry .image-decor::after
+        border-radius: 30px
+        font-size: 16px
+        height: 30px
+        line-height: 30px
+        width: 30px
+
+  &.x1000
+    .cc-entries > .c-column
+      +gte_ipad
+        +column_b(4)
+
+    // .b-catalog_entry .image-decor::after
+      // border-radius: 30px
+      // font-size: 16px
+      // height: 30px
+      // line-height: 30px
+      // width: 30px
+
+  .b-postloader
+    clear: left
+    margin-bottom: 0
+
+  .b-catalog_entry
+    margin-bottom: $block_offset !important
+
+    .tooltip-left
+      margin-left: -30px
+
+    .image-decor::after
+      display: block
+
+  .pagination
+    clear: both
+    color: #333
+    font-size: 11px
+    font-weight: bold
+    line-height: 20px
+    margin-bottom: 15px
+    margin-top: -5px
+
+    +iphone
+      font-weight: normal
+
+    &:last-child
+      margin-top: 15px
+      margin-bottom: 0
+
+    .no-hover
+      cursor: pointer
+      display: inline-block
+      margin: 0 10px
+
+      input
+        +input
+        font-weight: normal
+        margin: 0
+        padding: 0
+        text-align: center
+        width: 44px !important
+        line-height: 18px
+
+      span
+        padding: 0 3px
+
+      .link-current:not(.active)
+        border-bottom: 1px dotted #333
+
+    .link
+      +link
+      display: inline-block
+
+      &.disabled
+        color: #999
+
+        &:hover
+          cursor: default
+          text-decoration: none

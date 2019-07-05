@@ -1,0 +1,82 @@
+@import mixins/clearfix
+@import globals/variables
+@import mixins/column
+@import mixins/link
+@import mixins/clear_left
+
+.p-db_entries-edit_field
+  p.warning
+    color: $red
+    margin-bottom: $block_offset / 2
+
+  .screenshots-uploader
+    .cc
+      min-height: 19px
+
+      .move-controls
+        display: none !important
+
+  .screenshots-positioner
+    +clearfix
+
+    .cc
+      clear: right
+      margin-bottom: 20px
+
+  .cc-genres
+    +cc
+
+    & > .c-current_genres
+      +column(2)
+
+    & > .c-all_genres
+      +column(2)
+
+      .genre:not(.included) .name
+        +js-link
+
+      .b-js-actions
+        display: none
+
+    .genre
+      margin-bottom: 3px
+
+      &:first-child .up
+        display: none
+
+      &:last-child .down
+        display: none
+
+      &.included
+        color: $gray-1
+        cursor: pointer
+
+      .name
+        line-height: 1.3
+        display: inline-block
+
+  .external_links
+    .hint
+      color: $gray-3
+      font-size: 11px
+
+      b
+        color: #345
+
+    .from
+      padding: 0 6px
+
+  .fansub-conditions
+    font-size: 11px
+    margin-bottom: 15px
+
+    thead tr:first-child th
+      color: $gray-3
+
+    th
+      font-weight: normal
+      text-align: left
+
+      &:first-child
+        padding-right: 15px
+

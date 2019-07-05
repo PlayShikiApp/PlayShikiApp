@@ -1,0 +1,245 @@
+@import globals/variables
+@import mixins/column
+@import mixins/ellipsis2
+@import mixins/link
+@import mixins/two_line_ellipsis
+@import mixins/shikimori
+
+$max_minified_width: 162px
+$max_width: 167px
+
+.b-catalog_entry
+  max-width: 460px
+
+  &.cc
+    .cover
+      +column(2, 0.4)
+    .content
+      +column(2, 0.6)
+
+    &.column-2
+      +iphone-landscape
+        .cover
+          +column(2, 0.35)
+        .content
+          +column(2, 0.65)
+
+  &:hover .cover .image-decor > .text
+    display: block
+    max-height: none
+
+  .cover
+    +link_color(#333333)
+    font-size: 12px
+
+    +lte_ipad
+      font-size: 13px
+    +gt_laptop
+      font-size: 13px
+
+    display: block
+
+    .image-decor
+      display: block
+      line-height: 0px
+      position: relative
+      //padding: 2.5%
+      //max-width: $max_width
+
+      .image-cutter
+        display: block
+        line-height: 0
+        //max-height: 239px
+        //max-width: $max_minified_width - 2px
+        overflow: hidden
+        position: relative // для кнопки удаления в рекомендациях
+
+      img
+        width: 100%
+
+      // используется для отображения текста в коллекциях
+      & > .text
+        +two_line_ellipsis(12px, $line_height)
+        transition: all 0.25s ease
+        background: rgba(0,0,0,0.55)
+        bottom: 0
+        color: #fff
+        font-size: 12px
+        line-height: 1.45
+        padding: 2px 5px
+        position: absolute
+        width: 100%
+        z-index: 2
+
+        &:before
+          position: absolute
+          content: ''
+          width: 100%
+          height: 100%
+          background: rgba(255,255,255,0.25)
+          margin: -2px -5px
+
+        .b-link
+          color: #fff
+          text-decoration: underline
+
+    .title
+      +ellipsis2
+      +link
+      display: block
+      font-weight: bold
+      line-height: $line_height
+      margin-top: 5px
+      //max-width: $max_width
+
+      &.two_lined
+        +two_line_ellipsis(13px, $line_height)
+
+    &:hover .title
+      color: $link-hover
+      text-decoration: underline
+
+    .misc
+      color: #555
+      display: block
+      font-size: 11px
+      line-height: 17px
+      //max-width: $max_width
+
+      &.centered
+        text-align: center
+
+      span
+        +ellipsis2
+        color: #123
+        display: block
+        padding-right: 5px
+
+        &.relation
+          line-height: 1.4
+          margin-top: 2px
+          padding-right: 0
+          //text-align: center
+          white-space: normal
+
+        &.anons
+          color: #307a3d
+
+        &.released
+          color: #ca4929
+
+        &.right
+          float: right
+          padding-right: 0
+
+        &.role
+          overflow: visible
+          white-space: normal
+
+        &.episode
+          .number
+            font-weight: bold
+            line-height: $line_height
+            padding-top: 4px
+
+  .content
+    .tooltip-details
+      min-height: 100px
+
+  $background-size: 28px
+  $border-size: 2px
+  $foreground-size: $background-size + $border-size * 2
+
+  &.planned, &.watching, &.completed, &.rewatching, &.on_hold, &.dropped
+    .image-decor
+      position: relative
+
+      &::before,
+      &::after
+        position: absolute
+        right: 4px
+        top: 4px
+
+      &::before
+        border: $border-size solid #fff
+        border-radius: $background-size
+        height: $background-size
+        width: $background-size
+        line-height: $background-size
+        content: ''
+        z-index: 1
+
+      &::after
+        +shikimori
+        width: $foreground-size
+        line-height: $foreground-size
+        font-size: 20px
+        text-align: center
+        z-index: 2
+
+  &.planned .image-decor
+    &:before
+      background: #fff
+      border-color: $link
+    &:after
+      color: $link
+      content: $icon-planned
+      font-size: 24px
+
+  &.on_hold .image-decor
+    &:before
+      background: $gray-3
+    &:after
+      color: #fff
+      content: $icon-on_hold
+
+  &.watching .image-decor
+    &:before
+      background: $link
+    &:after
+      color: #fff
+      content: $icon-watching
+      font-size: 21px
+
+  &.rewatching .image-decor
+    &:before
+      background: $link
+    &:after
+      color: #fff
+      content: $icon-rewatching
+      font-size: 17px
+
+  &.completed .image-decor
+    &:before
+      background: $released_tag
+    &:after
+      color: #fff
+      content: $icon-completed
+
+  &.dropped .image-decor
+    &:before
+      background: $anons_tag
+    &:after
+      color: #fff
+      content: $icon-dropped
+      width: $foreground-size - 1px
+
+.user_rates-minified .b-catalog_entry
+  &.planned, &.watching, &.completed, &.rewatching, &.on_hold, &.dropped
+    .image-decor
+      &::before,
+      &::after
+        right: 3px
+        top: 3px
+
+      &::before
+        border-width: 1px
+        border-radius: 0
+        height: 16px
+        width: 16px
+        line-height: 16px
+
+      &::after
+        width: 19px
+        line-height: 19px
+        font-size: 13px

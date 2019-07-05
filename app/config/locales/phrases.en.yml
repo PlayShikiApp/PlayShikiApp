@@ -1,0 +1,153 @@
+en:
+  actions:
+    accept: Accept
+    actions: Actions
+    add: Add
+    apply: Apply
+    apply: Apply
+    cancel: Cancel
+    confirm: This action is irreversible. Are you sure?
+    confirm_delete: Confirm deletion
+    cancel_delete: Cancel deletion
+    create: Create
+    delete: Delete
+    delete_all: Delete All
+    edit: Edit
+    ignore: Ignore
+    markers:
+      summary:
+        add: Add summary mark
+        remove: Remove summary mark
+        confirm_add: Add summary mark?
+        confirm_remove: Remove summary mark?
+      offtopic:
+        add: Add offtopic mark
+        remove: Remove offtopic mark
+        confirm_add: Add offtopic mark?
+        confirm_remove: Remove offtopic mark?
+    moderate: Moderate
+    moderation:
+      abuse: Abuse
+      ban: Ban
+      not_offtopic: It's not offtopic
+      not_summary: It's not summary
+      offtopic: It's offtopic
+      spoiler: It's spoiler
+      summary: It's summary
+      explain:
+        abuse: Please describe (optional)
+        spoiler: Please describe (optional)
+    quote: Quote
+    reject: Reject
+    reply: Reply
+    rollback: Rollback
+    save_apply: Save & Apply
+    start: Start
+    stop: Stop
+    take: Take
+    upload: Upload
+    upload_image: Upload image
+  by:
+    id: By ID
+    aired_on: By release date
+    date_added: By date added
+    kind: By type
+    name: In alphabetical order
+    chapters: By number of chapters
+    episodes: By number of episodes
+    volumes: By number of volumes
+    popularity: By popularity
+    ranked: By rank
+    score: By score
+    status: By status
+  answers:
+    'no': 'no'
+    'yes': 'yes'
+  about_site: About site
+  anime_industry: Anime industry
+  anime_list: Anime List
+  anime_title: Anime title
+  back: back
+  back_to_page: Back to page
+  calendar: Calendar
+  changes_not_saved: Changes not saved!
+  changes_saved: Changes saved
+  character_name: Character name
+  club_name: Club name
+  collapse: collapse
+  cosplay: Cosplay
+  copyrighted_animes: Copyrighted animes
+  deleted:
+    anime: Deleted anime
+    character: Deleted character
+    manga: Deleted manga
+    review: Deleted review
+    anime_video: Deleted video
+    user: Deleted user
+  error: error
+  female: female
+  forum: Forum
+  gallery: Gallery
+  goto: Goto
+  imageboard_art: Imageboard art
+  in_clubs: In Clubs
+  in_collections: In Collections
+  in_english: In English
+  in_favorites: In favorites
+  in_japanese: In Japanese
+  in_russian: In Russian
+  information: Information
+  loading: Loading...
+  markers:
+    abuse: abuse
+    new: new
+    offtopic: offtopic
+    spoiler: spoiler
+    summary: summary
+  mail: Mail
+  male: male
+  manga_list: Manga List
+  manga_title: Manga title
+  mangaka: Mangaka
+  news: News
+  no_comments: No comments
+  no_collections: No collections
+  no_reviews: No reviews
+  no_summaries: No summaries
+  no_topics: No topics
+  nothing_found: Nothing found
+  nothing_here: Nothing here
+  notifications: Notifications
+  of: of
+  page: Page %{page}
+  page_not_found: Page not found
+  pagination:
+    back: Back
+    next: Next
+  person: Person
+  person_name: Person name
+  producer: Director
+  ranobe_title: Light Novel title
+  settings: Settings
+  seyu: Seiyu
+  share: Share
+  search:
+    search: Search...
+    title: Search by title...
+    name: Search by name...
+    text: Search by text...
+  shikimori: Shikimori
+  source: Source
+  sponsors: Sponsors
+  this:
+    anime: this anime
+    manga: this manga
+  this_action_cant_be_undone: This action can't be undone!
+  tournament_bracket: Tournament bracket
+  total: Total
+  username: User name
+  under_development: Under development
+  page_under_development: This page is not completed and is under development
+  yes_i_confirm: Yes, I confirm
+  date_field: Date
+  navigation: Navigation

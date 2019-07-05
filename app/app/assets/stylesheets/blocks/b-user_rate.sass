@@ -1,0 +1,60 @@
+@import globals/variables
+@import mixins/block
+@import mixins/clearfix
+@import mixins/link
+@import mixins/responsive
+
+.b-user_rate
+  +block
+  transition: opacity 0.5s ease, height 0.3s ease
+  width: auto
+
+  .add-to-list
+    +link
+
+    +lte_ipad
+      line-height: 2
+
+  .rate-show
+    margin-bottom: 5px
+
+    .b-form
+      overflow: visible
+
+    .rate-number
+      float: right
+      margin-right: 7px
+
+      .b-input
+        display: inline
+
+      label
+        display: none
+
+      input
+        text-align: center
+        width: 25px
+
+      .item-add
+        margin-left: 10px
+
+    .episodes
+      margin-bottom: 5px
+
+    .note
+      color: $gray-4
+      margin-top: 5px
+
+  .rate-edit
+    .b-input
+      margin-bottom: 15px
+
+      &.integer input
+        width: 55px
+
+    .delete-button
+      +clearfix
+      margin-bottom: 10px
+
+      a
+        float: right

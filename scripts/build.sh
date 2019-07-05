@@ -1,5 +1,7 @@
 #!/usr/bin/sh
 
+./scripts/build_shiki_assets.sh
+
 ./node_modules/.bin/gulp && ./node_modules/.bin/webpack --config webpack.config.js
 
 SUPPORTED_BROWSERS="chrome firefox opera"

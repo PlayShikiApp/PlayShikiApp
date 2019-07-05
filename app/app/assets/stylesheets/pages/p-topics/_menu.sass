@@ -1,0 +1,53 @@
+@import mixins/block
+@import mixins/ellipsis2
+@import mixins/icons
+@import mixins/image_editable
+@import mixins/link
+@import mixins/menu-blocks
+
+.p-topics .l-menu
+  .b-forums
+    +block2
+
+  .calendar .entry,
+  .reviews .entry,
+  .clubs .entry,
+    +menu-block-with-image
+
+  .naruto
+    +image_editable
+
+    img
+      max-width: 100%
+
+    &.deleted
+      display: none
+
+  .clubs .entry img
+    width: 35px
+    height: 35px
+
+  .sticky-topics .topic,
+    +menu-block-with-text-link
+
+  .b-clubs-menu, .b-contests-menu
+    .actions
+      display: none
+
+  .contests .contest
+    +menu-block-with-text-link
+
+    a
+      +ellipsis2
+
+      &:after
+        right: 2px
+
+    .finished
+      color: $gray-1
+
+    .started
+      color: $gray-3
+
+    .can-vote
+      color: #307a3d

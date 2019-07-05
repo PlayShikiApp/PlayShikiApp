@@ -1,0 +1,41 @@
+ru:
+  db_entries:
+    versions:
+      changes_history: История правок
+      page: страница %{page}
+    comments:
+      all_summaries: Все отзывы
+      all_comments: Все комментарии
+    fields:
+      genre_ids:
+        all_genres: Все жанры
+        current_genres: Привязанные жанры
+        down: вниз
+        remove: удалить
+        up: вверх
+      image:
+        warning: Текущая картинка будет безвозвратно удалена и перестанет обновляться с MAL.
+      videos:
+        videos: Изменение видео роликов
+        video: Изменение видео ролика
+      desynced:
+        hint: Список полей, которые больше не синхронизируются с MAL.
+      fansubbers: &fansubbers
+        hint: Условия добавления в список
+        episodes: Вышедших эпизодов в аниме
+        translated: Сколько должно быть переведено
+        except: кроме последнего эпизода онгоига
+        all: Все
+        reason: В причину правки укажите ссылку на работы добавляемой группы по данному аниме.
+      fandubbers:
+        <<: *fansubbers
+        translated: Сколько должно быть озвучено
+      external_links:
+        imported: Импортировано
+        to_change: Для изменения ссылки продублируйте её выше.
+        to_disable: Для отключения ссылки продублируйте её выше и пропишите в url значение <b>NONE</b>.
+        from: из
+    contest_winners:
+      top_in: '№%{position} в '
+    edit_field:
+      changes_history: История правок

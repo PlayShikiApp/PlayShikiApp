@@ -1,0 +1,42 @@
+en:
+  inflections:
+    years_old:
+      zero: yo
+      one: yo
+      other: yo
+
+    datetime:
+      second:
+        zero: seconds
+        one: second
+        other: seconds
+      minute:
+        zero: minutes
+        one: minute
+        other: minutes
+      hour:
+        zero: hours
+        one: hour
+        other: hours
+      day:
+        zero: days
+        one: day
+        other: days
+      week:
+        zero: weeks
+        one: week
+        other: weeks
+      month:
+        zero: months
+        one: month
+        other: months
+      year:
+        zero: years
+        one: year
+        other: years
+
+  i18n:
+    inflections:
+      user_signed_in:
+        signed_in: signed in
+        not_signed_in: not signed in

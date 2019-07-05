@@ -1,0 +1,16 @@
+ru:
+  blocks:
+    spoiler:
+      expand: развернуть
+    list_switchers:
+      lines: Отображение списком
+      list: Отображение списком
+      posters: Отображение постерами
+      popularity: Сортировка по популярности
+      alphabet: Сортировка по алфавиту
+    ignored:
+      topic:
+        ignored_user: Топик от игнорируемого пользователя
+        ignored_topic: Игнорируемый топик
+      comment:
+        ignored_user: Комментарий от игнорируемого пользователя

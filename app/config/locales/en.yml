@@ -1,0 +1,595 @@
+en:
+  activerecord:
+    models:
+      anime: Anime
+      character: Character
+      club: Club
+      collection: Collection
+      comment: Comment
+      contest: Contest
+      forum: Forum
+      genre: Genre
+      manga: Manga
+      person: Person
+      poll: Poll
+      ranobe: Light Novel
+      review: Review
+      topic: Topic
+      topics/news_topic: News Topic
+      user: User
+      video: Video
+
+    attributes:
+      anime: &anime_attributes
+        aired_on: Start date
+        cosplay: Cosplay
+        description: Synopsis
+        description_en: Synopsis
+        description_en_source: Synopsis source
+        description_ru: Synopsis (rus)
+        description_ru_source: Synopsis source (rus)
+        license_name_ru: Licensed in Russia name
+        duration: Episode duration
+        episodes: Episodes
+        episodes_aired: Episodes aired
+        external_links: Links
+        genres: Genres
+        genre_ids: Genres # used for item_diff in versions
+        image: &poster Poster
+        kind: Type
+        name: Name
+        synonyms: Alternative names
+        poster: *poster
+        rating: Rating
+        released_on: End date
+        russian: Russian name
+        score: Score
+        screenshots: Screenshots
+        status: Status
+        imageboard_tag: Imageboards tag
+        coub_tags: Coub tags
+        torrents_name: Torrents name
+        videos: Videos
+        franchise: Franchise
+        fansubbers: Subtitles
+        fandubbers: Dubbing
+        options: Options
+      manga: &manga_attributes
+        <<: *anime_attributes
+        volumes: Volumes
+        chapters: Chapters
+
+
+      ranobe:
+        <<: &manga_attributes
+      character: &character_attributes
+        cosplay: Cosplay
+        description: Description
+        description_ru: Description (rus)
+        description_en: Description
+        japanese: Japanese name
+        name: Name
+        poster: *poster
+        image: *poster
+        russian: Russian name
+        imageboard_tag: Imageboards tag
+      person:
+        <<: *character_attributes
+        birthday: Birthday
+        website: Website
+      external_link:
+        url: Url
+      comment:
+        body: Text
+      message:
+        body: Text
+      contest:
+        title_ru: Title (in russian)
+        title_en: Title
+        description_ru: Description (rus)
+        description_en: Description
+        description: Synopsis
+        matches_per_round: Matches per round
+        match_duration: Match duration
+        matches_interval: Round interval
+        user_vote_key: User vote key
+        strategy_type: Strategy
+        member_type: Member type
+        started_on: Started on
+        suggestions_per_user: Number of candidates from one user
+      ban:
+        reason: Reason
+        duration: Duration
+      genre:
+        description: Description
+      user:
+        avatar: Avatar
+        birth_on: Birthday
+        current_password: Current Password
+        email: E-mail
+        location: Location
+        name: Real Name
+        nickname: Nickname
+        password: Password
+        password_confirmation: Password Confirmation
+        sex: Gender
+        website: Website
+        locale: Language
+        notification_settings: Notification Settings
+      user_rate:
+        status: Status
+        episodes: Episodes
+        chapters: Chapters
+        volumes: Volumes
+        rewatches: Number of Rewatches
+        rereads: Number of Rereads
+        text: Comments
+        score: Score
+        scores:
+          '0': ''
+          '1': Worst Ever
+          '2': Terrible
+          '3': Very Bad
+          '4': Bad
+          '5': So-so
+          '6': Fine
+          '7': Good
+          '8': Excellent
+          '9': Great
+          '10': Masterpiece!
+        statuses:
+          anime:
+            planned: Planned to Watch
+            watching: Watching
+            rewatching: Rewatching
+            completed: Completed
+            on_hold: On Hold
+            dropped: Dropped
+          manga: &manga_statuses
+            planned: Planned to Read
+            watching: Reading
+            rewatching: Rereading
+            completed: Completed
+            on_hold: On Hold
+            dropped: Dropped
+          ranobe:
+            <<: *manga_statuses
+      list_import:
+        duplicate_policy: Existing Records
+        list_type: List Type
+        list: List File
+        state: State
+      review:
+        text: Text
+        storyline: Story
+        animation: Art
+        characters: Characters
+        music: Sound
+        overall: Overall
+
+      user_preferences:
+        about_on_top: Show Above Stats
+        anime_in_profile: Show Anime List in Profile
+        apply_user_styles: Apply user styles
+        body_width: Maximum Site Width
+        favorites_in_profile: Number of Favorites in Profile
+        comment_policy: Can Comment My Profile
+        comments_in_profile: Show Comments in Profile
+        achievements_in_profile: Show Achievements in Profile
+        is_comments_auto_collapsed: Collapse Long Comments
+        is_comments_auto_loaded: Load New Comments Automatically
+        list_privacy: Can See My Lists
+        manga_in_profile: Show Manga List in Profile
+        postload_in_catalog: Autoload Pages in Anime Catalog
+        # russian_genres: Anime Genres in Russian
+        # russian_names: Anime and Manga Titles in Russian
+        show_hentai_images: Allow Nudity
+        show_smileys: Show Smileys
+        show_social_buttons: Show Social Media Icons
+        volumes_in_manga: Show Manga Volumes
+      anime_video:
+        url: Video Link
+        episode: Episode
+        kind: Video Type
+        language: Video dub/sub language
+        quality: Video quality
+        state: Status
+        author_name: Author
+        anime_video_author_id: Author
+        is_first: Display first among similar videos
+      anime_video_author:
+        name: Name
+        is_verified: Verified
+      video:
+        url: Url
+        kind: Type
+        name: Name
+        hosting: Hosting
+      club:
+        name: Name
+        owner: Founder
+        display_images: Show Images
+        join_policy: Terms of Joining
+        comment_policy: Comments Policy
+        topic_policy: Topics Policy
+        image_upload_policy: Image Upload Policy
+        is_censored: Contains adult content (18+)
+        logo: Logo
+      collection:
+        name: Name
+        kind: Type
+        text: Description
+        state: State
+      collection_link:
+        group: Group
+        text: Comment
+      poll:
+        name: Name
+        text: Text
+        state: State
+      club_invite:
+        dst: User
+        dst_id: User
+      club_page:
+        parent_page_id: Parent page
+        name: Name
+        text: Text
+        layout: Layout
+      topic:
+        title: Title
+        body: Text
+        type: Type
+        linked: Linked
+        forum_id: Section
+      version:
+        reason: Change reason
+        changes: Changes list
+      anime_video_report:
+        kind: Reason
+        message: Message to moderators
+      style:
+        name: Name
+        css: CSS
+      oauth_application:
+        name: Name
+        image: Image
+        owner: Owner
+        redirect_uri: Redirect URI
+        uid: Client ID
+        secret: Client Secret
+        description: Description
+        description_ru: Description (rus)
+        description_en: Description
+
+    errors:
+      messages:
+        taken: already taken
+        abusive: is abusive
+        invalid_transition: cannot transition
+      models:
+        comments:
+          not_a_moderator: 'Cannot touch [ban] or [broadcast] tags'
+          not_a_club_member: Commenting is allowed to club members only
+          not_a_club_admin: Commenting is allowed to club admins only
+          in_club_black_list: You're banned in this club. Commenting is disabled
+          not_a_friend: Commenting is allowed to friends only
+          not_a_owner: Commenting is disabled
+        messages:
+          ignored: You can't send messages to this user
+        club_invite:
+          attributes:
+            base:
+              banned: User is banned in this club. Invitation is forbidden
+              joined: User is already a member of this club
+              limited: No more invites for this club today
+            dst_id:
+              taken: has already been invited to this club
+            dst:
+              empty: Empty
+              blank: Blank
+        videos:
+          attributes:
+            url:
+              incorrect: incorrect, unsupported video hosting
+              taken: the video you've uploaded already exists within our system
+            hosting:
+              incorrect: unsupported video hosting
+        collection_link:
+          attributes:
+            linked:
+              censored: hentai/yaoi is forbidden
+
+    state_machines:
+      contest:
+        states:
+          created: being prepared
+          proposing: proposing candidates
+          started: active
+          finished: finished
+      review: &review_states
+        states:
+          pending: pending approval
+          accepted: accepted
+          rejected: rejected
+        events:
+          publish: Publish
+          unpublish: Unpublish
+      collection:
+        <<: *review_states
+      poll:
+        states:
+          pending: Pending
+          started: Started
+          stopped: Stopped
+      anime_video:
+        states:
+          working: working
+          uploaded: uploaded but needs approval
+          rejected: rejected
+          broken: broken
+          wrong: wrong anime
+          copyrighted: copyrighted
+          banned_hosting: banned hosting
+      version:
+        states:
+          pending: awaiting moderation
+          accepted: accepted
+          auto_accepted: accepted automatically
+          taken: taken
+          rejected: rejected
+          deleted: deleted
+      abuse_request:
+        states:
+          pending: awaiting moderation
+          accepted: accepted
+          rejected: rejected
+      anime_video_report:
+        states:
+          pending: awaiting moderation
+          accepted: accepted
+          taken: taken
+          rejected: rejected
+          post_rejected: rejected
+          deleted: deleted
+      list_import:
+        states:
+          pending: importing
+          finished: imported
+          failed: failed
+
+  activemodel:
+    errors:
+      messages:
+        invalid_transition: cannot transition
+
+  enumerize:
+    user:
+      locale:
+        ru: Russian
+        en: English
+      notification_settings:
+        any_anons: New announcement, new announced anime on site
+        any_ongoing: New ongoing, aired first episode of any ongoing
+        any_released: New release, aired last episode of any ongoing
+        my_ongoing: My ongoing, aired first episode of added to my list ongoing
+        my_released: My release, aired last episode of added to my list ongoing
+        my_episode: My episode, aired any episode of added to my list ongoing
+        private_message_email: Send private messages to e-mail
+        friend_nickname_change: "Notifications about friends' nickname change"
+        contest_event: Contests notifications
+    user_preferences:
+      body_width:
+        x1200: 1200 pixels
+        x1000: 1000 pixels
+      list_privacy:
+        public: All Visitors
+        users: Registered Users
+        friends: My Friends Only
+        owner: Only Me
+      comment_policy:
+        users: All Site Users
+        friends: My Friends Only
+        owner: Only Me
+    anime:
+      status:
+        anons: Planned
+        ongoing: Airing
+        released: Released
+      kind:
+        tv: TV Series
+        movie: Movie
+        music: Music
+        ona: ONA
+        ova: OVA
+        special: Special
+        short:
+          movie: Movie
+          music: Music
+          ona: ONA
+          ova: OVA
+          special: Special
+          tv: TV Series
+      rating:
+        g: G
+        pg: PG
+        pg_13: PG-13
+        r: R-17
+        r_plus: R+
+        rx: Rx
+        none: None
+        hint:
+          none: No rating
+          g: G - All ages
+          pg: PG - Children
+          pg_13: PG-13 - Teens 13 or older
+          r: R - 17+ recommended (violence & profanity)
+          r_plus: R+ - Mild Nudity (may also contain violence & profanity)
+          rx: Rx - Hentai (extreme sexual content/nudity)
+      options:
+        strict_torrent_name_match: |
+          search only for those torrents whose name completely matches
+          (for cases with a long name, when the parser alone cannot find the episodes)
+        disabled_torrents_sync: disable of searching of new episodes on torrents
+        disabled_anime365_sync: disable of searching of new episodes on anime365
+    manga: &manga_enumerize
+      status:
+        anons: Planned
+        ongoing: Publishing
+        released: Published
+      kind:
+        doujin: Doujin
+        manga: Manga
+        manhua: Manhua
+        manhwa: Manhwa
+        novel: Light Novel
+        one_shot: One Shot
+        short:
+          doujin: Doujin
+          manga: Manga
+          manhua: Manhua
+          manhwa: Manhwa
+          novel: Light Novel
+          one_shot: One Shot
+    ranobe:
+      <<: *manga_enumerize
+    genre:
+      kind:
+        anime: Anime
+        manga: Manga
+    external_link:
+      kind:
+        official_site: Official Site
+        wikipedia: Wikipedia
+        anime_news_network: Anime News Network
+        anime_db: AniDB
+        kage_project: Kage Project
+        ruranobe: RuRanobe
+        world_art: World Art
+        myanimelist: MyAnimeList
+        readmanga: ReadManga
+        novelupdates: Novel Updates
+        mangaupdates: Baka-Updates
+        mangafox: MangaFox
+        mangachan: Mangachan
+        mangahub: Mangahub
+        smotret_anime: Anime 365
+      source:
+        shikimori: Shikimori
+        myanimelist: MyAnimeList
+        smotret_anime: Anime 365
+    contest:
+      strategy_type:
+        double_elimination: Double elimination
+        play_off: Olympic system
+        swiss: Swiss system
+      member_type:
+        anime: Anime
+        character: Characters
+    abuse_request:
+      kind:
+        offtopic: offtopic
+        review: summary
+        spoiler: spoiler
+        abuse: abuse
+    topics/news_topic:
+      action:
+        anons: planned
+        ongoing: ongoing
+        released: released
+        episode: episode
+    club:
+      join_policy:
+        free: Unrestricted
+        admin_invite: Admin invite only
+        owner_invite: Owner invite only
+      comment_policy:
+        free: Unrestricted
+        members: Club members only
+        admins: Club admins only
+      topic_policy:
+        members: Club members only
+        admins: Club admins only
+      image_upload_policy:
+        members: Club members only
+        admins: Club admins only
+    club_page:
+      layout:
+        menu: Menu
+        none: Hidden
+    collection:
+      kind:
+        anime: Anime
+        manga: Manga
+        ranobe: Light Novels
+        character: Characters
+        person: People
+      state:
+        unpublished: Not published
+        published: Published
+    anime_video:
+      kind:
+        unknown: dub
+        raw: raw
+        subtitles: subtitles
+        fandub: fandub
+      language:
+        russian: russian
+        english: english
+        japanese: original
+        unknown: unknown
+      quality:
+        bd: BD
+        web: Web
+        tv: TV
+        dvd: DVD
+        unknown: Unknown
+      state:
+        working: working
+        uploaded: uploaded but needs approval
+        rejected: rejected
+        broken: broken
+        wrong: wrong anime
+        banned_hosting: banned hosting
+        copyrighted: copyrighted
+    anime_video_report:
+      kind:
+        uploaded: new video
+        broken: video broken
+        wrong: wrong anime
+        other: other
+    user_history_action:
+      action:
+        anime_import: Imported animes
+        manga_import: Imported mangas
+        ap_anime_import: Imported animes from Anime-Planet
+        ap_manga_import: Imported mangas from Anime-Planet
+        mal_anime_import: Imported animes from MyAnimeList
+        mal_manga_import: Imported mangas from MyAnimeList
+        registration: Registration
+    video:
+      kind:
+        op: OP
+        pv: PV
+        ed: ED
+        other: Other
+    list_import:
+      list_type:
+        anime: Anime
+        manga: Manga & Light Novels
+      duplicate_policy:
+        ignore: Do not replace
+        replace: Replace
+
+  # в bans#create отображаются
+  messages:
+    user_banned: User is banned
+    user_warned: User is warned
+
+  will_paginate:
+    previous_label: '<'
+    next_label: '>'
+    page_gap: ...
+
+  recaptcha:
+    errors:
+      verification_failed: reCAPTCHA verification failed, please try again

@@ -1,0 +1,260 @@
+en:
+  moderations:
+    show:
+      content: Site content
+      genres: Genres
+      header_notice: Moderation journals
+      missing_anime_descriptions: Animes w/o description
+      missing_manga_descriptions: Mangas w/o description
+      missing_screenshots: Animes w/o screenshots
+      moderation: Moderation
+      reviews_journal: Reviews journal
+      collections_journal: Collections journal
+      anime_video_authors: Anime video authors
+      forums: Forums
+
+    missing_screenshots:
+      animes: Animes
+      notices:
+        - This is the list of top %{limit} most popular animes
+          with missing screenshots.
+        - The list is cached by the site and refreshed once per hour.
+
+    abuse_requests:
+      index:
+        expand_all: :moderations.bans.index.expand_all
+        notice: >-
+          This is the history of tagging comments
+          with comment markers by site users
+        instruction: Instructions
+        instructions:
+          - Personal conversations in anime topics are offtopic.
+          - Comments written in (very) poor English are offtopic.
+          - Don't remove 'summary' marker from negative summaries
+            if they are well-written and not offensive.
+        to_your_discretion: The rest is left to your discretion.
+        queue: Queue
+        bans_plus_warnings: bans + warnings
+        history: History
+
+      abuse_request:
+        accept: accept
+        actions: actions
+        ban: ban
+        for_reason: for reason
+        old_comment: old comment
+        club_comment: club comment
+        profile_comment: profile comment
+        offtopic_comment: offtopic comment
+        reject: reject
+        remove: remove
+        show: show
+        for: for
+        from: from
+        warn: warn
+
+    bans:
+      index:
+        expand_all: expand all
+        notice: This is the history of bans and warnings
+        instruction: Instructions
+        instructions:
+          - User profiles and clubs are not moderated.
+          - Don't discuss moderation related issues and the fact of you being
+            a moderator with other members.
+          - Don't discuss your reasons for banning a particular member
+            as well as ban duration or why this user has been banned
+            while another one has not.
+          - Be polite, don't insult or harass other members.
+          - Ban duration is set using a combination of minutes (m),
+            hours (h), days (d) and weeks (w). E.g. <b><em>5m 2h 3w</em></b>
+            is a ban for 3 weeks, 2 hours and 5 minutes.
+          - Using zero as ban duration results in warning a member
+            without actually banning him or her.
+          - 'Ban duration for any particular member is calculated
+            automatically using this formula:
+            <b><em>0.5 + 0.5 * ((&lt;number_of_bans_for_the_last_two_months&gt; ^ 3) /2 - 1)</em></b>.'
+          - Ban duration is left to your discretion but it's recommended to
+            use ban duration calculated automatically.
+          - Banned users trying to sign up using proxy server
+            must be banned without further ado and for a very long time.
+            Their comments must be removed.
+          - 'Don''t ban for old comments - such comments are tagged with an
+            <span style="font-size: 11px; color: green;">
+            old comment</span> marker.'
+          - Deliberate flaming or trolling is strictly
+            prohibited - members starting either one must be banned.
+        queue: Queue
+        queue_empty: Queue is empty
+        declined: Declined
+        offtopic_plus_summaries: offtopic + summaries
+        history: History
+
+      ban:
+        ban: ban
+        banned_on: "on" # не убирать кавычки
+        for: for
+        for_deleted_comment: for deleted comment
+        warning: warning
+
+    reviews:
+      index:
+        notice: This is the history of reviews moderation
+        instruction: Instructions
+        instructions:
+          - In general review should follow the guidelines outlined
+            <a href="//shikimori.one/animes/1-Cowboy-Bebop/reviews/new">
+            here</a>.
+          - Rejected reviews are converted to 'Off-Topic' forum topics
+            and cannot be restored.
+          - Reject reviews containing either implicit or explicit trolling,
+            abusive language or which are meant to cause flaming.
+        queue: Queue
+        more_summaries_pending: >-
+          That's not all yet. Other reviews will be available for
+          moderation after processing the ones above.
+        queue_empty: Queue is empty
+        history: History
+
+      review:
+        accept: accept
+        move_to_offtopic: move to offtopic
+
+    collections:
+      index:
+        notice: This is the history of collection moderation
+        instruction: Instructions
+        instructions:
+          - Rejected collection are converted to 'Off-Topic' forum topics
+            and cannot be restored.
+          - Reject collection containing either implicit or explicit trolling,
+            abusive language or which are meant to cause flaming.
+        queue: Queue
+        more_summaries_pending: >-
+          That's not all yet. Other collections will be available for
+          moderation after processing the ones above.
+        queue_empty: Queue is empty
+        history: History
+
+      collection:
+        accept: accept
+        move_to_offtopic: move to offtopic
+
+    versions:
+      index:
+        expand_all: :moderations.bans.index.expand_all
+        notice: This is the history of content changes authored by members.
+        instruction: Instructions
+        instructions:
+          - 'Anime descriptions must be original that is not "copypasted"
+            from other sites. It can be easily checked: just search for
+            description in question on
+            <a href="https://www.google.ru/search?q=The+End+of+Evangelion+serves+as+an+alternate+ending+to+the+polarizing+final+episodes+of+Neon+Genesis+Evangelion&oq=The+End+of+Evangelion+serves+as+an+alternate+ending+to+the+polarizing+final+episodes+of+Neon+Genesis+Evangelion&aqs=chrome..69i57.662j0j1&sourceid=chrome&es_sm=91&ie=UTF-8">Google</a>.
+            If there''s a full text match on any site besides Shikimori
+            this is plagiarism and such content change must be rejected.
+            Manga and character descriptions can be quoted from other sites
+            provided the source is specified.'
+          - Content changes should not have any spelling or grammar mistakes.
+            You can spot them with MS Word or any online spell checker
+            (e.g. <a href="https://www.jspell.com/public-spell-checker.html">this one</a>).
+          - Character names must be <b>highlighted</b> by specifying
+            Japanese variant in parentheses right after the name.
+          - Descriptions must be authored in literary English.
+            Translations verbatim from other languages are forbidden.
+          - The author will receive notification after you accept or reject
+            his content change. In the latter case try to explain
+            what should be fixed for his content change to be accepted.
+          - It's not prohibited to replace someone else's description
+            completely. All descriptions can be changed by other members
+            if moderator considers a new text to be better.
+          - 'High quality screenshots are strongly recommended:
+            e.g. acceptable resolution for ongoings is 720p (1280x720),
+            for older animes - at least 480p (720x480). It''s allowed
+            to use poor quality screenshots from animes of the 90s.'
+          - Screenshots shouldn't contain any logos or watermarks of
+            other sites as well as subtitles.
+
+
+
+
+
+
+
+
+        instructions_notice: >-
+          In case of minor drawbacks it's recommended to accept (rather than
+          reject) content change and correct it by yourself if necessary:
+          when editing anime/manga/character description you can use
+          "Apply" button (it's located to the left of "Save" button)
+          to apply changes without adding yourself to the list of authors.
+
+        queue: Queue
+        more_content_changes_pending: >-
+          That's not all yet. Other content changes will be available for
+          moderation after processing the ones above.
+        queue_empty: Queue is empty
+        history: History of content changes
+
+    users:
+      index:
+        users: Users
+        nothing_here: No users
+
+    roles:
+      index:
+        roles: Roles
+      show:
+        users: Users
+        nothing_here: No users
+        add_user: Add User
+        search: Search by name...
+        history: :moderations.bans.index.history
+        notice:
+          super_moderator: Can assign moderators
+          retired_moderator: Retired moderator
+          version_moderator: Moderator of database content changes
+          trusted_version_changer: Can change database content without moderation
+          not_trusted_version_changer: Cannot change database content
+          trusted_ranobe_external_links_changer: Can change Light Novel external links without moderation
+          trusted_fansub_changer: Can change fansubbers & fandubbers without moderation
+          video_super_moderator: Can assign video moderators
+          api_video_uploader: Have access to videos api
+          trusted_video_uploader: Can upload videos wihtout moderation
+          not_trusted_video_uploader: Cannot upload videos
+          trusted_video_changer: Can edit uploaded videos without moderation
+          not_trusted_abuse_reporter: Restriction in filing complaints on the forum (maximum 3 complaints per day)
+          censored_avatar: Have avatar with adult content
+          censored_profile: Have profile with adult content
+          cheat_bot: Cheat statistics, votes are not counted
+      user:
+        add: Add
+        remove: Remove
+    user_rate_logs:
+      index:
+        notice: >-
+          Logs are stored for 2 weeks. Import lists and clear lists are not logged.
+      user_rate_log:
+        action:
+          create: added
+          update: changed
+          destroy: deleted
+        details: details
+        show: show
+    forums:
+      index: &index
+        forums: Forums
+        notice: List of all forums
+      edit: &edit
+        <<: *index
+        notice: Edit forum
+      update:
+        <<: *edit
+    genres:
+      index: &index
+        genres: Genres
+        notice: List of all site genres
+      edit: &edit
+        <<: *index
+        notice: Edit genre
+      update:
+        <<: *edit

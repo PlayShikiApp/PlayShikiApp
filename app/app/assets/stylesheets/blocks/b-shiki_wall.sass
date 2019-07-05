@@ -1,0 +1,32 @@
+@import mixins/clearfix
+
+.b-shiki_wall
+  +clearfix
+  margin-bottom: 5px
+  max-height: 320px
+  position: relative
+  overflow: hidden
+
+  &.unprocessed
+    max-height: 160px
+
+    .unprocessed img
+      max-height: 160px
+      opacity: 0
+
+  a
+    overflow: hidden
+    position: absolute
+
+  img
+    cursor: zoom-in
+    display: inline-block
+    transition: opacity 0.25s ease
+
+  span.marker
+    display: none
+
+  .b-video
+    margin-bottom: 0
+    overflow: visible
+    width: 100%

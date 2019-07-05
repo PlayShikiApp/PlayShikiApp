@@ -1,0 +1,28 @@
+=shiki_button
+  background-color: #525252
+  border: 0
+  clear: right
+  color: #FFFFFF
+  cursor: pointer
+  display: inline-block
+  font-size: 13px
+  line-height: 23px
+  padding: 0 10px
+  transition: backround-color 0.3s ease, color 0.3s ease
+
+  span
+    font-size: 15px
+    font-weight: bold
+    display: inline
+
+  &:hover
+    background-color: rgb(102, 102, 102)
+    color: rgb(255, 255, 255)
+
+  &:active
+    background-color: rgb(80, 80, 80)
+
+  &[disabled],
+  &.disabled
+    background-color: rgb(120, 120, 120)
+    cursor: default
