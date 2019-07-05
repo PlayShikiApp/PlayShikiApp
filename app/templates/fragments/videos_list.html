@@ -7,7 +7,7 @@
                                     {% for a in anime_videos[kind] %}
                                     <div id="video_{{a['id']}}" class="b-video_variant{{a['active']}}" video_url="{{a['url']}}">
                                         <a class="video_link" id="a_{{a['id']}}">
-                                        <span class="video-kind {{a['language']}}">{{a['kind']}}</span><span class="video-hosting">{{a['video_hosting']}}</span><span class="video-author">{{a['author']}}</span>
+                                        <span class="video-kind {{a['language']}}" style="margin-bottom: 15px;">{{a['kind']}}</span><span class="video-hosting">{{a['video_hosting']}}</span><span class="video-author">{{a['author']}}</span>
                                         </a>
                                     </div>
                             {% endfor %}
@@ -18,7 +18,7 @@
                                  {% for a in anime_videos[kind] %}
                                  <div class="b-video_variant" video_id="{{a['id']}}" id="video_all_{{a['id']}}" video_url="{{a['url']}}">
                                  <a class="video_link" id="all_a_{{a['id']}}">
-                                 <span class="video-kind {{a['language']}}">{{a['kind']}}</span><span class="video-hosting">{{a['video_hosting']}}</span><span class="video-author">{{a['author']}}</span> </a>
+                                 <span class="video-kind {{a['language']}}" style="margin-bottom: 15px;">{{a['kind']}}</span><span class="video-hosting">{{a['video_hosting']}}</span><span class="video-author">{{a['author']}}</span> </a>
                                  {% endfor %}
                                  {% endfor %}
                               </div>
