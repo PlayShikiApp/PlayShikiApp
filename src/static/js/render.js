@@ -27,6 +27,45 @@ async function getKeys() {
 	key2 = await getData(HOST_URL + "/static/keys/key2");
 }
 
+
+/** shiki_helpers.js **/
+var anime_info = {};
+
+async function get_anime_info(id) {
+	if (anime_info[id])
+		return anime_info[id];
+
+	anime_info[id] = await $.get(`https://shikimori.org/api/animes/${id}`);
+	return anime_info[id];
+}
+
+function validate_anime_info(anime_info, id) {
+	if (!anime_info || !anime_info["genres"] || anime_info["genres"].length == 0)
+		return false;
+
+	return true;
+}
+
+async function get_main_genre_url(id) {
+	const anime_info = await get_anime_info(id);
+	if (!validate_anime_info(anime_info))
+		return "";
+
+	const genre_id = anime_info["genres"][0].id;
+	const genre_en = anime_info["genres"][0].name;
+	return `https://shikimori.one/animes/genre/${genre_id}-${genre_en}`;
+}
+
+async function get_main_genre_ru_name(id) {
+	const anime_info = await get_anime_info(id);
+	if (!validate_anime_info(anime_info))
+		return "";
+
+	return anime_info["genres"][0].russian;
+}
+
+/** end of shiki_helpers.js **/
+
 var getUrlParameter = function getUrlParameter(href, sParam) {
 	if (href === undefined)
 		return;
@@ -510,7 +549,7 @@ async function render(callback, anime_id, episode) {
         anime_videos["active_video"].url = anime_videos[active_kind][0]["url"];
     }
 
-    get_storage_item(anime_id, function(result) {
+    get_storage_item(anime_id, async function(result) {
         //console.dir(result);
 
         if ("kind" in result && result["kind"] in anime_videos) {
@@ -588,9 +627,14 @@ async function render(callback, anime_id, episode) {
         $('#video_switcher').html(nunjucks.render('video_switcher.html', render_kwargs));
         $('#videos_list').html(nunjucks.render('videos_list.html', render_kwargs));
         $('#episodes_list').html(nunjucks.render('episodes_list.html', render_kwargs));
-        $('#breadcrumbs').html(nunjucks.render('breadcrumbs.html', render_kwargs));
         $('#video_player').html(nunjucks.render('video_player.html', render_kwargs));
         $('#menu_logo').html(nunjucks.render('menu_logo.html', render_kwargs));
+	const shiki_main_genre_url = await get_main_genre_url(anime_id);
+	const shiki_genre_ru_name = await get_main_genre_ru_name(anime_id);
+	render_kwargs["shiki_main_genre_url"] = shiki_main_genre_url;
+	render_kwargs["shiki_genre_ru_name"] = shiki_genre_ru_name;
+
+        $('#breadcrumbs').html(nunjucks.render('breadcrumbs.html', render_kwargs));
         callback();
     });
 }
