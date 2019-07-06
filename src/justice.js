@@ -79,11 +79,23 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
             if (window.location.href.indexOf('shikimori.org/animes/') !== -1 ||
                window.location.href.indexOf('shikimori.one/animes/') !== -1) {
                 setTimeout(function () {
-                    var s = document.createElement('script');
-                    s.src = chrome.extension.getURL('/static/js/injected.js');
-                    document.head.appendChild(s);
+                    var injected = document.createElement('script');
+                    var main_page_url = chrome.runtime.getURL("../index.html");
+                    injected.text = `var main_page_url = "${main_page_url}";`;
 
-                    s.onload = function(){
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('GET', chrome.extension.getURL('/static/js/injected.js'), true);
+                    xhr.onreadystatechange = function()
+                    {
+                        if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200)
+                        {
+                              injected.text += xhr.responseText;
+                              document.head.appendChild(injected);
+                        }
+                    };
+                    xhr.send();
+
+                    injected.onload = function(){
                         var evt=document.createEvent("CustomEvent");
                         evt.initCustomEvent("yourCustomEvent", true, true, chrome.runtime.getURL("../index.html"));
                         document.dispatchEvent(evt);

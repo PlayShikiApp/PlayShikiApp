@@ -20,10 +20,9 @@
             "*://shikimori.one/*"
         ],
         "js": [
-	    "jquery-3.4.1.min.js",
             "justice.js"
         ],
-        "run_at": "document_end"
+        "run_at": "document_start"
     }],
     "background": {
         "page": "index.html"
