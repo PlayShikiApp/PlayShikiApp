@@ -12,7 +12,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 				return;
 			}
 
-			const userRatesForm = $(rateData);
+			var userRatesForm = $(rateData);
 			var authenticity_token = $("[name=authenticity_token]", userRatesForm).attr("value");
 			var user_rate_status = $("#user_rate_status option:selected", userRatesForm).attr("value");
 			var user_rate_rewatches = $("#user_rate_rewatches", userRatesForm).attr("value");

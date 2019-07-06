@@ -4,6 +4,46 @@ var mainObserver = new MutationObserver(start);
 var observerConfig = { attributes: true, subtree: true, childList: true };
 mainObserver.observe(document, observerConfig);
 
+function get(url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+            callback(xhr.responseText);
+        }
+    };
+    xhr.send();
+}
+
+function IsJsonString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
+
+var g_user_rates;
+var g_button_added = false;
+var g_callback_started = false;
+
+function get_user_rates(anime_id, callback) {
+    if (g_user_rates)
+        return callback(g_user_rates);
+
+    get("https://" + location.hostname + "/api/users/whoami", function(data) {
+        var user = JSON.parse(data);
+        get("https://" + location.hostname + "/api/v2/user_rates?user_id=" + user.id +
+                    "&target_id=" + anime_id + "&target_type=Anime", function(data1) {
+            if (IsJsonString(data1)) {
+                var rates = JSON.parse(data1);
+                g_user_rates = rates;
+                callback(rates);
+            }
+        });
+    });
+}
 
 function start() {
   var infoSection = document.querySelector('body#animes_show .c-info-right');
@@ -12,40 +52,39 @@ function start() {
 
   var watchLink = document.querySelector('#watchButton');
 
-
-  console.log("start");
-
   if (infoSection === null || placeHolder === null || desc === null || watchLink !== null)
     return;
 
-  var watched_episodes = 1;
-
-  var watchedEl = document.querySelector(".current-episodes");
-
-  if (watchedEl !== null) {
-	  var watched_episodes = parseInt(watchedEl.innerText) + 1;
-	  console.log("watched_episodes = " + watched_episodes);
-  }
-
-  var total_episodes = parseInt(placeHolder.getAttribute("data-total_episodes"));
-  console.log(location.pathname);
   var anime_id = location.pathname.split("-")[0].split("/")[2].replace(/\D/g, "");
-  var loc = main_page_url + "#/?anime_id="+ anime_id + "&episode=" + (watched_episodes > total_episodes ? 1 : watched_episodes);
+  var episode_num = 1;
+  if (g_callback_started)
+     return;
 
-  var WatchButtonElement = document.createElement('div');
-  WatchButtonElement.classList.add('block');
-  WatchButtonElement.innerHTML = `
-        <div class="subheadline m10" style="margin-top: 10px;">Онлайн просмотр</div>
-	<a class="b-link_button dark watch-online" target="_blank" id="watchButton" href="#" style="margin-top: 10px;">Смотреть онлайн</a>
-  `;
+  return get_user_rates(anime_id, function(rates) {
+       g_callback_started = true;
+       if (g_button_added)
+             return;
 
-  infoSection.appendChild(WatchButtonElement);
-  watchLink = WatchButtonElement.querySelector('#watchButton');
-  watchLink.href = loc;
+       //console.log(rates);
+       if (rates && rates.length > 0 && (rates[0]["status"] === "watching" || rates[0]["status"] === "rewatching")) {
+             episode_num = rates[0].episodes + 1;
+       }
+       var loc = main_page_url + "#/?anime_id="+ anime_id + "&episode=" + episode_num;
 
-  //console.dir(desc);
-  mainObserver.disconnect();
-  return;
+       var WatchButtonElement = document.createElement('div');
+       WatchButtonElement.classList.add('block');
+
+       WatchButtonElement.innerHTML = '<div class="subheadline m10" style="margin-top: 10px;">Онлайн просмотр</div><a class="b-link_button dark watch-online" target="_blank" id="watchButton" href="#" style="margin-top: 10px;">Смотреть онлайн</a>';
+
+       infoSection.appendChild(WatchButtonElement);
+       watchLink = WatchButtonElement.querySelector('#watchButton');
+       watchLink.href = loc;
+       g_button_added = true;
+
+       //console.dir(desc);
+       mainObserver.disconnect();
+       return;
+  });
 }
 
 })();
