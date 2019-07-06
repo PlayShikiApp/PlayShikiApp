@@ -71,15 +71,17 @@ function start() {
        }
        var loc = main_page_url + "#/?anime_id="+ anime_id + "&episode=" + episode_num;
 
-       var WatchButtonElement = document.createElement('div');
-       WatchButtonElement.classList.add('block');
+       if (!document.querySelector('#_watchButton')) {
+           var WatchButtonElement = document.createElement('div');
+           WatchButtonElement.classList.add('block');
 
-       WatchButtonElement.innerHTML = '<div class="subheadline m10" style="margin-top: 10px;">Онлайн просмотр</div><a class="b-link_button dark watch-online" target="_blank" id="watchButton" href="#" style="margin-top: 10px;">Смотреть онлайн</a>';
+           WatchButtonElement.innerHTML = '<div class="subheadline m10" style="margin-top: 10px;">Онлайн просмотр</div><a class="b-link_button dark watch-online" target="_blank" id="_watchButton" href="#" style="margin-top: 10px;">Смотреть онлайн</a>';
 
-       infoSection.appendChild(WatchButtonElement);
-       watchLink = WatchButtonElement.querySelector('#watchButton');
-       watchLink.href = loc;
-       g_button_added = true;
+           infoSection.appendChild(WatchButtonElement);
+           watchLink = WatchButtonElement.querySelector('#_watchButton');
+           watchLink.href = loc;
+           g_button_added = true;
+       }
 
        //console.dir(desc);
        mainObserver.disconnect();
