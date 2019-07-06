@@ -685,7 +685,7 @@ async function render(callback, anime_id, episode) {
         var rates_statuses_stats = await get_rates_statuses_stats(anime_id);
         if (rates_statuses_stats) {
              var rates_stat_max = rates_statuses_stats.reduce((a, b) => ({"value": Math.max(a["value"], b["value"])}))["value"];
-             var rates_stat_total = rates_scores.reduce((a, b) => ({"value": a["value"] + b["value"]}))["value"];
+             var rates_stat_total = rates_statuses_stats.reduce((a, b) => ({"value": a["value"] + b["value"]}))["value"];
 
 	     for (stat of rates_statuses_stats) {
                  stat["title"] = stat["value"];
