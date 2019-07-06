@@ -43,7 +43,29 @@ function validate_anime_info(anime_info, id) {
 	if (!anime_info || !anime_info["genres"] || anime_info["genres"].length == 0)
 		return false;
 
+	if (!anime_info["rates_scores_stats"])
+		return false;
+
+	if (!anime_info["rates_statuses_stats"])
+		return false;
+
 	return true;
+}
+
+async function get_rates_scores_stats(id) {
+	const anime_info = await get_anime_info(id);
+	if (!validate_anime_info(anime_info))
+		return;
+
+	return anime_info["rates_scores_stats"];
+}
+
+async function get_rates_statuses_stats(id) {
+	const anime_info = await get_anime_info(id);
+	if (!validate_anime_info(anime_info))
+		return;
+
+	return anime_info["rates_statuses_stats"];
 }
 
 async function get_main_genre_url(id) {
@@ -647,6 +669,36 @@ async function render(callback, anime_id, episode) {
 	render_kwargs["shiki_genre_ru_name"] = shiki_genre_ru_name;
 
         $('#breadcrumbs').html(nunjucks.render('breadcrumbs.html', render_kwargs));
-        
+	var rates_scores = await get_rates_scores_stats(anime_id);
+	if (rates_scores) {
+	     var rates_score_max = rates_scores.reduce((a, b) => ({"value": Math.max(a["value"], b["value"])}))["value"];
+
+	     for (score of rates_scores) {
+                 score["title"] = score["value"];
+                 score["width"] = (score["value"] * 100 / rates_score_max).toFixed(2);
+                 if (score["width"] < 15)
+                     score["value"] = "";
+             }
+	     $('#rates_scores').html(nunjucks.render('rates_scores.html', {"rates_scores": rates_scores}));
+	}
+
+        var rates_statuses_stats = await get_rates_statuses_stats(anime_id);
+        if (rates_statuses_stats) {
+             var rates_stat_max = rates_statuses_stats.reduce((a, b) => ({"value": Math.max(a["value"], b["value"])}))["value"];
+             var rates_stat_total = rates_scores.reduce((a, b) => ({"value": a["value"] + b["value"]}))["value"];
+
+	     for (stat of rates_statuses_stats) {
+                 stat["title"] = stat["value"];
+                 stat["width"] = (stat["value"] * 100 / rates_stat_max).toFixed(2);
+                 if (stat["width"] < 15)
+                     stat["value"] = "";
+             }
+	     $('#rates_statuses').html(nunjucks.render('rates_statuses.html', {
+                                   "rates_statuses_stats": rates_statuses_stats,
+                                   "rates_stat_total": rates_stat_total
+             }));
+        }
+	//$('#rates_scores_stats').data("stats", JSON.stringify([{"name":10,"value":612},{"name":9,"value":472},{"name":8,"value":737},{"name":7,"value":430},{"name":6,"value":166},{"name":5,"value":79},{"name":4,"value":21},{"name":3,"value":6},{"name":2,"value":5},{"name":1,"value":10}]));
+
     });
 }

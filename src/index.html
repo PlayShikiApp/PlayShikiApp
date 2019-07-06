@@ -33,12 +33,11 @@
       <!--
          <script async="" src="/static/js/analytics.js"></script>
          -->
-      
-         <script src="/static/js/vendor.js" data-turbolinks-track="reload"></script>
-         <script src="/static/js/application.js" data-turbolinks-track="reload"></script>
-	 <script src="/static/js/shiki_helpers.js"></script>
-         
-     <!-- <script src='jquery-3.4.1.min.js'></script>-->
+
+      <script src="/static/js/vendor.js" data-turbolinks-track="reload"></script>
+      <script src="/static/js/application.js" data-turbolinks-track="reload"></script>
+
+      <script src="/static/js/shiki_helpers.js"></script>
       <script src='/static/js/utils.js'></script>
       <script src='/static/js/XORCipher.js'></script>
       <script src="background.js"></script>
@@ -96,46 +95,46 @@
                         <div id="video_player" class="player-container">
                            <div class="b-video_player">
                               <div class="player-area"><iframe id="player" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" scrolling="no" allowfullscreen="allowfullscreen" style="height: 502px;"></iframe></div>
-<!--
-                              <div class="cc-anime_video_report-new">
-                                 <div class="cc-2a">
-                                    <div class="c-column">
-                                       <p class="m5"><b>Жалоба на видео</b></p>
-                                       <div class="m15">
-                                          <div class="b-prgrph">Сайт ничего своего не добавляет к видео плеерам: ни рекламу, ни редиректы на другие сайты.</div>
-                                          <div class="b-prgrph">Всё, что происходит при просмотре видео, это действия</div>
-                                          <ul class="b-list">
-                                             <li> либо самого видео хостинга, с которого проигрывается видео;<br>  </li>
-                                             <li> либо плагинов, установленных в твоём браузере;<br>  </li>
-                                             <li> либо вирусов, живущих на твоём компьютере;<br></li>
-                                          </ul>
-                                          <div class="b-prgrph">Шикимори никак не влияет на работу видео плеера!</div>
+                              <!--
+                                 <div class="cc-anime_video_report-new">
+                                    <div class="cc-2a">
+                                       <div class="c-column">
+                                          <p class="m5"><b>Жалоба на видео</b></p>
+                                          <div class="m15">
+                                             <div class="b-prgrph">Сайт ничего своего не добавляет к видео плеерам: ни рекламу, ни редиректы на другие сайты.</div>
+                                             <div class="b-prgrph">Всё, что происходит при просмотре видео, это действия</div>
+                                             <ul class="b-list">
+                                                <li> либо самого видео хостинга, с которого проигрывается видео;<br>  </li>
+                                                <li> либо плагинов, установленных в твоём браузере;<br>  </li>
+                                                <li> либо вирусов, живущих на твоём компьютере;<br></li>
+                                             </ul>
+                                             <div class="b-prgrph">Шикимори никак не влияет на работу видео плеера!</div>
+                                          </div>
+                                       </div>
+                                       <div class="c-column">
+                                          <form class="simple_form b-form new_anime_video_report" id="new_anime_video_report" novalidate="novalidate" action="https://shikimori.one/moderations/anime_video_reports" accept-charset="UTF-8" data-remote="true" method="post">
+                                             <input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="">
+                                             <div class="b-input hidden anime_video_report_anime_video_id"><input class="hidden" type="hidden" value="901945" name="anime_video_report[anime_video_id]" id="anime_video_report_anime_video_id"></div>
+                                             <div class="b-input hidden anime_video_report_user_id"><input class="hidden" type="hidden" value="0" name="anime_video_report[user_id]" id="anime_video_report_user_id"></div>
+                                             <div class="b-input hidden anime_video_report_state"><input class="hidden" type="hidden" value="pending" name="anime_video_report[state]" id="anime_video_report_state"></div>
+                                             <div class="b-input select required anime_video_report_kind">
+                                                <label class="select required control-label" for="anime_video_report_kind"><abbr title="Обязательное поле">*</abbr> Причина</label>
+                                                <select class="select required" name="anime_video_report[kind]" id="anime_video_report_kind">
+                                                   <option selected="selected" value="broken">видео не работает</option>
+                                                   <option value="wrong">видео не к тому аниме</option>
+                                                   <option value="other">прочее</option>
+                                                </select>
+                                             </div>
+                                             <div class="b-input string optional anime_video_report_message field_with_hint"><label class="string optional control-label" for="anime_video_report_message">Сообщение модератору</label><input class="string optional" type="text" name="anime_video_report[message]" id="anime_video_report_message"><span class="hint">не обязательно</span></div>
+                                             <div class="buttons">
+                                                <div class="cancel">Отмена</div>
+                                                <input type="submit" name="commit" value="Отправить" class="btn-primary btn-submit btn" data-disable-with="Отправка…" id="submit_anime_video_report" autocomplete="off" tabindex="0">
+                                             </div>
+                                          </form>
                                        </div>
                                     </div>
-                                    <div class="c-column">
-                                       <form class="simple_form b-form new_anime_video_report" id="new_anime_video_report" novalidate="novalidate" action="https://shikimori.one/moderations/anime_video_reports" accept-charset="UTF-8" data-remote="true" method="post">
-                                          <input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="">
-                                          <div class="b-input hidden anime_video_report_anime_video_id"><input class="hidden" type="hidden" value="901945" name="anime_video_report[anime_video_id]" id="anime_video_report_anime_video_id"></div>
-                                          <div class="b-input hidden anime_video_report_user_id"><input class="hidden" type="hidden" value="0" name="anime_video_report[user_id]" id="anime_video_report_user_id"></div>
-                                          <div class="b-input hidden anime_video_report_state"><input class="hidden" type="hidden" value="pending" name="anime_video_report[state]" id="anime_video_report_state"></div>
-                                          <div class="b-input select required anime_video_report_kind">
-                                             <label class="select required control-label" for="anime_video_report_kind"><abbr title="Обязательное поле">*</abbr> Причина</label>
-                                             <select class="select required" name="anime_video_report[kind]" id="anime_video_report_kind">
-                                                <option selected="selected" value="broken">видео не работает</option>
-                                                <option value="wrong">видео не к тому аниме</option>
-                                                <option value="other">прочее</option>
-                                             </select>
-                                          </div>
-                                          <div class="b-input string optional anime_video_report_message field_with_hint"><label class="string optional control-label" for="anime_video_report_message">Сообщение модератору</label><input class="string optional" type="text" name="anime_video_report[message]" id="anime_video_report_message"><span class="hint">не обязательно</span></div>
-                                          <div class="buttons">
-                                             <div class="cancel">Отмена</div>
-                                             <input type="submit" name="commit" value="Отправить" class="btn-primary btn-submit btn" data-disable-with="Отправка…" id="submit_anime_video_report" autocomplete="off" tabindex="0">
-                                          </div>
-                                       </form>
-                                    </div>
                                  </div>
-                              </div>
--->
+                                 -->
                               <div class="cc-player_controls cc-2a">
                                  <div class="c-column">
                                     <div class="cc-navigation">
@@ -166,12 +165,12 @@
                                              <div class="icon"></div>
                                              <div class="label">Опции</div>
                                           </div>
-<!--
-                                          <div class="c-column c-control report">
-                                             <div class="icon"></div>
-                                             <div class="label">Пожаловаться</div>
-                                          </div>
--->
+                                          <!--
+                                             <div class="c-column c-control report">
+                                                <div class="icon"></div>
+                                                <div class="label">Пожаловаться</div>
+                                             </div>
+                                             -->
                                        </div>
                                        <div class="c-video_stats">
                                           <div class="views_count">1425 просмотров</div>
@@ -188,7 +187,7 @@
                            <div class="c-videos">
                               <div class="title">
                                  <div id="video_switcher">
-				 </div>
+                                 </div>
                               </div>
                               <div id="videos_list">
                                  <!-- videos list -->
@@ -208,11 +207,118 @@
                   </div>
                </div>
                <aside class="l-menu">
-                  <div class="b-animes-menu">
+                  <div class="b-animes-menu" style="margin-left: 10px">
                      <div id="menu_logo" class="b-menu_logo">
                      </div>
+                     <div id="rates_scores" class="block">
+                        <div class="subheadline">Оценки людей</div>
+                        <div data-bar="horizontal" data-stats="[{&quot;name&quot;:10,&quot;value&quot;:0},{&quot;name&quot;:9,&quot;value&quot;:0},{&quot;name&quot;:8,&quot;value&quot;:0},{&quot;name&quot;:7,&quot;value&quot;:0},{&quot;name&quot;:6,&quot;value&quot;:0},{&quot;name&quot;:5,&quot;value&quot;:0},{&quot;name&quot;:4,&quot;value&quot;:0},{&quot;name&quot;:3,&quot;value&quot;:0},{&quot;name&quot;:2,&quot;value&quot;:0},{&quot;name&quot;:1,&quot;value&quot;:0}]" id="rates_scores_stats" class="bar simple horizontal">
+                           <div class="line">
+                              <div class="x_label">10</div>
+                              <div class="bar-container">
+                                 <div class="bar s0 min" style="width: 0%" title="0">
+                                    <div class="value mini">0</div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="line">
+                              <div class="x_label">9</div>
+                              <div class="bar-container">
+                                 <div class="bar s1 min" style="width: 0%" title="0">
+                                    <div class="value mini">0</div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="line">
+                              <div class="x_label">8</div>
+                              <div class="bar-container">
+                                 <div class="bar s0 min" style="width: 0%" title="0">
+                                    <div class="value mini">0</div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="line">
+                              <div class="x_label">7</div>
+                              <div class="bar-container">
+                                 <div class="bar s2 min" style="width: 0%" title="0">
+                                    <div class="value mini">0</div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="line">
+                              <div class="x_label">6</div>
+                              <div class="bar-container">
+                                 <div class="bar s3 min" style="width: 0%" title="0">
+                                    <div class="value mini">0</div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="line">
+                              <div class="x_label">5</div>
+                              <div class="bar-container">
+                                 <div class="bar s3 min" style="width: 0%" title="0">
+                                    <div class="value">0</div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="line">
+                              <div class="x_label">4</div>
+                              <div class="bar-container">
+                                 <div class="bar s3 min" style="width: 0%" title="0">
+                                    <div class="value narrow"></div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div id="rates_statuses" class="block">
+                        <div class="subheadline">В списках у людей</div>
+                        <div data-bar="horizontal" data-stats="[{&quot;name&quot;:&quot;Просмотрено&quot;,&quot;value&quot;:0},{&quot;name&quot;:&quot;Брошено&quot;,&quot;value&quot;:0},{&quot;name&quot;:&quot;Отложено&quot;,&quot;value&quot;:0},{&quot;name&quot;:&quot;Запланировано&quot;,&quot;value&quot;:0},{&quot;name&quot;:&quot;Смотрю&quot;,&quot;value&quot;:0}]" id="rates_statuses_stats" class="bar simple horizontal">
+                           <div class="line">
+                              <div class="x_label">Просмотрено</div>
+                              <div class="bar-container">
+                                 <div class="bar s0 min" style="width: 0%" title="0">
+                                    <div class="value mini">0</div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="line">
+                              <div class="x_label">Брошено</div>
+                              <div class="bar-container">
+                                 <div class="bar s3 min" style="width: 0%" title="0">
+                                    <div class="value narrow mini"></div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="line">
+                              <div class="x_label">Отложено</div>
+                              <div class="bar-container">
+                                 <div class="bar s3 min" style="width: 0%" title="0">
+                                    <div class="value narrow mini"></div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="line">
+                              <div class="x_label">Запланировано</div>
+                              <div class="bar-container">
+                                 <div class="bar s1 min" style="width: 0%" title="0">
+                                    <div class="value mini">0</div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="line">
+                              <div class="x_label">Смотрю</div>
+                              <div class="bar-container">
+                                 <div class="bar s3 min" style="width: 0%" title="0">
+                                    <div class="value mini"></div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="total-rates">В списках у 0 человек</div>
+                     </div>
+                  </div>
                </aside>
-               </div>
             </div>
          </div>
          </div>

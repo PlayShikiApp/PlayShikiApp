@@ -47,8 +47,8 @@ requireJqueryPlugins.keys().forEach(requireJqueryPlugins);
 const requireViews = require.context('views', true);
 requireViews.keys().forEach(requireViews);
 
-const requirePages = require.context('pages', true);
-requirePages.keys().forEach(requirePages);
+//const requirePages = require.context('pages', true);
+//requirePages.keys().forEach(requirePages);
 
 const requireBlocks = require.context('blocks', true);
 requireBlocks.keys().forEach(requireBlocks);
