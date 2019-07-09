@@ -29,6 +29,10 @@ var g_button_added = false;
 var g_callback_started = false;
 
 function get_user_rates(anime_id, callback) {
+    g_callback_started = true;
+    if (g_button_added)
+             return;
+
     if (g_user_rates)
         return callback(g_user_rates);
 
@@ -61,7 +65,6 @@ function start() {
      return;
 
   return get_user_rates(anime_id, function(rates) {
-       g_callback_started = true;
        if (g_button_added)
              return;
 
