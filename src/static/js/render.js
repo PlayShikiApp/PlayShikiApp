@@ -342,18 +342,6 @@ function rerender(href) {
                 }
                 $(this).click(handler);
             })
-            $("a").each(function(index) {
-                var href = $(this).attr("href");
-                if (href === undefined)
-                    return;
-
-                var handler = function() {
-                    return rerender(href);
-                }
-
-                if (href.indexOf("index.html") >= 0)
-                    $(this).click(handler);
-            })
 
             watched_button_handler = function(ev) {
                 var anime_id = getUrlParameter(window.location.href, 'anime_id');
