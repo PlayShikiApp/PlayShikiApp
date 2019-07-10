@@ -671,11 +671,15 @@ async function render(callback, anime_id, episode) {
                 for (const video of anime_videos[active_kind]) {
                     var current_video_score = 0.0;
 
-                    if (video["author"] === result["author"])
+                    if (video["author"] === result["author"]) {
                         current_video_score += DESIRED_VIDEO_AUTHOR_WEIGTH;
+                        console.log(`author result ${result["author"]}`);
+                    }
 
-                    if (video["hosting"] === result["hosting"])
+                    if (video["hosting"] === result["hosting"]) {
                         current_video_score += DESIRED_VIDEO_HOSTING_WEIGTH;
+			console.log(`hosting result ${result["hosting"]}`);
+                    }
 
                     if (current_video_score > desired_video_score) {
                         desired_video_idx = idx;
@@ -699,6 +703,7 @@ async function render(callback, anime_id, episode) {
                 anime_videos["fandub"][0]["active"] = "";
 
             anime_videos[active_kind][desired_video_idx]["active"] = " active";
+            render_kwargs["anime_videos"] = anime_videos;
         }
 
         update_storage_item(anime_id, {
@@ -728,6 +733,8 @@ async function render(callback, anime_id, episode) {
              }
 	     $('#rates_scores').html(nunjucks.render('rates_scores.html', {"rates_scores": rates_scores}));
 	}
+
+	console.dir(anime_videos);
 
         $('#title').html(nunjucks.render("title.html", render_kwargs));
         $('#video_switcher').html(nunjucks.render('video_switcher.html', render_kwargs));
