@@ -7,8 +7,11 @@
                                     {% for a in anime_videos[kind] %}
                                     <div id="video_{{a['id']}}" class="b-video_variant{{a['active']}}" video_url="{{a['url']}}">
                                         <a class="video_link" id="a_{{a['id']}}">
-                                        <span class="video-kind {{a['language']}}" style="margin-bottom: 15px;">{{a['kind']}}</span><span class="video-hosting">{{a['video_hosting']}}</span><span class="video-author">{{a['author']}}</span>
-                                        </a>
+                                            <span id="video_kind_video_{{a['id']}}" class="video-kind {{a['language']}}" style="margin-bottom: 15px;">{{a['kind']}}</span>
+                                            <span id="video_hosting_video_{{a['id']}}" class="video-hosting">{{a['video_hosting']}}</span>
+                                            <span id="video_author_video_{{a['id']}}" class="video-author">{{a['author']}}</span>
+                                            <input id="video_uploader_video_{{a['id']}}" type="hidden" value="{{a['uploader']}}" />
+			                </a>
                                     </div>
                             {% endfor %}
                             </div>
@@ -18,7 +21,11 @@
                                  {% for a in anime_videos[kind] %}
                                  <div class="b-video_variant" video_id="{{a['id']}}" id="video_all_{{a['id']}}" video_url="{{a['url']}}">
                                  <a class="video_link" id="all_a_{{a['id']}}">
-                                 <span class="video-kind {{a['language']}}" style="margin-bottom: 15px;">{{a['kind']}}</span><span class="video-hosting">{{a['video_hosting']}}</span><span class="video-author">{{a['author']}}</span> </a>
+                                     <span id="video_kind_video_all_{{a['id']}}" class="video-kind {{a['language']}}" style="margin-bottom: 15px;">{{a['kind']}}</span>
+                                     <span id="video_hosting_video_all_{{a['id']}}" class="video-hosting">{{a['video_hosting']}}</span>
+                                     <span id="video_author_video_all_{{a['id']}}" class="video-author">{{a['author']}}</span>
+                                     <input id="video_uploader_video_all_{{a['id']}}" type="hidden" value="{{a['uploader']}}" />
+			         </a>
                                  {% endfor %}
                                  {% endfor %}
                               </div>

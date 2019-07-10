@@ -449,18 +449,14 @@ async function update_src(url, active_id) {
     var anime_id = getUrlParameter(window.location.href, 'anime_id');
     var episode = getUrlParameter(window.location.href, 'episode');
 
-    innerElements = $($("#" + active_id).children()[0]).children();
-    //console.dir(innerElements);
-    if (innerElements.length == 3) {
-        var item = {};
-        if (innerElements[1].className === "video-hosting")
-            item["hosting"] = innerElements[1].innerText;
-
-        if (innerElements[2].className === "video-author")
-            item["author"] = innerElements[2].innerText;
-
-        update_storage_item(anime_id, item);
-    }
+    var item = {};
+    item["hosting"] = $("#video_hosting_" + active_id).text();
+    item["author"] = $("#video_author_" + active_id).text();
+    update_storage_item(anime_id, item);
+    $("#direct_link").attr("href", url);
+    var uploader = $("#video_uploader_" + active_id).val();
+    $("#uploader").text(uploader);
+    $("#uploader_img").attr("alt", uploader);
 
     document.getElementById("player").src = url;
     $(".b-video_variant").each(function(index) {

@@ -49,7 +49,7 @@
                                        </a>
                                        <div class="c-control episode-num">
                                           <span>Эпизод</span><b> #</b><input data-href="/index.html#/?anime_id={{anime_id}}&episode={{anime_videos['active_video']['episode'] }}" type="text" value="{{anime_videos['active_video']['episode']}}">
-                                          <div class="video-link"><a href="{{anime_videos['active_video']['url']}}" target="_blank">прямая ссылка</a></div>
+                                          <div class="video-link"><a id="direct_link" href="{{anime_videos['active_video']['url']}}" target="_blank">прямая ссылка</a></div>
                                        </div>
                                        <a class="c-control next" href="/index.html#/?anime_id={{anime_id}}&episode={{anime_videos['active_video']['episode'] + 1}}">
                                           <div class="icon"></div>
@@ -81,7 +81,7 @@
                                        <div class="c-video_stats">
                                           <div class="views_count">{{anime_videos['active_video']['watches_count']}} просмотров</div>
                                           <div class="uploader">
-                                             <div class="b-user16"><a href="https://shikimori.one" title="{{anime_videos['active_video']['uploader']}}"><img width="16" alt="{{anime_videos['active_video']['uploader']}}" src="https://desu.shikimori.one/system/users/x32/16178.png?1506795242" srcset="https://desu.shikimori.one/system/users/x32/16178.png?1506795242 2x"><span>{{anime_videos['active_video']['uploader']}}</span></a></div>
+                                             <div class="b-user16"><a href="https://shikimori.one" title="{{anime_videos['active_video']['uploader']}}"><img id="uploader_img" width="16" alt="{{anime_videos['active_video']['uploader']}}" src="https://desu.shikimori.one/system/users/x32/16178.png?1506795242" srcset="https://desu.shikimori.one/system/users/x32/16178.png?1506795242 2x"><span id="uploader">{{anime_videos['active_video']['uploader']}}</span></a></div>
                                           </div>
                                        </div>
                                     </div>
