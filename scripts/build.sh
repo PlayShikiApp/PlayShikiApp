@@ -12,6 +12,7 @@ for i in $SUPPORTED_BROWSERS
 do
 	mkdir -p dist/$i
 	cp -r src/* dist/$i
+	rm dist/$i/index.html.dev
 	rm -f dist/$i/static/js/render.js
 done
 
