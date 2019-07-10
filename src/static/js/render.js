@@ -606,17 +606,29 @@ const DESIRED_VIDEO_AUTHOR_WEIGTH = 1.0;
 const DESIRED_VIDEO_HOSTING_WEIGTH = 1.0;
 
 async function render(callback, anime_id, episode) {
-    await getKeys();
-    var anime_videos = await get_anime_videos(anime_id, episode);
+    var [anime_videos, shiki_main_genre_url] = await Promise.all([
+             get_anime_videos(anime_id, episode),
+             get_main_genre_url(anime_id)
+    ]);
+
+    var [shiki_genre_ru_name, anime_info] = await Promise.all([
+             get_main_genre_ru_name(anime_id),
+             get_anime_info(anime_id)
+    ]);
+
     if (!anime_videos) {
         console.log("!anime_videos");
         return;
     }
-    var anime_info = await get_anime_info(anime_id);
+
     if (!anime_info) {
         console.log("!anime_info");
         return;
     }
+
+    var render_kwargs = await get_render_kwargs(anime_id, episode);
+    render_kwargs["shiki_main_genre_url"] = shiki_main_genre_url;
+    render_kwargs["shiki_genre_ru_name"] = shiki_genre_ru_name;
 
     var active_kind = undefined;
     for (kind of ["fandub", "raw", "subtitles"]) {
@@ -703,7 +715,6 @@ async function render(callback, anime_id, episode) {
 		$('#user_profile').html(nunjucks.render('user_profile.html', user_kwargs));
 	});
 
-
         $('#breadcrumbs').html(nunjucks.render('breadcrumbs.html', render_kwargs));
 	var rates_scores = await get_rates_scores_stats(anime_id);
 	if (rates_scores) {
@@ -718,8 +729,6 @@ async function render(callback, anime_id, episode) {
 	     $('#rates_scores').html(nunjucks.render('rates_scores.html', {"rates_scores": rates_scores}));
 	}
 
-        var render_kwargs = await get_render_kwargs(anime_id, episode);
-
         $('#title').html(nunjucks.render("title.html", render_kwargs));
         $('#video_switcher').html(nunjucks.render('video_switcher.html', render_kwargs));
         $('#videos_list').html(nunjucks.render('videos_list.html', render_kwargs));
@@ -727,11 +736,6 @@ async function render(callback, anime_id, episode) {
         $('#video_player').html(nunjucks.render('video_player.html', render_kwargs));
         $('#menu_logo').html(nunjucks.render('menu_logo.html', render_kwargs));
 	callback();
-
-	const shiki_main_genre_url = await get_main_genre_url(anime_id);
-	const shiki_genre_ru_name = await get_main_genre_ru_name(anime_id);
-	render_kwargs["shiki_main_genre_url"] = shiki_main_genre_url;
-	render_kwargs["shiki_genre_ru_name"] = shiki_genre_ru_name;
 
         var rates_statuses_stats = await get_rates_statuses_stats(anime_id);
         if (rates_statuses_stats) {
