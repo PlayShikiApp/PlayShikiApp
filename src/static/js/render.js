@@ -2,16 +2,25 @@
 
 const HOST = "https://gist.github.com/Chronomonochrome/aad42e8ae1fea9c7ad570bdd2b090cfa/raw/"
 
-var key;
-var key2;
+var g_key;
+var g_key2;
 
 var HOST_URL = null;
 
-function getData(ajaxurl) { 
-  return $.ajax({
+var g_data = {};
+
+async function getData(ajaxurl) {
+  if (ajaxurl in g_data)
+     return g_data[ajaxurl];
+
+  var res = await $.ajax({
     url: ajaxurl,
     type: 'GET',
   });
+
+  g_data[ajaxurl] = res;
+
+  return res;
 };
 
 async function getHost() {
@@ -23,15 +32,18 @@ async function getHost() {
 
 async function getKeys() {
 	await getHost();
-	key = await getData(HOST_URL + "/static/keys/key");
-	key2 = await getData(HOST_URL + "/static/keys/key2");
+	if (!g_key)
+		g_key = await getData(HOST_URL + "/static/keys/key");
+
+	if (!g_key2)
+		g_key2 = await getData(HOST_URL + "/static/keys/key2");
 }
 
 
 /** shiki_helpers.js **/
 var anime_info = {};
 
-async function get_anime_info(id) {
+async function get_shiki_anime_info(id) {
 	if (anime_info[id])
 		return anime_info[id];
 
@@ -53,7 +65,7 @@ function validate_anime_info(anime_info, id) {
 }
 
 async function get_rates_scores_stats(id) {
-	const anime_info = await get_anime_info(id);
+	const anime_info = await get_shiki_anime_info(id);
 	if (!validate_anime_info(anime_info))
 		return;
 
@@ -61,7 +73,7 @@ async function get_rates_scores_stats(id) {
 }
 
 async function get_rates_statuses_stats(id) {
-	const anime_info = await get_anime_info(id);
+	const anime_info = await get_shiki_anime_info(id);
 	if (!validate_anime_info(anime_info))
 		return;
 
@@ -69,7 +81,7 @@ async function get_rates_statuses_stats(id) {
 }
 
 async function get_main_genre_url(id) {
-	const anime_info = await get_anime_info(id);
+	const anime_info = await get_shiki_anime_info(id);
 	if (!validate_anime_info(anime_info))
 		return "";
 
@@ -79,7 +91,7 @@ async function get_main_genre_url(id) {
 }
 
 async function get_main_genre_ru_name(id) {
-	const anime_info = await get_anime_info(id);
+	const anime_info = await get_shiki_anime_info(id);
 	if (!validate_anime_info(anime_info))
 		return "";
 
@@ -330,9 +342,9 @@ function rerender(href) {
             $(".video_link").each(function(index) {
                 $(this).click(do_nothing);
             })
-            $(".b-video_variant").each(function(index) {
-                var handler = function() {
-                    return update_src($(this).attr("video_url"), $(this).attr("id"));
+            $(".b-video_variant").each(async function(index) {
+                var handler = async function() {
+                    return await update_src($(this).attr("video_url"), $(this).attr("id"));
                 }
                 $(this).click(handler);
             })
@@ -427,7 +439,7 @@ function get_internal_src(url) {
         return chrome.runtime.getURL("players/anilibria/index.html") + "#/?url=" + url;
 }
 
-function update_src(url, active_id) {
+async function update_src(url, active_id) {
     if (active_id === undefined)
         return;
 
@@ -435,6 +447,7 @@ function update_src(url, active_id) {
         url = get_internal_src(url);
 
     var anime_id = getUrlParameter(window.location.href, 'anime_id');
+    var episode = getUrlParameter(window.location.href, 'episode');
 
     innerElements = $($("#" + active_id).children()[0]).children();
     //console.dir(innerElements);
@@ -449,7 +462,7 @@ function update_src(url, active_id) {
         update_storage_item(anime_id, item);
     }
 
-    document.getElementById('player').src = url;
+    document.getElementById("player").src = url;
     $(".b-video_variant").each(function(index) {
         $(this).removeClass("active");
     });
@@ -513,32 +526,26 @@ function get_storage_item(anime_id, callback) {
     });
 }
 
-const DESIRED_VIDEO_AUTHOR_WEIGTH = 1.0;
-const DESIRED_VIDEO_HOSTING_WEIGTH = 1.0;
-
-async function render(callback, anime_id, episode) {
+async function get_anime_videos(anime_id, episode) {
     await getKeys();
     var anime_videos_body = await getData(HOST_URL + '/api/animes/' + anime_id + '/' + episode);
-    var anime_info_body = await getData(HOST_URL + '/animes/' + anime_id);
 
-    if (!anime_videos_body || !key2 || !anime_info_body || !key) {
+    if (!anime_videos_body || !g_key2 || !g_key) {
         console.log("either anime_videos or key2 couldn't been loaded");
         return;
     }
+
+    var anime_videos;
     try {
-        var anime_videos = JSON.parse(XORCipher.decode(atob(key2), anime_videos_body));
+        anime_videos = JSON.parse(XORCipher.decode(atob(g_key2), anime_videos_body));
     } catch (e) {
         console.dir(e);
         return;
     }
 
-    var active_kind = undefined;
     for (kind of ["fandub", "raw", "subtitles"]) {
-        if (anime_videos[kind].length > 0 && active_kind === undefined)
-            active_kind = kind;
-
         for (var i = 0; i < anime_videos[kind].length; i++) {
-            anime_videos[kind][i]["url"] = XORCipher.decode(atob(key), anime_videos[kind][i].url);
+            anime_videos[kind][i]["url"] = XORCipher.decode(atob(g_key), anime_videos[kind][i].url);
             anime_videos[kind][i]["video_hosting"] = anime_videos[kind][i]["url"].split("/")[2];
             if (is_src_internal(anime_videos[kind][i]["url"]))
                 anime_videos[kind][i]["url"] = get_internal_src(anime_videos[kind][i]["url"]);
@@ -546,12 +553,79 @@ async function render(callback, anime_id, episode) {
     }
 
     try {
-        anime_videos["active_video"].url = XORCipher.decode(atob(key), anime_videos["active_video"].url);
+        anime_videos["active_video"].url = XORCipher.decode(atob(g_key), anime_videos["active_video"].url);
         if (is_src_internal(anime_videos["active_video"].url))
             anime_videos["active_video"].url = get_internal_src(anime_videos["active_video"].url);
     } catch (e) {
         console.dir(e);
         return;
+    }
+
+    return anime_videos;
+}
+
+async function get_anime_info(anime_id) {
+    await getKeys();
+    var anime_info_body = await getData(HOST_URL + '/animes/' + anime_id);
+
+
+    if (!g_key2 || !anime_info_body || !g_key) {
+        console.log("either anime_info or key2 couldn't been loaded");
+        return;
+    }
+
+    try {
+        return JSON.parse(XORCipher.decode(atob(g_key2), anime_info_body));
+    } catch (e) {
+        console.dir(e);
+        return;
+    }
+}
+
+async function get_render_kwargs(anime_id, episode) {
+    var anime_videos = await get_anime_videos(anime_id, episode);
+    if (!anime_videos) {
+        console.log("!anime_videos");
+        return;
+    }
+
+    var anime_info = await get_anime_info(anime_id);
+    if (!anime_info) {
+        console.log("!anime_info");
+        return;
+    }
+
+    var render_kwargs = {
+        'anime_id': anime_id,
+        'episode': episode,
+        'anime_info': anime_info,
+        'anime_videos': anime_videos,
+        'static': ''
+    };
+
+    return render_kwargs;
+}
+
+const DESIRED_VIDEO_AUTHOR_WEIGTH = 1.0;
+const DESIRED_VIDEO_HOSTING_WEIGTH = 1.0;
+
+async function render(callback, anime_id, episode) {
+    await getKeys();
+    var anime_videos = await get_anime_videos(anime_id, episode);
+    if (!anime_videos) {
+        console.log("!anime_videos");
+        return;
+    }
+    var anime_info = await get_anime_info(anime_id);
+    if (!anime_info) {
+        console.log("!anime_info");
+        return;
+    }
+
+    var active_kind = undefined;
+    for (kind of ["fandub", "raw", "subtitles"]) {
+        if (anime_videos[kind].length > 0 && active_kind === undefined)
+            active_kind = kind;
     }
 
     if (active_kind !== undefined) {
@@ -623,24 +697,6 @@ async function render(callback, anime_id, episode) {
             "kind": active_kind
         });
 
-        var render_kwargs = {
-            'anime_id': anime_id,
-            'episode': episode,
-            'anime_info': JSON.parse(XORCipher.decode(atob(key2), anime_info_body)),
-            'anime_videos': anime_videos,
-            'static': ''
-        };
-
-        console.dir(render_kwargs);
-
-        $('#title').html(nunjucks.render("title.html", render_kwargs));
-        $('#video_switcher').html(nunjucks.render('video_switcher.html', render_kwargs));
-        $('#videos_list').html(nunjucks.render('videos_list.html', render_kwargs));
-        $('#episodes_list').html(nunjucks.render('episodes_list.html', render_kwargs));
-        $('#video_player').html(nunjucks.render('video_player.html', render_kwargs));
-        $('#menu_logo').html(nunjucks.render('menu_logo.html', render_kwargs));
-	callback();
-
 	get_or_set_user(function(user) {
 		var user_kwargs = {
 			'user_login': user["nickname"],
@@ -651,10 +707,6 @@ async function render(callback, anime_id, episode) {
 		$('#user_profile').html(nunjucks.render('user_profile.html', user_kwargs));
 	});
 
-	const shiki_main_genre_url = await get_main_genre_url(anime_id);
-	const shiki_genre_ru_name = await get_main_genre_ru_name(anime_id);
-	render_kwargs["shiki_main_genre_url"] = shiki_main_genre_url;
-	render_kwargs["shiki_genre_ru_name"] = shiki_genre_ru_name;
 
         $('#breadcrumbs').html(nunjucks.render('breadcrumbs.html', render_kwargs));
 	var rates_scores = await get_rates_scores_stats(anime_id);
@@ -669,6 +721,21 @@ async function render(callback, anime_id, episode) {
              }
 	     $('#rates_scores').html(nunjucks.render('rates_scores.html', {"rates_scores": rates_scores}));
 	}
+
+        var render_kwargs = await get_render_kwargs(anime_id, episode);
+
+        $('#title').html(nunjucks.render("title.html", render_kwargs));
+        $('#video_switcher').html(nunjucks.render('video_switcher.html', render_kwargs));
+        $('#videos_list').html(nunjucks.render('videos_list.html', render_kwargs));
+        $('#episodes_list').html(nunjucks.render('episodes_list.html', render_kwargs));
+        $('#video_player').html(nunjucks.render('video_player.html', render_kwargs));
+        $('#menu_logo').html(nunjucks.render('menu_logo.html', render_kwargs));
+	callback();
+
+	const shiki_main_genre_url = await get_main_genre_url(anime_id);
+	const shiki_genre_ru_name = await get_main_genre_ru_name(anime_id);
+	render_kwargs["shiki_main_genre_url"] = shiki_main_genre_url;
+	render_kwargs["shiki_genre_ru_name"] = shiki_genre_ru_name;
 
         var rates_statuses_stats = await get_rates_statuses_stats(anime_id);
         if (rates_statuses_stats) {
@@ -686,7 +753,5 @@ async function render(callback, anime_id, episode) {
                                    "rates_stat_total": rates_stat_total
              }));
         }
-	//$('#rates_scores_stats').data("stats", JSON.stringify([{"name":10,"value":612},{"name":9,"value":472},{"name":8,"value":737},{"name":7,"value":430},{"name":6,"value":166},{"name":5,"value":79},{"name":4,"value":21},{"name":3,"value":6},{"name":2,"value":5},{"name":1,"value":10}]));
-
     });
 }
