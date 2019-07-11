@@ -84,7 +84,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
                     injected.text = `var main_page_url = "${main_page_url}";`;
 
                     var xhr = new XMLHttpRequest();
-                    xhr.open('GET', chrome.extension.getURL('/static/js/injected.js'), true);
+                    xhr.open('GET', chrome.extension.getURL('/content/shikimori/js/injected.js'), true);
                     xhr.onreadystatechange = function()
                     {
                         if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200)

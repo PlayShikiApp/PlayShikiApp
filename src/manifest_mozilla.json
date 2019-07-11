@@ -26,7 +26,7 @@
         ],
         "js": [
             "jquery-3.4.1.min.js",
-            "justice.js"
+            "content/shikimori/js/main.js"
         ],
         "run_at": "document_start"
     }],
@@ -36,5 +36,5 @@
     "browser_action": {
         "default_title": "PlayShikimori App"
     },
-    "web_accessible_resources": [ "static/js/*.*", "static/css/*.*", "static/assets/*.*", "static/img/*.*", "*.*", "players/videojs/*.*", "players/videojs/css/*.*", "players/videojs/js/*.*", "players/anilibria/*.*", "players/anilibria/img/*.*", "players/anilibria/css/*.*", "players/anilibria/js/*.*", "https://raw.github.com/", "https://mozilla.github.io", "https://shikimori.one", "https://shikimori.org"]
+    "web_accessible_resources": ["content/shikimori/js/*.*", "static/js/*.*", "static/css/*.*", "static/assets/*.*", "static/img/*.*", "*.*", "players/videojs/*.*", "players/videojs/css/*.*", "players/videojs/js/*.*", "players/anilibria/*.*", "players/anilibria/img/*.*", "players/anilibria/css/*.*", "players/anilibria/js/*.*", "https://raw.github.com/", "https://mozilla.github.io", "https://shikimori.one", "https://shikimori.org"]
 }
