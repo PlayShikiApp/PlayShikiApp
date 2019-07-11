@@ -1,0 +1,40 @@
+.btn-user-watch-button {
+	background-color: #4f74c8;
+	border: #4f74c8 1px solid;
+	border-radius: 4px;
+	color: #fff!important;
+	cursor: pointer;
+	display: inline-block;
+	font-family: Avenir, lucida grande, tahoma, verdana, arial, sans-serif;
+	font-size: 11px;
+	line-height: 1.0em;
+	margin: 0 auto;
+	opacity: 1;
+	padding: 6px 12px 6px 24px;
+	position: relative;
+	text-align: left;
+	text-decoration: none!important;
+	-webkit-transition-duration: .3s;
+	transition-duration: .3s;
+	transition-property: all;
+	-webkit-transition-property: all;
+	-webkit-transition-timing-function: ease-in-out;
+	transition-timing-function: ease-in-out;
+	vertical-align: middle
+}
+
+.user-status-block .btn-user-watch-button:after {
+	content: "\25B6";
+	display: block;
+	font-family: FontAwesome;
+	font-size: 11px;
+	left: 8px;
+	margin-top: -7px;
+	position: absolute;
+	top: 50%
+}
+
+.user-status-block .btn-user-watch-button:hover {
+	background-color: rgba(79, 116, 200, .8);
+	color: #fff
+}
