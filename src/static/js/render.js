@@ -752,6 +752,8 @@ async function render(callback, anime_id, episode) {
 			'user_avatar_srcset': user["image"]["x80"]
 		}
 
+		var hosting = get_shikimori_hosting();
+		$("#mail_url").attr("href", `https://${hosting}/${user["nickname"]}/messages/news`);
 		render_element('user_profile', user_kwargs);
 	});
 
