@@ -354,6 +354,19 @@ function rerender(href) {
                 }
                 $(this).click(handler);
             })
+			
+			$("a").each(function(index) {
+				var href = $(this).attr("url");
+				if (href === undefined)
+					return;
+
+                var handler = function() {
+                    return rerender(href);
+                }
+
+                if (href.indexOf("index.html") >= 0)
+                    $(this).click(handler);
+            })
 
             watched_button_handler = function(ev) {
                 var anime_id = getUrlParameter(window.location.href, 'anime_id');
@@ -394,8 +407,8 @@ function rerender(href) {
                     );
 		    set_watched_button_disabled(true, false);
                     setTimeout(function() {
-                        window.location.href = chrome.runtime.getURL("index.html") + "?anime_id=" + anime_id + "&episode=" + (episode + 1);
-                        rerender(window.location.href);
+                        //window.location.href = 
+                        rerender(chrome.runtime.getURL("index.html") + "?anime_id=" + anime_id + "&episode=" + (episode + 1));
                     }, 1000);
                 });
             };
@@ -605,11 +618,15 @@ async function get_render_kwargs(anime_id, episode) {
 const DESIRED_VIDEO_AUTHOR_WEIGTH = 1.0;
 const DESIRED_VIDEO_HOSTING_WEIGTH = 1.0;
 
-const ELEMENTS_TO_RERENDER = ["#video_player", "#videos_list"];
+const ELEMENTS_TO_RERENDER = ["video_player", "videos_list"];
 var g_rendered_elements = [];
 
 function render_element(id, render_kwargs) {
+	if ((id in g_rendered_elements) && !(id in ELEMENTS_TO_RERENDER))
+		return;
+
 	$('#' + id).html(nunjucks.render(id + ".html", render_kwargs));
+	g_rendered_elements.push(id);
 }
 
 async function render(callback, anime_id, episode) {
