@@ -1,3 +1,5 @@
+var g_injected = false;
+
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 	//console.dir(request);
 
@@ -76,8 +78,12 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 		sendResponse({ok: "ok"});
 
 	} else if (request.method === "addButton") {
+			if (g_injected)
+				return;
+			
             if (window.location.href.indexOf('shikimori.org/animes/') !== -1 ||
                window.location.href.indexOf('shikimori.one/animes/') !== -1) {
+				g_injected = true;
                 setTimeout(function () {
                     var injected = document.createElement('script');
                     var main_page_url = chrome.runtime.getURL("../index.html");
@@ -104,6 +110,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
             }
 
             sendResponse({ok: "ok"});
+
         }
 
 	sendResponse({ok: "ok"});

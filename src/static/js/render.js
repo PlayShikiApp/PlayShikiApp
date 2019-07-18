@@ -43,11 +43,16 @@ async function getKeys() {
 /** shiki_helpers.js **/
 var anime_info = {};
 
+function get_shikimori_hosting() {
+	return (getUrlParameter("hostname") || "shikimori.one");
+}
+
 async function get_shiki_anime_info(id) {
 	if (anime_info[id])
 		return anime_info[id];
 
-	anime_info[id] = await $.get(`https://shikimori.org/api/animes/${id}`);
+	var hosting = get_shikimori_hosting();
+	anime_info[id] = await $.get(`https://${hosting}/api/animes/${id}`);
 	return anime_info[id];
 }
 
@@ -87,7 +92,9 @@ async function get_main_genre_url(id) {
 
 	const genre_id = anime_info["genres"][0].id;
 	const genre_en = anime_info["genres"][0].name;
-	return `https://shikimori.one/animes/genre/${genre_id}-${genre_en}`;
+	var hosting = get_shikimori_hosting();
+	
+	return `https://${hosting}/animes/genre/${genre_id}-${genre_en}`;
 }
 
 async function get_main_genre_ru_name(id) {
@@ -127,7 +134,8 @@ function get_or_set_user(callback) {
     var user = window.localStorage.getItem('user');
 
     if (user === null || !IsJsonString(user)) {
-        $.get("https://shikimori.one/api/users/whoami", function(data) {
+		var hosting = get_shikimori_hosting();
+        $.get(`https://${hosting}/api/users/whoami`, function(data) {
             user = JSON.stringify(data);
             window.localStorage.setItem('user', user);
             try {
@@ -142,7 +150,8 @@ function get_or_set_user(callback) {
 }
 
 function get_user_rate(anime_id, user_id, callback) {
-    $.get("https://shikimori.one/api/v2/user_rates?user_id=" + user_id +
+	var hosting = get_shikimori_hosting();
+    $.get(`https://${hosting}/api/v2/user_rates?user_id=` + user_id +
         "&target_id=" + anime_id + "&target_type=Anime", function(data) {
             rates = [];
             try {
@@ -268,10 +277,11 @@ function set_watched_button_disabled(status, tooltip) {
     }
 
     var msg = "";
+	var hosting = get_shikimori_hosting();
     if (tooltip == "no_more_tabs") {
-        var msg = '<span>Упс! Для работы кнопки необходимо, чтобы была открыта хотя бы одна вкладка с сайтом <a target="_blank" id="shiki" href="https://shikimori.one">Шикимори</a>. Кликните по ссылке выше, чтобы скрыть это сообщение.</span>';
+        var msg = `<span>Упс! Для работы кнопки необходимо, чтобы была открыта хотя бы одна вкладка с сайтом <a target="_blank" id="shiki" href="https://${hosting}">Шикимори</a>. Кликните по ссылке выше, чтобы скрыть это сообщение.</span>`;
     } else if (tooltip == "no_alive_tabs") {
-        var msg = '<span>Упс! Для работы кнопки необходимо, чтобы была открыта хотя бы одна вкладка с сайтом <a target="_blank" id="shiki" href="https://shikimori.one">Шикимори</a>. Похоже, что уже открытые вкладки не работают. Кликните по ссылке выше, чтобы скрыть это сообщение.</span>';
+        var msg = `<span>Упс! Для работы кнопки необходимо, чтобы была открыта хотя бы одна вкладка с сайтом <a target="_blank" id="shiki" href="https://${hosting}">Шикимори</a>. Похоже, что уже открытые вкладки не работают. Кликните по ссылке выше, чтобы скрыть это сообщение.</span>`;
     }
 
     $("#watch_tooltip").empty();
@@ -408,7 +418,7 @@ function rerender(href) {
 		    set_watched_button_disabled(true, false);
                     setTimeout(function() {
                         //window.location.href = 
-                        rerender(chrome.runtime.getURL("index.html") + "?anime_id=" + anime_id + "&episode=" + (episode + 1));
+                        rerender(chrome.runtime.getURL("index.html") + "?anime_id=" + anime_id + "&episode=" + (episode + 1) + "&hostname=" + get_shikimori_hosting());
                     }, 1000);
                 });
             };
@@ -653,6 +663,7 @@ async function render(callback, anime_id, episode) {
     var render_kwargs = await get_render_kwargs(anime_id, episode);
     render_kwargs["shiki_main_genre_url"] = shiki_main_genre_url;
     render_kwargs["shiki_genre_ru_name"] = shiki_genre_ru_name;
+	render_kwargs["hostname"] = get_shikimori_hosting();
 
     var active_kind = undefined;
     for (kind of ["fandub", "raw", "subtitles"]) {

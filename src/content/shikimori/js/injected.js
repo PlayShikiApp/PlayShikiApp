@@ -54,7 +54,7 @@ function start() {
   var placeHolder = document.querySelector(".watch-online-placeholer");
   var desc = document.querySelector(".c-description");
 
-  var watchLink = document.querySelector('#watchButton');
+  var watchLink = document.querySelector('#_watchButton');
 
   if (infoSection === null || placeHolder === null || desc === null || watchLink !== null)
     return;
@@ -72,7 +72,7 @@ function start() {
        if (rates && rates.length > 0 && (rates[0]["status"] === "watching" || rates[0]["status"] === "rewatching")) {
              episode_num = rates[0].episodes + 1;
        }
-       var loc = main_page_url + "#/?anime_id="+ anime_id + "&episode=" + episode_num;
+       var loc = main_page_url + "#/?anime_id="+ anime_id + "&episode=" + episode_num + "&hostname=" + location.hostname;
 
        if (!document.querySelector('#_watchButton')) {
            var WatchButtonElement = document.createElement('div');
