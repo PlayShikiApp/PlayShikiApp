@@ -87,6 +87,8 @@ function start() {
        }
 
        //console.dir(desc);
+	   console.log("disconnect: g_button_added=" + g_button_added + " g_callback_started="+  g_callback_started + " g_user_rates=");
+	   console.dir(g_user_rates);
        mainObserver.disconnect();
        return;
   });
