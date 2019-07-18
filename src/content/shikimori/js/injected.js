@@ -37,6 +37,9 @@ function get_user_rates(anime_id, callback) {
         return callback(g_user_rates);
 
     get("https://" + location.hostname + "/api/users/whoami", function(data) {
+		if (!data || data === "null")
+			return callback();
+		
         var user = JSON.parse(data);
         get("https://" + location.hostname + "/api/v2/user_rates?user_id=" + user.id +
                     "&target_id=" + anime_id + "&target_type=Anime", function(data1) {
