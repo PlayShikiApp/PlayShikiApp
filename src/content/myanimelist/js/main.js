@@ -1,4 +1,4 @@
-var g_injected = false;
+(function() {
 
 function get(url, callback) {
     var xhr = new XMLHttpRequest();
@@ -19,33 +19,83 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 	sendResponse({ok: "ok"});
 });
 
-function add_button() {
-	if (g_injected)
-		return;
+var g_button_added = false;
+var g_style_added = false;
 
-            if (window.location.href.indexOf('myanimelist.net/anime/') !== -1) {
-				g_injected = true;
-                setTimeout(function () {
-                    var injected_script = document.createElement('script');
-                    var injected_style = document.createElement('style');
-                    var main_page_url = chrome.runtime.getURL("../index.html");
-                    injected_script.text = 'var main_page_url = "' + main_page_url + '";';
 
-		    get(chrome.runtime.getURL('/content/myanimelist/css/injected.css'), function(response_style) {
-                        injected_style.innerHTML = response_style;
-                        document.head.appendChild(injected_style);
+var mainObserver  = new MutationObserver(start);
+var observerConfig = { attributes: true, subtree: true, childList: true };
 
-                        get(chrome.runtime.getURL('/content/myanimelist/js/injected.js'), function(response_script) {
-                            injected_script.text += response_script;
-                            document.head.appendChild(injected_script);
-                        });
-                    });
 
-                    injected_script.onload = function(){
-                        var evt=document.createEvent("CustomEvent");
-                        evt.initCustomEvent("yourCustomEvent", true, true, chrome.runtime.getURL("../index.html"));
-                        document.dispatchEvent(evt);
-                    };
-                }, 0);
-            }
+function inject_style(callback) {
+	if (g_style_added)
+		return callback();
+
+	var injected_style = document.createElement('style');
+	injected_style.id = "watchbutton_style";
+	if (document.querySelector('#watchbutton_style')) {
+		return callback();
+	}
+	
+	get(chrome.runtime.getURL('/content/myanimelist/css/injected.css'), function(response_style) {
+			injected_style.innerHTML = response_style;
+			document.head.appendChild(injected_style);
+			g_style_added = true;
+			callback();
+	});
 }
+
+function inject_button(infoSection, loc) {
+		if (g_button_added)
+			return;
+	     var WatchButtonElement = document.createElement('a');
+
+         WatchButtonElement.innerHTML = '<a id="_watchButton" target="_blank" href="#" class="btn-user-watch-button" style="margin-left: 10px">Watch online</a>';
+
+ 		 document.querySelectorAll(".btn-affiliate").forEach(function(element) { element.remove()});
+         infoSection.appendChild(WatchButtonElement);
+         watchLink = WatchButtonElement.querySelector('#_watchButton');
+         watchLink.href = loc;
+		
+		g_button_added = true;
+		mainObserver.disconnect();
+}
+
+function start() {
+  var infoSection = document.querySelector('.user-status-block');
+
+  var watchLink = document.querySelector('#_watchButton');
+
+  if (infoSection === null || watchLink !== null)
+    return;
+
+  //console.log("found infoSection");
+
+  var anime_id = location.pathname.split("/")[2].replace(/\D/g, "");
+  var episode_num = 1;
+  if (g_button_added)
+     return;
+
+
+       var loc =  chrome.runtime.getURL("index.html")  + "?anime_id="+ anime_id + "&episode=" + episode_num;
+
+       if (!document.querySelector('#_watchButton')) {
+		   inject_style(function() {
+				inject_button(infoSection, loc);
+		   });
+       }
+}
+
+function add_button() {
+    if (window.location.href.indexOf('myanimelist.net/anime/') === -1) {
+			return;
+    }
+	
+	mainObserver.observe(document, observerConfig);
+	
+	start();
+}
+
+add_button();
+
+})();

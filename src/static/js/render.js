@@ -118,7 +118,11 @@ var getUrlParameter = function getUrlParameter(href, sParam) {
 	if (query[1] == undefined)
 		return;
 
-	return query[1].split(sParam + "=")[1].split("&")[0]
+	var tmp = query[1].split(sParam + "=");
+	if (tmp == undefined || tmp.length < 2)
+		return;
+	
+	return tmp[1].split("&")[0];
 };
 
 function IsJsonString(str) {
