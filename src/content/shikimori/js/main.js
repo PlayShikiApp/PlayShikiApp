@@ -1,7 +1,5 @@
 (function() {
 
-var g_injected = false;
-
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 	//console.dir(request);
 
@@ -86,38 +84,112 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 	sendResponse({ok: "ok"});
 });
 
-function add_button() {
-	if (g_injected)
-		return;
+function get(url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+            callback(xhr.responseText);
+        }
+    };
+    xhr.send();
+}
 
-            if (window.location.href.indexOf('shikimori.org/animes/') !== -1 ||
-               window.location.href.indexOf('shikimori.one/animes/') !== -1) {
-				g_injected = true;
-                setTimeout(function () {
-                    var injected = document.createElement('script');
-                    var main_page_url = chrome.runtime.getURL("../index.html");
-                    injected.text = 'var main_page_url = "' + main_page_url + '";';
+function IsJsonString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
 
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('GET', chrome.extension.getURL('/content/shikimori/js/injected.js'), true);
-                    xhr.onreadystatechange = function()
-                    {
-                        if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200)
-                        {
-                              injected.text += xhr.responseText;
-                              document.head.appendChild(injected);
-                        }
-                    };
-                    xhr.send();
+var g_user_rates;
+var g_button_added = false;
+var g_callback_started = false;
 
-                    injected.onload = function(){
-                        var evt=document.createEvent("CustomEvent");
-                        evt.initCustomEvent("yourCustomEvent", true, true, chrome.runtime.getURL("../index.html"));
-                        document.dispatchEvent(evt);
-                    };
-                }, 0);
+
+var mainObserver  = new MutationObserver(start);
+var observerConfig = { attributes: true, subtree: true, childList: true };
+
+function get_user_rates(anime_id, callback) {
+    g_callback_started = true;
+    if (g_button_added)
+             return;
+
+    if (g_user_rates)
+        return callback(g_user_rates);
+
+    get("https://" + location.hostname + "/api/users/whoami", function(data) {
+		if (!data || data === "null")
+			return callback();
+		
+        var user = JSON.parse(data);
+        get("https://" + location.hostname + "/api/v2/user_rates?user_id=" + user.id +
+                    "&target_id=" + anime_id + "&target_type=Anime", function(data1) {
+            if (IsJsonString(data1)) {
+                var rates = JSON.parse(data1);
+                g_user_rates = rates;
+                callback(rates);
             }
+        });
+    });
+}
+
+function start() {
+  var infoSection = document.querySelector('#animes_show .c-info-right');
+
+  var watchLink = document.querySelector('#_watchButton');
+
+  if (infoSection === null || watchLink !== null)
+    return;
+
+  var anime_id = location.pathname.split("-")[0].split("/")[2].replace(/\D/g, "");
+  var episode_num = 1;
+  if (g_callback_started)
+     return;
+
+  return get_user_rates(anime_id, function(rates) {
+       if (g_button_added)
+             return;
+
+       //console.log(rates);
+       if (rates && rates.length > 0 && (rates[0]["status"] === "watching" || rates[0]["status"] === "rewatching")) {
+             episode_num = rates[0].episodes + 1;
+       }
+       var loc = chrome.runtime.getURL("index.html") + "?anime_id="+ anime_id + "&episode=" + episode_num + "&hostname=" + location.hostname;
+
+       if (!document.querySelector('#_watchButton')) {
+           var WatchButtonElement = document.createElement('div');
+           WatchButtonElement.classList.add('block');
+
+           WatchButtonElement.innerHTML = '<div class="subheadline m10" style="margin-top: 10px;">Онлайн просмотр</div><a class="b-link_button dark watch-online" target="_blank" id="_watchButton" href="#" style="margin-top: 10px;">Смотреть онлайн</a>';
+
+           infoSection.appendChild(WatchButtonElement);
+           watchLink = WatchButtonElement.querySelector('#_watchButton');
+           watchLink.href = loc;
+           g_button_added = true;
+		   mainObserver.disconnect();
+			//console.dir(desc);
+			console.log("disconnect: g_button_added=" + g_button_added + " g_callback_started="+  g_callback_started + " g_user_rates=");
+			console.dir(g_user_rates);
+       }
+
+       return;
+  });
+}
+
+function add_button() {
+    if (window.location.href.indexOf('shikimori.org/animes/') === -1 &&
+            window.location.href.indexOf('shikimori.one/animes/') === -1) {
+			return;
+    }
+	
+	mainObserver.observe(document, observerConfig);
+	
+	start();
 }
 
 add_button();
+
 })();
