@@ -44,7 +44,7 @@ async function getKeys() {
 var anime_info = {};
 
 function get_shikimori_hosting() {
-	return (getUrlParameter("hostname") || "shikimori.one");
+	return (getUrlParameter(window.location.href, "hostname") || "shikimori.one");
 }
 
 async function get_shiki_anime_info(id) {
