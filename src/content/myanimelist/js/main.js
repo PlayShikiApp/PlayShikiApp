@@ -13,16 +13,23 @@ function get(url, callback) {
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 	if (request.method === "addButton") {
-			if (g_injected)
-				return;
-			
+		/* nothing */
+        }
+
+	sendResponse({ok: "ok"});
+});
+
+function add_button() {
+	if (g_injected)
+		return;
+
             if (window.location.href.indexOf('myanimelist.net/anime/') !== -1) {
 				g_injected = true;
                 setTimeout(function () {
                     var injected_script = document.createElement('script');
                     var injected_style = document.createElement('style');
                     var main_page_url = chrome.runtime.getURL("../index.html");
-                    injected_script.text = `var main_page_url = "${main_page_url}";`;
+                    injected_script.text = 'var main_page_url = "' + main_page_url + '";';
 
 		    get(chrome.runtime.getURL('/content/myanimelist/css/injected.css'), function(response_style) {
                         injected_style.innerHTML = response_style;
@@ -39,13 +46,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
                         evt.initCustomEvent("yourCustomEvent", true, true, chrome.runtime.getURL("../index.html"));
                         document.dispatchEvent(evt);
                     };
-					
-                }, 200);
+                }, 0);
             }
-
-            sendResponse({ok: "ok"});
-        }
-
-	sendResponse({ok: "ok"});
-});
-
+}
