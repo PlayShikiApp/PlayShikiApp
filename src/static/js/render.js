@@ -605,6 +605,13 @@ async function get_render_kwargs(anime_id, episode) {
 const DESIRED_VIDEO_AUTHOR_WEIGTH = 1.0;
 const DESIRED_VIDEO_HOSTING_WEIGTH = 1.0;
 
+const ELEMENTS_TO_RERENDER = ["#video_player", "#videos_list"];
+var g_rendered_elements = [];
+
+function render_element(id, render_kwargs) {
+	$('#' + id).html(nunjucks.render(id + ".html", render_kwargs));
+}
+
 async function render(callback, anime_id, episode) {
     var [anime_videos, shiki_main_genre_url] = await Promise.all([
              get_anime_videos(anime_id, episode),
@@ -717,10 +724,10 @@ async function render(callback, anime_id, episode) {
 			'user_avatar_srcset': user["image"]["x80"]
 		}
 
-		$('#user_profile').html(nunjucks.render('user_profile.html', user_kwargs));
+		render_element('user_profile', user_kwargs);
 	});
 
-        $('#breadcrumbs').html(nunjucks.render('breadcrumbs.html', render_kwargs));
+    render_element('breadcrumbs', render_kwargs);
 	var rates_scores = await get_rates_scores_stats(anime_id);
 	if (rates_scores) {
 	     var rates_score_max = rates_scores.reduce((a, b) => ({"value": Math.max(a["value"], b["value"])}))["value"];
@@ -731,17 +738,19 @@ async function render(callback, anime_id, episode) {
                  if (score["width"] < 15)
                      score["value"] = "";
              }
-	     $('#rates_scores').html(nunjucks.render('rates_scores.html', {"rates_scores": rates_scores}));
+	    render_element('rates_scores', {"rates_scores": rates_scores});
 	}
 
 	console.dir(anime_videos);
 
-        $('#title').html(nunjucks.render("title.html", render_kwargs));
-        $('#video_switcher').html(nunjucks.render('video_switcher.html', render_kwargs));
-        $('#videos_list').html(nunjucks.render('videos_list.html', render_kwargs));
-        $('#episodes_list').html(nunjucks.render('episodes_list.html', render_kwargs));
-        $('#video_player').html(nunjucks.render('video_player.html', render_kwargs));
-        $('#menu_logo').html(nunjucks.render('menu_logo.html', render_kwargs));
+	 render_element('title', render_kwargs);
+     render_element('rates_scores', render_kwargs);
+     render_element('video_switcher', render_kwargs);
+     render_element('videos_list', render_kwargs);
+     render_element('video_player', render_kwargs);
+     render_element('episodes_list', render_kwargs);
+     render_element('menu_logo', render_kwargs);
+
 	callback();
 
         var rates_statuses_stats = await get_rates_statuses_stats(anime_id);
@@ -749,16 +758,16 @@ async function render(callback, anime_id, episode) {
              var rates_stat_max = rates_statuses_stats.reduce((a, b) => ({"value": Math.max(a["value"], b["value"])}))["value"];
              var rates_stat_total = rates_statuses_stats.reduce((a, b) => ({"value": a["value"] + b["value"]}))["value"];
 
-	     for (stat of rates_statuses_stats) {
-                 stat["title"] = stat["value"];
-                 stat["width"] = (stat["value"] * 100 / rates_stat_max).toFixed(2);
-                 if (stat["width"] < 15)
-                     stat["value"] = "";
-             }
-	     $('#rates_statuses').html(nunjucks.render('rates_statuses.html', {
-                                   "rates_statuses_stats": rates_statuses_stats,
-                                   "rates_stat_total": rates_stat_total
-             }));
+			 for (stat of rates_statuses_stats) {
+					 stat["title"] = stat["value"];
+					 stat["width"] = (stat["value"] * 100 / rates_stat_max).toFixed(2);
+					 if (stat["width"] < 15)
+						 stat["value"] = "";
+			}
+			render_element('rates_statuses', {
+									   "rates_statuses_stats": rates_statuses_stats,
+									   "rates_stat_total": rates_stat_total
+			});
         }
     });
 }
