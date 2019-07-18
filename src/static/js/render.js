@@ -394,7 +394,7 @@ function rerender(href) {
                     );
 		    set_watched_button_disabled(true, false);
                     setTimeout(function() {
-                        window.location.href = "#/?anime_id=" + anime_id + "&episode=" + (episode + 1);
+                        window.location.href = chrome.runtime.getURL("index.html") + "?anime_id=" + anime_id + "&episode=" + (episode + 1);
                         rerender(window.location.href);
                     }, 1000);
                 });
