@@ -137,7 +137,7 @@ function IsJsonString(str) {
 function get_or_set_user(callback) {
     var user = window.localStorage.getItem('user');
 
-    if (user === null || !IsJsonString(user)) {
+if (user === null || user === "null" || !IsJsonString(user)) {
 		var hosting = get_shikimori_hosting();
         $.get(`https://${hosting}/api/users/whoami`, function(data) {
             user = JSON.stringify(data);
@@ -750,6 +750,9 @@ async function render(callback, anime_id, episode) {
         });
 
 	get_or_set_user(function(user) {
+		if (!user)
+			return;
+
 		var user_kwargs = {
 			'user_login': user["nickname"],
 			'user_avatar_src': user["image"]["x48"],
