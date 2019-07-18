@@ -761,7 +761,6 @@ async function render(callback, anime_id, episode) {
 	console.dir(anime_videos);
 
 	 render_element('title', render_kwargs);
-     render_element('rates_scores', render_kwargs);
      render_element('video_switcher', render_kwargs);
      render_element('videos_list', render_kwargs);
      render_element('video_player', render_kwargs);
