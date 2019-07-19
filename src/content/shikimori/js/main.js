@@ -105,18 +105,11 @@ function IsJsonString(str) {
 }
 
 var g_user_rates;
-var g_button_added = false;
-var g_callback_started = false;
-
 
 var mainObserver  = new MutationObserver(start);
 var observerConfig = { attributes: true, subtree: true, childList: true };
 
 function get_user_rates(anime_id, callback) {
-    g_callback_started = true;
-    if (g_button_added)
-             return;
-
     if (g_user_rates)
         return callback(g_user_rates);
 
@@ -140,19 +133,18 @@ function start() {
   var infoSection = document.querySelector('#animes_show .c-info-right');
 
   var watchLink = document.querySelector('#_watchButton');
+  
+  console.log("start");
 
-  if (infoSection === null || watchLink !== null)
+  if (infoSection === null || watchLink !== null) {
+	console.log("infoSection === null || watchLink !== null");
     return;
+  }
 
   var anime_id = location.pathname.split("-")[0].split("/")[2].replace(/\D/g, "");
   var episode_num = 1;
-  if (g_callback_started)
-     return;
 
   return get_user_rates(anime_id, function(rates) {
-       if (g_button_added)
-             return;
-
        //console.log(rates);
        if (rates && rates.length > 0 && (rates[0]["status"] === "watching" || rates[0]["status"] === "rewatching")) {
              episode_num = rates[0].episodes + 1;
@@ -170,11 +162,9 @@ function start() {
            infoSection.appendChild(WatchButtonElement);
            watchLink = WatchButtonElement.querySelector('#_watchButton');
            watchLink.href = loc;
-           g_button_added = true;
-		   mainObserver.disconnect();
-			//console.dir(desc);
-			console.log("disconnect: g_button_added=" + g_button_added + " g_callback_started="+  g_callback_started + " g_user_rates=");
-			console.dir(g_user_rates);
+
+			console.log("end");
+			mainObserver.disconnect();
        }
 
        return;
@@ -182,10 +172,10 @@ function start() {
 }
 
 function add_button() {
-    if (window.location.href.indexOf('shikimori.org/animes/') === -1 &&
+    /*if (window.location.href.indexOf('shikimori.org/animes/') === -1 &&
             window.location.href.indexOf('shikimori.one/animes/') === -1) {
 			return;
-    }
+    }*/
 	
 	mainObserver.observe(document, observerConfig);
 	

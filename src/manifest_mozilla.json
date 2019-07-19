@@ -28,7 +28,7 @@
             "jquery-3.4.1.min.js",
             "content/shikimori/js/main.js"
         ],
-        "run_at": "document_idle"
+        "run_at": "document_start"
     }, {
         "matches": [
             "*://myanimelist.net/anime/*"
