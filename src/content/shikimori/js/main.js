@@ -157,8 +157,6 @@ function start() {
 
            WatchButtonElement.innerHTML = '<div class="subheadline m10" style="margin-top: 10px;">Онлайн просмотр</div><a class="b-link_button dark watch-online" target="_blank" id="_watchButton" href="#" style="margin-top: 10px;">Смотреть онлайн</a>';
 
-		   infoSection.querySelectorAll('.watch-online-placeholer').forEach(function(el) { el.remove(); });
-		   
            infoSection.appendChild(WatchButtonElement);
            watchLink = WatchButtonElement.querySelector('#_watchButton');
            watchLink.href = loc;
