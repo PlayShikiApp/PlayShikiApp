@@ -357,14 +357,21 @@ function send_message_to_tab(method, options, onSuccess, onFailure, onResponse) 
 
 var lastClick = 0;
 
-function rerender(href) {
-    var anime_id = getUrlParameter(href, 'anime_id');
-    var episode = getUrlParameter(href, 'episode');
-
-    onLocalSessionStore();
-
-    render(function() {
+function set_player_controls_callbacks() {
             console.log("ready");
+	    $("a").each(function(index) {
+		var href = $(this).attr("url");
+		if (href === undefined)
+			return;
+
+                var handler = function() {
+                    return rerender(href);
+                }
+
+                if (href.indexOf("index.html") >= 0)
+                    $(this).click(handler);
+            })
+
             is_watched_button_disabled(function(status) {
                 set_watched_button_disabled(status, false);
             });
@@ -383,19 +390,6 @@ function rerender(href) {
                     return set_active_group($(this));
                 }
                 $(this).click(handler);
-            })
-			
-			$("a").each(function(index) {
-				var href = $(this).attr("url");
-				if (href === undefined)
-					return;
-
-                var handler = function() {
-                    return rerender(href);
-                }
-
-                if (href.indexOf("index.html") >= 0)
-                    $(this).click(handler);
             })
 
             watched_button_handler = function(ev) {
@@ -444,7 +438,15 @@ function rerender(href) {
             };
 
         $("#watched").click(watched_button_handler);
-    }, anime_id, episode);
+}
+
+function rerender(href) {
+    var anime_id = getUrlParameter(href, 'anime_id');
+    var episode = getUrlParameter(href, 'episode');
+
+    onLocalSessionStore();
+
+    render(anime_id, episode);
 }
 
 $(document).ready(function() {
@@ -659,21 +661,23 @@ function render_element(id, render_kwargs) {
 	g_rendered_elements.push(id);
 }
 
-async function render(callback, anime_id, episode) {
-    var [anime_videos, anime_info] = await Promise.all([
+async function render(anime_id, episode) {
+     var [anime_videos, anime_info] = await Promise.all([
              get_anime_videos(anime_id, episode),
              get_anime_info(anime_id)
-    ]);
+     ]);
 
-    var render_kwargs = await get_render_kwargs(anime_id, episode);
+     var render_kwargs = await get_render_kwargs(anime_id, episode);
 
-    render_element('breadcrumbs', render_kwargs);
+     render_element('breadcrumbs', render_kwargs);
      render_element('video_switcher', render_kwargs);
      render_element('videos_list', render_kwargs);
      render_element('video_player', render_kwargs);
      render_element('episodes_list', render_kwargs);
 
-    try {
+     set_player_controls_callbacks();
+
+     try {
 	    var [shiki_genre_ru_name, shiki_main_genre_url] = await Promise.all([
 	             get_main_genre_ru_name(anime_id),
 	             get_main_genre_url(anime_id)
@@ -811,10 +815,8 @@ async function render(callback, anime_id, episode) {
 
 	console.dir(anime_videos);
 
-	 render_element('title', render_kwargs);
-     render_element('menu_logo', render_kwargs);
-
-	callback();
+        render_element('title', render_kwargs);
+        render_element('menu_logo', render_kwargs);
 
         var rates_statuses_stats = await get_rates_statuses_stats(anime_id);
         if (rates_statuses_stats) {
