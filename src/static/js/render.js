@@ -52,7 +52,12 @@ async function get_shiki_anime_info(id) {
 		return anime_info[id];
 
 	var hosting = get_shikimori_hosting();
-	anime_info[id] = await $.get(`https://${hosting}/api/animes/${id}`);
+	try {
+		anime_info[id] = await $.get(`https://${hosting}/api/animes/${id}`);
+	} catch (e) {
+		console.log(e);
+		return null;
+	}
 	return anime_info[id];
 }
 
@@ -137,17 +142,23 @@ function IsJsonString(str) {
 function get_or_set_user(callback) {
     var user = window.localStorage.getItem('user');
 
-if (user === null || user === "null" || !IsJsonString(user)) {
+
+    if (user === null || user === "null" || !IsJsonString(user)) {
 		var hosting = get_shikimori_hosting();
-        $.get(`https://${hosting}/api/users/whoami`, function(data) {
-            user = JSON.stringify(data);
-            window.localStorage.setItem('user', user);
-            try {
-                callback(JSON.parse(user));
-            } catch (e) {
-                callback(null);
-            }
-        });
+	try {
+	        $.get(`https://${hosting}/api/users/whoami`, function(data) {
+        	    user = JSON.stringify(data);
+        	    window.localStorage.setItem('user', user);
+        	    try {
+        	        callback(JSON.parse(user));
+        	    } catch (e) {
+        	        callback(null);
+        	    }
+       		});
+	} catch (e) {
+		console.log(e);
+		callback(null);
+	}
     } else {
         callback(JSON.parse(user));
     }
@@ -155,17 +166,22 @@ if (user === null || user === "null" || !IsJsonString(user)) {
 
 function get_user_rate(anime_id, user_id, callback) {
 	var hosting = get_shikimori_hosting();
-    $.get(`https://${hosting}/api/v2/user_rates?user_id=` + user_id +
-        "&target_id=" + anime_id + "&target_type=Anime", function(data) {
-            rates = [];
-            try {
-                rates = JSON.stringify(data);
-            } catch (e) {
-                console.dir(e);
-            }
+	try {
+	        $.get(`https://${hosting}/api/v2/user_rates?user_id=` + user_id +
+	               "&target_id=" + anime_id + "&target_type=Anime", function(data) {
+	            rates = [];
+	            try {
+	                rates = JSON.stringify(data);
+	            } catch (e) {
+	                console.dir(e);
+	            }
 
-            callback(rates);
-     });
+	            callback(rates);
+	         });
+	} catch (e) {
+		console.log(e);
+		callback(null);
+	}
 }
 
 function get_or_set_user_rate(anime_id, create_rate, callback) {
@@ -385,7 +401,7 @@ function rerender(href) {
             watched_button_handler = function(ev) {
                 var anime_id = getUrlParameter(window.location.href, 'anime_id');
                 var episode = parseInt(getUrlParameter(window.location.href, 'episode'));
-				
+
 		// Dirty HACK to prevent triggering handler twice
 		//console.log("ev.timeStamp = " + ev.timeStamp + " lastClick=" + lastClick);
 		if (ev.timeStamp == lastClick) {
@@ -644,15 +660,31 @@ function render_element(id, render_kwargs) {
 }
 
 async function render(callback, anime_id, episode) {
-    var [anime_videos, shiki_main_genre_url] = await Promise.all([
+    var [anime_videos, anime_info] = await Promise.all([
              get_anime_videos(anime_id, episode),
-             get_main_genre_url(anime_id)
-    ]);
-
-    var [shiki_genre_ru_name, anime_info] = await Promise.all([
-             get_main_genre_ru_name(anime_id),
              get_anime_info(anime_id)
     ]);
+
+    var render_kwargs = await get_render_kwargs(anime_id, episode);
+
+    render_element('breadcrumbs', render_kwargs);
+     render_element('video_switcher', render_kwargs);
+     render_element('videos_list', render_kwargs);
+     render_element('video_player', render_kwargs);
+     render_element('episodes_list', render_kwargs);
+
+    try {
+	    var [shiki_genre_ru_name, shiki_main_genre_url] = await Promise.all([
+	             get_main_genre_ru_name(anime_id),
+	             get_main_genre_url(anime_id)
+	    ]);
+     } catch(e) {
+	console.log(e);
+	var shiki_genre_ru_name = "";
+	var shiki_main_genre_url = "";
+     }
+
+
 
     if (!anime_videos) {
         console.log("!anime_videos");
@@ -664,7 +696,7 @@ async function render(callback, anime_id, episode) {
         return;
     }
 
-    var render_kwargs = await get_render_kwargs(anime_id, episode);
+
     render_kwargs["shiki_main_genre_url"] = shiki_main_genre_url;
     render_kwargs["shiki_genre_ru_name"] = shiki_genre_ru_name;
 	render_kwargs["hostname"] = get_shikimori_hosting();
@@ -730,7 +762,7 @@ async function render(callback, anime_id, episode) {
 
                 console.log("found matching video variant idx = " + desired_video_idx);
             }
-                 
+
             console.log(anime_videos[active_kind][desired_video_idx]["url"]);
 
             anime_videos["active_kind"] = active_kind;
@@ -764,7 +796,6 @@ async function render(callback, anime_id, episode) {
 		render_element('user_profile', user_kwargs);
 	});
 
-    render_element('breadcrumbs', render_kwargs);
 	var rates_scores = await get_rates_scores_stats(anime_id);
 	if (rates_scores) {
 	     var rates_score_max = rates_scores.reduce((a, b) => ({"value": Math.max(a["value"], b["value"])}))["value"];
@@ -781,10 +812,6 @@ async function render(callback, anime_id, episode) {
 	console.dir(anime_videos);
 
 	 render_element('title', render_kwargs);
-     render_element('video_switcher', render_kwargs);
-     render_element('videos_list', render_kwargs);
-     render_element('video_player', render_kwargs);
-     render_element('episodes_list', render_kwargs);
      render_element('menu_logo', render_kwargs);
 
 	callback();
