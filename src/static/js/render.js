@@ -627,13 +627,12 @@ async function get_render_kwargs(anime_id, episode) {
     var anime_videos = await get_anime_videos(anime_id, episode);
     if (!anime_videos) {
         console.log("!anime_videos");
-        return;
+		anime_videos = {};
     }
 
     var anime_info = await get_anime_info(anime_id);
     if (!anime_info) {
         console.log("!anime_info");
-        return;
     }
 
     var render_kwargs = {
@@ -666,6 +665,9 @@ async function render(anime_id, episode) {
              get_anime_videos(anime_id, episode),
              get_anime_info(anime_id)
      ]);
+	 
+	if (0 > episode || episode > anime_info["duration"])
+		return await render(anime_id, anime_info["duration"]);
 
      var render_kwargs = await get_render_kwargs(anime_id, episode);
 	 render_kwargs["hostname"] = get_shikimori_hosting();
