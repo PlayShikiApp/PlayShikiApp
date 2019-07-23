@@ -17,7 +17,7 @@
                                        </div>
                                     </div>
                                     <div class="c-column">
-                                       <form class="simple_form b-form new_anime_video_report" id="new_anime_video_report" novalidate="novalidate" action="https://shikimori.one/moderations/anime_video_reports" accept-charset="UTF-8" data-remote="true" method="post">
+                                       <form class="simple_form b-form new_anime_video_report" id="new_anime_video_report" novalidate="novalidate" action="https://{{hostname}}/moderations/anime_video_reports" accept-charset="UTF-8" data-remote="true" method="post">
                                           <input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="e17xLvXk2hUtPPNybBmOBIJ2/PPYX82QyydhOTbItgl/ggTHoKvHKygj+/9VVAhP/KLi422Tv3wrWVUH58PmHw==">
                                           <div class="b-input hidden anime_video_report_anime_video_id"><input class="hidden" type="hidden" value="901945" name="anime_video_report[anime_video_id]" id="anime_video_report_anime_video_id"></div>
                                           <div class="b-input hidden anime_video_report_user_id"><input class="hidden" type="hidden" value="0" name="anime_video_report[user_id]" id="anime_video_report_user_id"></div>
@@ -81,7 +81,7 @@
                                        <div class="c-video_stats">
                                           <div class="views_count">{{anime_videos['active_video']['watches_count']}} просмотров</div>
                                           <div class="uploader">
-                                             <div class="b-user16"><a href="https://shikimori.one" title="{{anime_videos['active_video']['uploader']}}"><img id="uploader_img" width="16" alt="{{anime_videos['active_video']['uploader']}}" src="https://desu.shikimori.one/system/users/x32/16178.png?1506795242" srcset="https://desu.shikimori.one/system/users/x32/16178.png?1506795242 2x"><span id="uploader">{{anime_videos['active_video']['uploader']}}</span></a></div>
+                                             <div class="b-user16"><a href="https://{{hostname}}" title="{{anime_videos['active_video']['uploader']}}"><img id="uploader_img" width="16" alt="{{anime_videos['active_video']['uploader']}}" src="https://desu.{{hostname}}/system/users/x32/16178.png?1506795242" srcset="https://desu.{{hostname}}/system/users/x32/16178.png?1506795242 2x"><span id="uploader">{{anime_videos['active_video']['uploader']}}</span></a></div>
                                           </div>
                                        </div>
                                     </div>

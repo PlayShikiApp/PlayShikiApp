@@ -668,7 +668,9 @@ async function render(anime_id, episode) {
      ]);
 
      var render_kwargs = await get_render_kwargs(anime_id, episode);
+	 render_kwargs["hostname"] = get_shikimori_hosting();
 
+	 render_element('menu_dropdown', render_kwargs);
      render_element('breadcrumbs', render_kwargs);
      render_element('video_switcher', render_kwargs);
      render_element('videos_list', render_kwargs);
@@ -703,7 +705,6 @@ async function render(anime_id, episode) {
 
     render_kwargs["shiki_main_genre_url"] = shiki_main_genre_url;
     render_kwargs["shiki_genre_ru_name"] = shiki_genre_ru_name;
-	render_kwargs["hostname"] = get_shikimori_hosting();
 
     var active_kind = undefined;
     for (kind of ["fandub", "raw", "subtitles"]) {
@@ -796,6 +797,7 @@ async function render(anime_id, episode) {
 		}
 
 		var hosting = get_shikimori_hosting();
+		user_kwargs["hostname"] = hosting;
 		$("#mail_url").attr("href", `https://${hosting}/${user["nickname"]}/messages/news`);
 		render_element('user_profile', user_kwargs);
 	});
