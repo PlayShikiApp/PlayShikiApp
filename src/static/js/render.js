@@ -112,23 +112,19 @@ async function get_main_genre_ru_name(id) {
 
 /** end of shiki_helpers.js **/
 
-var getUrlParameter = function getUrlParameter(href, sParam) {
-	if (href === undefined)
-		return;
+function getUrlParameter (href, param) {
+  if (!href || !param) {
+    console.error(`Can't find ${param} in ${href}`, {error: 'href or param is empty'})
+    return null
+  }
 
-	var query = href.split("?");
-	if (query === undefined)
-		return;
-
-	if (query[1] == undefined)
-		return;
-
-	var tmp = query[1].split(sParam + "=");
-	if (tmp == undefined || tmp.length < 2)
-		return;
-	
-	return tmp[1].split("&")[0];
-};
+  try {
+    return new URL(href).searchParams.get(param)
+  } catch (error) { // href is not valid URL
+    console.error(`Can't find ${param} in ${href}`, {error})
+    return null
+  }
+}
 
 function IsJsonString(str) {
     try {
