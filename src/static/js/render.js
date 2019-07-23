@@ -667,6 +667,7 @@ async function render(anime_id, episode) {
 
      var render_kwargs = await get_render_kwargs(anime_id, episode);
 	 render_kwargs["hostname"] = get_shikimori_hosting();
+	 render_kwargs["player_page_url"] = chrome.runtime.getURL("index.html");
 
 	 render_element('menu_dropdown', render_kwargs);
      render_element('breadcrumbs', render_kwargs);
