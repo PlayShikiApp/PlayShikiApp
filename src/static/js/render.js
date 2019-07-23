@@ -815,6 +815,7 @@ async function render(anime_id, episode) {
 
 	console.dir(anime_videos);
 
+        render_element('breadcrumbs', render_kwargs);
         render_element('title', render_kwargs);
         render_element('menu_logo', render_kwargs);
 
