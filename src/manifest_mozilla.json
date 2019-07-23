@@ -45,6 +45,5 @@
     "browser_action": {
         "default_title": "PlayShikimori App"
     },
-    "web_accessible_resources": ["content/shikimori/js/*.*", "content/myanimelist/js/*.*", "content/myanimelist/css/*.*", "static/js/*.*", "static/css/*.*", "static/assets/*.*", "static/img/*.*", "*.*", "players/videojs/*.*", "players/videojs/css/*.*", "players/videojs/js/*.*", "players/anilibria/*.*", "players/anilibria/img/*.*", "players/anilibria/css/*.*", "players/anilibria/js/*.*", "https://raw.github.com/", "https://mozilla.github.io", "https://shikimori.one", "https://shikimori.org"],
-	"incognito": "split"
+    "web_accessible_resources": ["content/shikimori/js/*.*", "content/myanimelist/js/*.*", "content/myanimelist/css/*.*", "static/js/*.*", "static/css/*.*", "static/assets/*.*", "static/img/*.*", "*.*", "players/videojs/*.*", "players/videojs/css/*.*", "players/videojs/js/*.*", "players/anilibria/*.*", "players/anilibria/img/*.*", "players/anilibria/css/*.*", "players/anilibria/js/*.*", "https://raw.github.com/", "https://mozilla.github.io", "https://shikimori.one", "https://shikimori.org"]
 }
