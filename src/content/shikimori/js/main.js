@@ -172,7 +172,17 @@ function add_button(anime_id) {
 }
 
 function start() {
-	var anime_id = location.pathname.split("-")[0].split("/")[2].replace(/\D/g, "");
+	if (window.location.href.indexOf('shikimori.org/animes/') === -1 &&
+				window.location.href.indexOf('shikimori.one/animes/') === -1) {
+		return;
+	}
+
+	try {
+		var anime_id = location.pathname.split("-")[0].split("/")[2].replace(/\D/g, "");
+	} catch (e) {
+		console.log(e);
+		return;
+	}
 
 	get_user_rates(anime_id, function(rates) {
 		mainObserver.observe(document, observerConfig);
