@@ -1,3 +1,12 @@
+var g_user_rates;
+
+var mainObserver = new MutationObserver(add_button);
+var observerConfig = {
+	attributes: true,
+	subtree: true,
+	childList: true
+};
+
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 	//console.dir(request);
 	if (request.method === "updateWatched") {
@@ -106,15 +115,6 @@ function IsJsonString(str) {
 	return true;
 }
 
-var g_user_rates;
-
-var mainObserver = new MutationObserver(start);
-var observerConfig = {
-	attributes: true,
-	subtree: true,
-	childList: true
-};
-
 function get_user_rates(anime_id, callback) {
 	if (g_user_rates)
 		return callback(g_user_rates);
@@ -136,7 +136,18 @@ function get_user_rates(anime_id, callback) {
 	});
 }
 
-function add_button(anime_id) {
+function get_anime_id() {
+	try {
+		var anime_id = location.pathname.split("-")[0].split("/")[2].replace(/\D/g, "");
+	} catch (e) {
+		console.log(e);
+		return;
+	}
+	
+	return anime_id;
+}
+
+function add_button() {
 	var infoSection = document.querySelector('#animes_show .c-info-right');
 
 	var watchLink = document.querySelector('#_watchButton');
@@ -148,8 +159,8 @@ function add_button(anime_id) {
 		return;
 	}
 
-		
 	var episode_num = 1;
+	var anime_id = get_anime_id();
 
 	if (g_user_rates && g_user_rates.length > 0 && (g_user_rates[0]["status"] === "watching" || g_user_rates[0]["status"] === "rewatching")) {
 			episode_num = g_user_rates[0].episodes + 1;
@@ -176,19 +187,18 @@ function start() {
 				window.location.href.indexOf('shikimori.one/animes/') === -1) {
 		return;
 	}
-
-	try {
-		var anime_id = location.pathname.split("-")[0].split("/")[2].replace(/\D/g, "");
-	} catch (e) {
-		console.log(e);
-		return;
-	}
+	
+	var anime_id = get_anime_id();
 
 	get_user_rates(anime_id, function(rates) {
 		mainObserver.observe(document, observerConfig);
 	});
 
-	add_button(anime_id);
+	add_button();
 }
 
-start();
+try {
+	start();
+} catch(e) {
+	console.log(e);
+}
