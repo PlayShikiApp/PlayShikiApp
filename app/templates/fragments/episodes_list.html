@@ -1,7 +1,7 @@
                            {% for i in range(1, anime_info["duration"] + 1) %}
 								{% if episode == i %}
-									<div class="b-video_variant active" data-episode="{{i}}"><a href="/index.html?anime_id={{anime_id}}&episode={{i}}&hostname={{hostname}}"><span class="episode-num">#{{i}}</span><span class="episode-kinds">озвучка, субтитры, оригинал</span></a></div>
+									<div class="b-video_variant active" data-episode="{{i}}"><a url="/index.html?anime_id={{anime_id}}&episode={{i}}&hostname={{hostname}}" href="/index.html?anime_id={{anime_id}}&episode={{i}}&hostname={{hostname}}"><span class="episode-num">#{{i}}</span><span class="episode-kinds">озвучка, субтитры, оригинал</span></a></div>
 								{% else %}
-									<div class="b-video_variant" data-episode="{{i}}"><a href="/index.html?anime_id={{anime_id}}&episode={{i}}&hostname={{hostname}}"><span class="episode-num">#{{i}}</span><span class="episode-kinds">озвучка, субтитры, оригинал</span></a></div>
+									<div class="b-video_variant" data-episode="{{i}}"><a url="/index.html?anime_id={{anime_id}}&episode={{i}}&hostname={{hostname}}" href="/index.html?anime_id={{anime_id}}&episode={{i}}&hostname={{hostname}}"><span class="episode-num">#{{i}}</span><span class="episode-kinds">озвучка, субтитры, оригинал</span></a></div>
 								{% endif %}
                            {% endfor %}

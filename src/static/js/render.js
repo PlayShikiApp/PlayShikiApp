@@ -370,18 +370,20 @@ function set_player_controls_callbacks() {
 		}
 
 		var handler = function(evt) {
-			if (history && history.pushState) {
-				evt.preventDefault();
+			if (!window.event.ctrlKey) {
+				if (history && history.pushState) {
+					evt.preventDefault();
 
-				//Change to new page with hash
-				var newPage = window.location.href + "#" + href;
-				window.location.href = newPage;
+					//Change to new page with hash
+					var newPage = window.location.href + "#" + href;
+					window.location.href = newPage;
 
-				//Remove hash from URL and replace with desired URL
-				history.pushState(historyState, evt.target.innerHTML, href)
+					//Remove hash from URL and replace with desired URL
+					history.pushState(historyState, evt.target.innerHTML, href)
+				}
+
+				return rerender(href);
 			}
-
-			return rerender(href);
 		}
 
 		if (href.indexOf("index.html") >= 0)
