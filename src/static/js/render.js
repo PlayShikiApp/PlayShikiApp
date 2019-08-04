@@ -681,6 +681,66 @@ function render_element(id, render_kwargs) {
 	g_rendered_elements.push(id);
 }
 
+var g_stats_rendered = false;
+
+async function render_stats(anime_id) {
+	if (g_stats_rendered)
+		return;
+	
+	g_stats_rendered  = true;
+	
+	console.log("stats");
+
+	var rates_scores = await get_rates_scores_stats(anime_id);
+	if (rates_scores) {
+		var rates_score_max = rates_scores.reduce((a, b) => ({
+			"value": Math.max(a["value"], b["value"])
+		}))["value"];
+
+		for (score of rates_scores) {
+			score["title"] = score["value"];
+			score["width"] = (score["value"] * 100 / rates_score_max).toFixed(2);
+			if (score["width"] < 15)
+				score["value"] = "";
+		}
+		render_element('rates_scores', {
+			"rates_scores": rates_scores
+		});
+	}
+}
+
+var g_statuses_stats_rendered = false;
+
+async function render_statuses_stats(anime_id) {
+	if (g_statuses_stats_rendered)
+		return;
+	
+	g_statuses_stats_rendered  = true;
+	
+	console.log("statuses_stats");
+
+	var rates_statuses_stats = await get_rates_statuses_stats(anime_id);
+	if (rates_statuses_stats) {
+		var rates_stat_max = rates_statuses_stats.reduce((a, b) => ({
+			"value": Math.max(a["value"], b["value"])
+		}))["value"];
+		var rates_stat_total = rates_statuses_stats.reduce((a, b) => ({
+			"value": a["value"] + b["value"]
+		}))["value"];
+
+		for (stat of rates_statuses_stats) {
+			stat["title"] = stat["value"];
+			stat["width"] = (stat["value"] * 100 / rates_stat_max).toFixed(2);
+			if (stat["width"] < 15)
+				stat["value"] = "";
+		}
+		render_element('rates_statuses', {
+			"rates_statuses_stats": rates_statuses_stats,
+			"rates_stat_total": rates_stat_total
+		});
+	}
+}
+
 async function render(anime_id, episode) {
 	var [anime_videos, anime_info] = await Promise.all([
 		get_anime_videos(anime_id, episode),
@@ -826,48 +886,12 @@ async function render(anime_id, episode) {
 			render_element('user_profile', user_kwargs);
 		});
 
-		var rates_scores = await get_rates_scores_stats(anime_id);
-		if (rates_scores) {
-			var rates_score_max = rates_scores.reduce((a, b) => ({
-				"value": Math.max(a["value"], b["value"])
-			}))["value"];
-
-			for (score of rates_scores) {
-				score["title"] = score["value"];
-				score["width"] = (score["value"] * 100 / rates_score_max).toFixed(2);
-				if (score["width"] < 15)
-					score["value"] = "";
-			}
-			render_element('rates_scores', {
-				"rates_scores": rates_scores
-			});
-		}
-
-		console.dir(anime_videos);
-
 		render_element('breadcrumbs', render_kwargs);
 		render_element('title', render_kwargs);
 		render_element('menu_logo', render_kwargs);
+		
+		render_stats(anime_id);
 
-		var rates_statuses_stats = await get_rates_statuses_stats(anime_id);
-		if (rates_statuses_stats) {
-			var rates_stat_max = rates_statuses_stats.reduce((a, b) => ({
-				"value": Math.max(a["value"], b["value"])
-			}))["value"];
-			var rates_stat_total = rates_statuses_stats.reduce((a, b) => ({
-				"value": a["value"] + b["value"]
-			}))["value"];
-
-			for (stat of rates_statuses_stats) {
-				stat["title"] = stat["value"];
-				stat["width"] = (stat["value"] * 100 / rates_stat_max).toFixed(2);
-				if (stat["width"] < 15)
-					stat["value"] = "";
-			}
-			render_element('rates_statuses', {
-				"rates_statuses_stats": rates_statuses_stats,
-				"rates_stat_total": rates_stat_total
-			});
-		}
+		render_statuses_stats(anime_id);
 	});
 }
