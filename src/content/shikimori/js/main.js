@@ -143,7 +143,7 @@ function get_anime_id() {
 		console.log(e);
 		return;
 	}
-	
+
 	return anime_id;
 }
 
@@ -165,7 +165,7 @@ function add_button() {
 	if (g_user_rates && g_user_rates.length > 0 && (g_user_rates[0]["status"] === "watching" || g_user_rates[0]["status"] === "rewatching")) {
 			episode_num = g_user_rates[0].episodes + 1;
 	}
-		
+
 	var loc = chrome.runtime.getURL("index.html") + "?anime_id=" + anime_id + "&episode=" + episode_num + "&hostname=" + location.hostname;
 
 	if (!document.querySelector('#_watchButton')) {
@@ -178,7 +178,7 @@ function add_button() {
 		watchLink.href = loc;
 
 		console.log("end");
-		mainObserver.disconnect();
+		//mainObserver.disconnect();
 	}
 }
 
@@ -187,7 +187,7 @@ function start() {
 				window.location.href.indexOf('shikimori.one/animes/') === -1) {
 		return;
 	}
-	
+
 	var anime_id = get_anime_id();
 
 	get_user_rates(anime_id, function(rates) {
