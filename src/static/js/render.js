@@ -359,12 +359,28 @@ var lastClick = 0;
 
 function set_player_controls_callbacks() {
 	console.log("ready");
+	var historyState = {};
 	$("a").each(function(index) {
 		var href = $(this).attr("url");
 		if (href === undefined)
 			return;
 
-		var handler = function() {
+		if (href.indexOf("hostname=") === -1) {
+			href += "&hostname=" + get_shikimori_hosting();
+		}
+
+		var handler = function(evt) {
+			if (history && history.pushState) {
+				evt.preventDefault();
+
+				//Change to new page with hash
+				var newPage = window.location.href + "#" + href;
+				window.location.href = newPage;
+
+				//Remove hash from URL and replace with desired URL
+				history.pushState(historyState, evt.target.innerHTML, href)
+			}
+
 			return rerender(href);
 		}
 
