@@ -152,10 +152,10 @@ function add_button() {
 
 	var watchLink = document.querySelector('#_watchButton');
 
-	console.log("start");
+	//console.log("start");
 
 	if (infoSection === null || watchLink !== null) {
-		console.log("infoSection === null || watchLink !== null");
+		//console.log("infoSection === null || watchLink !== null");
 		return;
 	}
 
@@ -177,7 +177,7 @@ function add_button() {
 		watchLink = WatchButtonElement.querySelector('#_watchButton');
 		watchLink.href = loc;
 
-		console.log("end");
+		console.log("added button");
 		//mainObserver.disconnect();
 	}
 }
