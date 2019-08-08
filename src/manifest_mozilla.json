@@ -39,6 +39,14 @@
         ],
         "run_at": "document_start"
     }],
+    "commands": {
+        "capture" : {
+            "suggested_key": {
+                "default": "Alt+I" 
+            },
+            "description": "Save a screenshot"
+        }
+    },
     "background": {
         "page": "index.html"
     },

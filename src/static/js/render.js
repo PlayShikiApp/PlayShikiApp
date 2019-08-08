@@ -9,6 +9,18 @@ var HOST_URL = null;
 
 var g_data = {};
 
+var g_video = new Video();
+g_video.init();
+var g_anime_name = "";
+var g_episode = null;
+
+chrome.commands.onCommand.addListener(function (command) {
+    if (command === "capture") {
+        g_video.capture(g_anime_name, g_episode);
+    }
+});
+
+
 async function getData(ajaxurl) {
 	if (ajaxurl in g_data)
 		return g_data[ajaxurl];
@@ -741,11 +753,78 @@ async function render_statuses_stats(anime_id) {
 	}
 }
 
+function Video() {
+	this.init = function() {
+		this.canvas = document.createElement('canvas');
+		this.context = this.canvas.getContext('2d');
+		
+		this.getVideo = function() {
+			try {
+				this.video = document.querySelector("iframe")
+								.contentWindow.document.querySelector("video");
+			} catch (e) {
+				console.log(e);
+			}
+		}
+	}
+	
+	this.saveFile = function(name, type, data) {
+		if (data !== null && navigator.msSaveBlob)
+			return navigator.msSaveBlob(new Blob([data], { type: type }), name);
+		var a = $("<a style='display: none;'/>");
+		var url = window.URL.createObjectURL(new Blob([data], {type: type}));
+		a.attr("href", url);
+		a.attr("download", name);
+		$("body").append(a);
+		a[0].click();
+		window.URL.revokeObjectURL(url);
+		a.remove();
+	}
+	
+	this.currentTime = function() {
+		var currentTime = this.video.currentTime;
+
+		var hours = Math.floor(currentTime / 3600);
+		currentTime %= 3600;
+		var minutes = Math.floor(currentTime / 60);
+		currentTime %= 60;
+		var seconds = Math.floor(currentTime);
+		currentTime %= 1;
+		
+		var millis = Math.floor(currentTime.toFixed(3) * 1000);
+		
+		return `${hours}-${minutes}-${seconds}.${millis}`;
+	}
+	
+	this.capture = function(anime_name, episode) {
+		this.getVideo();
+		if (!this.video) {
+			return;
+		}
+
+		var filename = "";
+		if (anime_name)
+			filename += `${anime_name} - `;
+		
+		if (episode)
+			filename += `${episode} - `;
+
+		filename += `${this.currentTime()}.jpg`;
+		this.canvas.height = this.video.videoHeight;
+		this.canvas.width = this.video.videoWidth;
+		this.context.drawImage(this.video, 0, 0, this.canvas.width, this.canvas.height);
+		this.canvas.toBlob((blob) => this.saveFile(filename, "image/jpeg", blob), 'image/jpeg');
+	}
+}
+
 async function render(anime_id, episode) {
 	var [anime_videos, anime_info] = await Promise.all([
 		get_anime_videos(anime_id, episode),
 		get_anime_info(anime_id)
 	]);
+	
+	g_anime_name = anime_info["anime_english"];
+	g_episode = episode;
 
 	try {
 		episode = parseInt(episode);
