@@ -23,7 +23,7 @@
             "jquery-3.4.1.min.js",
             "content/shikimori/js/main.js"
         ],
-        "run_at": "document_start"
+        "run_at": "document_idle"
     }, {
         "matches": [
             "*://myanimelist.net/anime/*"
@@ -32,7 +32,7 @@
             "jquery-3.4.1.min.js",
             "content/myanimelist/js/main.js"
         ],
-        "run_at": "document_start"
+        "run_at": "document_idle"
     }],
     "commands": {
         "capture" : {
