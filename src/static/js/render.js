@@ -846,12 +846,6 @@ async function render(anime_id, episode) {
 
 	render_element('menu_dropdown', render_kwargs);
 	render_element('breadcrumbs', render_kwargs);
-	render_element('video_switcher', render_kwargs);
-	render_element('videos_list', render_kwargs);
-	render_element('video_player', render_kwargs);
-	render_element('episodes_list', render_kwargs);
-
-	set_player_controls_callbacks();
 
 	try {
 		var [shiki_genre_ru_name, shiki_main_genre_url] = await Promise.all([
@@ -959,6 +953,14 @@ async function render(anime_id, episode) {
 		update_storage_item(anime_id, {
 			"kind": active_kind
 		});
+
+		render_element('video_switcher', render_kwargs);
+		render_element('episodes_list', render_kwargs);
+		render_element('videos_list', render_kwargs);
+		render_element('video_player', render_kwargs);
+
+		// must be set after rendering video_player
+		set_player_controls_callbacks();
 
 		get_or_set_user(function(user) {
 			if (!user)
