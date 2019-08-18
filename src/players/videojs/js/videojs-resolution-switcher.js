@@ -261,16 +261,17 @@
        * @param   {Array}  src Array of sources sorted by resolution used to find high and low res
        * @returns {Object} {res: string, sources: []}
        */
-      function chooseSrc(groupedSrc, src){
+       function chooseSrc(groupedSrc, src){
         var selectedRes = settings['default']; // use array access as default is a reserved keyword
         var selectedLabel = '';
-        if (selectedRes === 'high') {
-          selectedRes = src[0].res;
-          selectedLabel = src[0].label;
-        } else if (selectedRes === 'low' || selectedRes == null || !groupedSrc.res[selectedRes]) {
-          // Select low-res if default is low or not set
+
+        if (selectedRes === 'low') {
           selectedRes = src[src.length - 1].res;
           selectedLabel = src[src.length -1].label;
+        } else if (selectedRes === 'high' || selectedRes == null) {
+          // Select high-res if default is high or not set
+		  selectedRes = src[0].res;
+          selectedLabel = src[0].label;
         } else if (groupedSrc.res[selectedRes]) {
           selectedLabel = groupedSrc.res[selectedRes][0].label;
         }
