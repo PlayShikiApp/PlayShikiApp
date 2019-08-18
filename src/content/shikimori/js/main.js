@@ -170,6 +170,12 @@ function add_button() {
 	var episode_num = 1;
 	var anime_id = get_anime_id();
 
+	if (!g_user_rates) {
+		return get_user_rates(anime_id, function(rates) {
+			add_button();
+		});
+	}
+
 	if (g_user_rates && g_user_rates.length > 0 && (g_user_rates[0]["status"] === "watching" || g_user_rates[0]["status"] === "rewatching")) {
 			episode_num = g_user_rates[0].episodes + 1;
 	}
