@@ -116,8 +116,11 @@ function IsJsonString(str) {
 }
 
 function get_user_rates(anime_id, callback) {
-	if (g_user_rates)
+	console.log("get_user_rates: init");
+	if (g_user_rates) {
+		console.log("get_user_rates: exit");
 		return callback(g_user_rates);
+	}
 
 	get("https://" + location.hostname + "/api/users/whoami", function(data) {
 		if (!data || data === "null")
@@ -155,6 +158,7 @@ function add_button() {
 	var infoSection = document.querySelector('#animes_show .c-info-right');
 
 	var watchLink = document.querySelector('#_watchButton');
+	console.log("add_button");
 
 	//console.log("start");
 
@@ -192,9 +196,12 @@ function start() {
 		return;
 	}
 
+	console.log("PlayShikiApp");
+
 	var anime_id = get_anime_id();
 
 	get_user_rates(anime_id, function(rates) {
+		console.log("get_user_rates");
 		mainObserver.observe(document, observerConfig);
 	});
 
