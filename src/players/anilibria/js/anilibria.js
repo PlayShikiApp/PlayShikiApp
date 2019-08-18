@@ -37,6 +37,8 @@ if (url) {
 
 	video.innerHTML = playerHTML;
 
+	videojs.log.level('error');
+
 	videojs('video_1').ready(function() {
 		this.hotkeys({
 			volumeStep: 0.1,
