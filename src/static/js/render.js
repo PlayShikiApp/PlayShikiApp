@@ -9,17 +9,18 @@ var HOST_URL = null;
 
 var g_data = {};
 
-var g_video = new Video();
-g_video.init();
 var g_anime_name = "";
 var g_episode = null;
-
-chrome.commands.onCommand.addListener(function (command) {
-    if (command === "capture") {
-        g_video.capture(g_anime_name, g_episode);
-    }
-});
-
+var g_video;
+try {
+    chrome.commands.onCommand.addListener(function (command) {
+        if (command === "capture") {
+            g_video.capture(g_anime_name, g_episode);
+        }
+    });
+} catch(e) {
+    console.log(e);
+}
 
 async function getData(ajaxurl) {
 	if (ajaxurl in g_data)
@@ -757,7 +758,7 @@ function Video() {
 	this.init = function() {
 		this.canvas = document.createElement('canvas');
 		this.context = this.canvas.getContext('2d');
-		
+
 		this.getVideo = function() {
 			try {
 				this.video = document.querySelector("iframe")
@@ -767,7 +768,7 @@ function Video() {
 			}
 		}
 	}
-	
+
 	this.saveFile = function(name, type, data) {
 		if (data !== null && navigator.msSaveBlob)
 			return navigator.msSaveBlob(new Blob([data], { type: type }), name);
@@ -780,7 +781,7 @@ function Video() {
 		window.URL.revokeObjectURL(url);
 		a.remove();
 	}
-	
+
 	this.currentTime = function() {
 		var currentTime = this.video.currentTime;
 
@@ -790,12 +791,12 @@ function Video() {
 		currentTime %= 60;
 		var seconds = Math.floor(currentTime);
 		currentTime %= 1;
-		
+
 		var millis = Math.floor(currentTime.toFixed(3) * 1000);
-		
+
 		return `${hours}-${minutes}-${seconds}.${millis}`;
 	}
-	
+
 	this.capture = function(anime_name, episode) {
 		this.getVideo();
 		if (!this.video) {
@@ -805,7 +806,7 @@ function Video() {
 		var filename = "";
 		if (anime_name)
 			filename += `${anime_name} - `;
-		
+
 		if (episode)
 			filename += `${episode} - `;
 
@@ -817,12 +818,19 @@ function Video() {
 	}
 }
 
+try {
+    g_video = new Video();
+    g_video.init();
+} catch (e) {
+    console.log(e);
+}
+
 async function render(anime_id, episode) {
 	var [anime_videos, anime_info] = await Promise.all([
 		get_anime_videos(anime_id, episode),
 		get_anime_info(anime_id)
 	]);
-	
+
 	g_anime_name = anime_info["anime_english"];
 	g_episode = episode;
 
