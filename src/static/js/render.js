@@ -151,7 +151,7 @@ function IsJsonString(str) {
 	return true;
 }
 
-function get_or_set_user(callback) {
+async function get_or_set_user(callback) {
 	var user = window.localStorage.getItem('user');
 
 
@@ -582,7 +582,7 @@ function update_storage_item(anime_id, item) {
 	});
 }
 
-function get_storage_item(anime_id, callback) {
+async function get_storage_item(anime_id, callback) {
 	var id = "anime-" + anime_id;
 	chrome.storage.sync.get([id], function(items) {
 		if (chrome.runtime.error) {
@@ -885,87 +885,92 @@ async function render(anime_id, episode) {
 		anime_videos["active_video"].url = anime_videos[active_kind][0]["url"];
 	}
 
-	get_storage_item(anime_id, async function(result) {
-		//console.dir(result);
+	try {
+		await get_storage_item(anime_id, async function(result) {
+			//console.dir(result);
 
-		if ("kind" in result && result["kind"] in anime_videos) {
-			var desired_video_idx = 0;
-			var desired_video_score = 0.0;
-			active_kind = result["kind"];
-			if (anime_videos[active_kind].length == 0) {
-				console.log("no videos found in the selected video kind, will try to find another one");
+			if ("kind" in result && result["kind"] in anime_videos) {
+				var desired_video_idx = 0;
+				var desired_video_score = 0.0;
+				active_kind = result["kind"];
+				if (anime_videos[active_kind].length == 0) {
+					console.log("no videos found in the selected video kind, will try to find another one");
 
-				for (const kind of ["fandub", "subtitles", "raw"]) {
-					if (anime_videos[kind].length != 0) {
-						active_kind = kind;
-						break;
+					for (const kind of ["fandub", "subtitles", "raw"]) {
+						if (anime_videos[kind].length != 0) {
+							active_kind = kind;
+							break;
+						}
 					}
 				}
-			}
 
-			if (anime_videos[active_kind].length == 0) {
-				console.log("no videos found, giving up");
-				return;
-			}
-
-			console.log("override active_kind = " + active_kind);
-
-			if (("author" in result) && ("hosting" in result)) {
-				var idx = 0;
-				for (const video of anime_videos[active_kind]) {
-					var current_video_score = 0.0;
-
-					if (video["author"] === result["author"]) {
-						current_video_score += DESIRED_VIDEO_AUTHOR_WEIGTH;
-						console.log(`author result ${result["author"]}`);
-					}
-
-					if (video["hosting"] === result["hosting"]) {
-						current_video_score += DESIRED_VIDEO_HOSTING_WEIGTH;
-						console.log(`hosting result ${result["hosting"]}`);
-					}
-
-					if (current_video_score > desired_video_score) {
-						desired_video_idx = idx;
-						desired_video_score = current_video_score;
-					}
-
-					idx++;
+				if (anime_videos[active_kind].length == 0) {
+					console.log("no videos found, giving up");
+					return;
 				}
 
-				console.log("found matching video variant idx = " + desired_video_idx);
+				console.log("override active_kind = " + active_kind);
+
+				if (("author" in result) && ("hosting" in result)) {
+					var idx = 0;
+					for (const video of anime_videos[active_kind]) {
+						var current_video_score = 0.0;
+
+						if (video["author"] === result["author"]) {
+							current_video_score += DESIRED_VIDEO_AUTHOR_WEIGTH;
+							console.log(`author result ${result["author"]}`);
+						}
+
+						if (video["hosting"] === result["hosting"]) {
+							current_video_score += DESIRED_VIDEO_HOSTING_WEIGTH;
+							console.log(`hosting result ${result["hosting"]}`);
+						}
+
+						if (current_video_score > desired_video_score) {
+							desired_video_idx = idx;
+							desired_video_score = current_video_score;
+						}
+
+						idx++;
+					}
+
+					console.log("found matching video variant idx = " + desired_video_idx);
+				}
+
+				console.log(anime_videos[active_kind][desired_video_idx]["url"]);
+
+				anime_videos["active_kind"] = active_kind;
+
+				for (k in anime_videos[active_kind][desired_video_idx])
+					anime_videos["active_video"][k] = anime_videos[active_kind][desired_video_idx][k];
+
+				if (anime_videos["fandub"].length > 0)
+					anime_videos["fandub"][0]["active"] = "";
+
+				anime_videos[active_kind][desired_video_idx]["active"] = " active";
+				render_kwargs["anime_videos"] = anime_videos;
 			}
 
-			console.log(anime_videos[active_kind][desired_video_idx]["url"]);
-
-			anime_videos["active_kind"] = active_kind;
-
-			for (k in anime_videos[active_kind][desired_video_idx])
-				anime_videos["active_video"][k] = anime_videos[active_kind][desired_video_idx][k];
-
-			if (anime_videos["fandub"].length > 0)
-				anime_videos["fandub"][0]["active"] = "";
-
-			anime_videos[active_kind][desired_video_idx]["active"] = " active";
-			render_kwargs["anime_videos"] = anime_videos;
-		}
-
-		update_storage_item(anime_id, {
-			"kind": active_kind
+			update_storage_item(anime_id, {
+				"kind": active_kind
+			});
 		});
+	} catch (e) {
+		console.log(e);
+	}
 
-		render_element('video_switcher', render_kwargs);
-		render_element('episodes_list', render_kwargs);
-		render_element('videos_list', render_kwargs);
-		render_element('video_player', render_kwargs);
+	render_element('video_switcher', render_kwargs);
+	render_element('episodes_list', render_kwargs);
+	render_element('videos_list', render_kwargs);
+	render_element('video_player', render_kwargs);
 
-		// must be set after rendering video_player
-		set_player_controls_callbacks();
+	// must be set after rendering video_player
+	set_player_controls_callbacks();
 
-		get_or_set_user(function(user) {
+	try {
+		await get_or_set_user(function(user) {
 			if (!user)
 				return;
-
 			var user_kwargs = {
 				'user_login': user["nickname"],
 				'user_avatar_src': user["image"]["x48"],
@@ -977,13 +982,15 @@ async function render(anime_id, episode) {
 			$("#mail_url").attr("href", `https://${hosting}/${user["nickname"]}/messages/news`);
 			render_element('user_profile', user_kwargs);
 		});
+	} catch (e) {
+		console.log(e);
+	}
 
-		render_element('breadcrumbs', render_kwargs);
-		render_element('title', render_kwargs);
-		render_element('menu_logo', render_kwargs);
+	render_element('breadcrumbs', render_kwargs);
+	render_element('title', render_kwargs);
+	render_element('menu_logo', render_kwargs);
 		
-		render_stats(anime_id);
+	render_stats(anime_id);
 
-		render_statuses_stats(anime_id);
-	});
+	render_statuses_stats(anime_id);
 }
