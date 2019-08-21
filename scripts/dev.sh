@@ -5,7 +5,7 @@
 #./node_modules/.bin/gulp && ./node_modules/.bin/webpack --config webpack.config.js
 
 #SUPPORTED_BROWSERS="chrome firefox opera"
-SUPPORTED_BROWSERS="chrome"
+SUPPORTED_BROWSERS="chrome firefox"
 
 rm -fr dist
 
@@ -17,3 +17,5 @@ do
 	cp -r src/* dist/$i
 	mv dist/$i/index.html.dev dist/$i/index.html
 done
+
+mv dist/firefox/manifest_mozilla.json dist/firefox/manifest.json
