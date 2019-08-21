@@ -95,11 +95,18 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 	});
 });
 
+var g_data = {};
+
 function get(url, callback) {
+	if (url in g_data) {
+		return g_data[url];
+	}
+
 	var xhr = new XMLHttpRequest();
 	xhr.open('GET', url, true);
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+			g_data[url] = xhr.responseText;
 			callback(xhr.responseText);
 		}
 	};
@@ -115,6 +122,12 @@ function IsJsonString(str) {
 	return true;
 }
 
+var g_user_authorized = true;
+
+function is_user_authorized() {
+	return g_user_authorized;
+}
+
 function get_user_rates(anime_id, callback) {
 	console.log("get_user_rates: init");
 	if (g_user_rates) {
@@ -123,8 +136,10 @@ function get_user_rates(anime_id, callback) {
 	}
 
 	get("https://" + location.hostname + "/api/users/whoami", function(data) {
-		if (!data || data === "null")
+		if (!data || data === "null") {
+			g_user_authorized = false;
 			return callback();
+		}
 
 		var user = JSON.parse(data);
 		get("https://" + location.hostname + "/api/v2/user_rates?user_id=" + user.id +
@@ -158,7 +173,7 @@ function add_button() {
 	var infoSection = document.querySelector('#animes_show .c-info-right');
 
 	var watchLink = document.querySelector('#_watchButton');
-	console.log("add_button");
+	console.log("add_button: init");
 
 	//console.log("start");
 
@@ -167,10 +182,16 @@ function add_button() {
 		return;
 	}
 
+	if (watchLink !== null) {
+		console.log("add_button: exit");
+		mainObserver.disconnect();
+		return;
+	}
+
 	var episode_num = 1;
 	var anime_id = get_anime_id();
 
-	if (!g_user_rates) {
+	if (!g_user_rates && is_user_authorized()) {
 		return get_user_rates(anime_id, function(rates) {
 			add_button();
 		});
