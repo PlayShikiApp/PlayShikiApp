@@ -1,6 +1,6 @@
 {
   "name": "PlayShikiApp",
-  "version": "1.4.4",
+  "version": "1.4.5",
   "description": "Возвращает shikimori к жизни",
   "main": "index.js",
   "scripts": {
@@ -12,11 +12,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PlayShikimoriApp/PlayShikiApp.git"
+    "url": "git+https://github.com/PlayShikiApp/PlayShikiApp.git"
   },
   "author": "Kuroyasha",
   "license": "OSL",
-  "homepage": "https://github.com/PlayShikimoriApp/PlayShikiApp",
+  "homepage": "https://github.com/PlayShikiApp/PlayShikiApp",
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
     "gulp": "^4.0.2",
