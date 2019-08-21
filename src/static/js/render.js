@@ -152,7 +152,7 @@ function IsJsonString(str) {
 	return true;
 }
 
-function get_or_set_user(callback) {
+async function get_or_set_user(callback) {
 	var user = window.localStorage.getItem('user');
 
 
@@ -663,19 +663,21 @@ function update_storage_item(anime_id, item) {
 
 function get_storage_item(anime_id, callback) {
 	var id = "anime-" + anime_id;
-	chrome.storage.sync.get([id], function(items) {
-		if (chrome.runtime.error) {
-			console.log("chrome runtime error");
-			return;
-		}
+	return new Promise((resolve, reject) => {
+		chrome.storage.sync.get([id], (items) => {
+			if (chrome.runtime.error) {
+				reject(console.log("chrome runtime error"));
+				return;
+			}
 
-		if (!(id in items)) {
-			callback({});
-			return;
-		}
+			if (!(id in items)) {
+				resolve(callback({}));
+				return;
+			}
 
-		callback(JSON.parse(items[id]));
+			resolve(callback(JSON.parse(items[id])));
 
+		});
 	});
 }
 
@@ -908,6 +910,7 @@ try {
 }
 
 async function render(anime_id, episode) {
+	console.log("start: " + anime_id + " " + episode);
 	var [anime_videos, anime_info] = await Promise.all([
 		get_anime_videos(anime_id, episode),
 		get_anime_info(anime_id)
@@ -937,19 +940,6 @@ async function render(anime_id, episode) {
 	render_element('menu_dropdown', render_kwargs);
 	render_element('breadcrumbs', render_kwargs);
 
-	try {
-		var [shiki_genre_ru_name, shiki_main_genre_url] = await Promise.all([
-			get_main_genre_ru_name(anime_id),
-			get_main_genre_url(anime_id)
-		]);
-	} catch (e) {
-		console.log(e);
-		var shiki_genre_ru_name = "";
-		var shiki_main_genre_url = "";
-	}
-
-
-
 	if (!anime_videos) {
 		console.log("!anime_videos");
 		return;
@@ -959,10 +949,6 @@ async function render(anime_id, episode) {
 		console.log("!anime_info");
 		return;
 	}
-
-
-	render_kwargs["shiki_main_genre_url"] = shiki_main_genre_url;
-	render_kwargs["shiki_genre_ru_name"] = shiki_genre_ru_name;
 
 	var active_kind = undefined;
 	for (kind of ["fandub", "raw", "subtitles"]) {
@@ -975,7 +961,7 @@ async function render(anime_id, episode) {
 		anime_videos["active_video"].url = anime_videos[active_kind][0]["url"];
 	}
 
-	get_storage_item(anime_id, async function(result) {
+	await get_storage_item(anime_id, async function(result) {
 		//console.dir(result);
 
 		if ("kind" in result && result["kind"] in anime_videos) {
@@ -1044,36 +1030,54 @@ async function render(anime_id, episode) {
 			"kind": active_kind
 		});
 
-		render_element('video_switcher', render_kwargs);
-		render_element('episodes_list', render_kwargs);
-		render_element('videos_list', render_kwargs);
-		render_element('video_player', render_kwargs);
-
-		// must be set after rendering video_player
-		set_player_controls_callbacks();
-
-		get_or_set_user(function(user) {
-			if (!user)
-				return;
-
-			var user_kwargs = {
-				'user_login': user["nickname"],
-				'user_avatar_src': user["image"]["x48"],
-				'user_avatar_srcset': user["image"]["x80"]
-			}
-
-			var hosting = get_shikimori_hosting();
-			user_kwargs["hostname"] = hosting;
-			$("#mail_url").attr("href", `https://${hosting}/${user["nickname"]}/messages/news`);
-			render_element('user_profile', user_kwargs);
-		});
-
-		render_element('breadcrumbs', render_kwargs);
-		render_element('title', render_kwargs);
-		render_element('menu_logo', render_kwargs);
-
-		render_stats(anime_id);
-
-		render_statuses_stats(anime_id);
+		console.log("get_storage_item end");
 	});
+
+	console.log("start player render");
+
+	render_element('video_switcher', render_kwargs);
+	render_element('episodes_list', render_kwargs);
+	render_element('videos_list', render_kwargs);
+	render_element('video_player', render_kwargs);
+
+	// must be set after rendering video_player
+	set_player_controls_callbacks();
+
+	await get_or_set_user(function(user) {
+		if (!user)
+			return;
+		var user_kwargs = {
+			'user_login': user["nickname"],
+			'user_avatar_src': user["image"]["x48"],
+			'user_avatar_srcset': user["image"]["x80"]
+		}
+
+		var hosting = get_shikimori_hosting();
+		user_kwargs["hostname"] = hosting;
+		$("#mail_url").attr("href", `https://${hosting}/${user["nickname"]}/messages/news`);
+		render_element('user_profile', user_kwargs);
+	});
+
+	Promise.race([
+	 	(async function() {
+			var [shiki_genre_ru_name, shiki_main_genre_url] = await Promise.all([
+				get_main_genre_ru_name(anime_id),
+				get_main_genre_url(anime_id)
+			]);
+
+			render_kwargs["shiki_main_genre_url"] = shiki_main_genre_url;
+			render_kwargs["shiki_genre_ru_name"] = shiki_genre_ru_name;
+			render_element('breadcrumbs', render_kwargs);
+		})(),
+	 	new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 3))
+	]).catch(function(e) {
+		console.log(e);
+	})
+	
+	render_element('title', render_kwargs);
+	render_element('menu_logo', render_kwargs);
+
+	render_stats(anime_id);
+
+	render_statuses_stats(anime_id);
 }
