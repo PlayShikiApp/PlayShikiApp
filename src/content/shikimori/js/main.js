@@ -152,10 +152,6 @@ function get_user_rates(anime_id, callback) {
 				}
 		});
 	});
-
-	setTimeout(function() {
-		get_user_rates(anime_id, callback);
-	}, 700);
 }
 
 function get_anime_id() {
