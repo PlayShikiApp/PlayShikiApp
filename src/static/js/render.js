@@ -13,13 +13,13 @@ var g_anime_name = "";
 var g_episode = null;
 var g_video;
 try {
-    chrome.commands.onCommand.addListener(function (command) {
-        if (command === "capture") {
-            g_video.capture(g_anime_name, g_episode);
-        }
-    });
-} catch(e) {
-    console.log(e);
+	chrome.commands.onCommand.addListener(function(command) {
+		if (command === "capture") {
+			g_video.capture(g_anime_name, g_episode);
+		}
+	});
+} catch (e) {
+	console.log(e);
 }
 
 async function getData(ajaxurl) {
@@ -221,6 +221,7 @@ function get_or_set_user_rate(anime_id, create_rate, callback) {
 				if (rates == [] || rates == "[]") {
 					console.log("send_message_to_tab(createRate)");
 					set_watched_button_disabled(true, false);
+
 					send_message_to_tab(
 						"createRate", {
 							target_id: anime_id,
@@ -239,10 +240,11 @@ function get_or_set_user_rate(anime_id, create_rate, callback) {
 								});
 							}, 1000);
 						},
-						function() {
+						function(failureReason) {
 							console.log("couldn't find a satisfying tab to send message to :(");
-							set_watched_button_disabled(true, "no_more_tabs");
-						});
+							set_watched_button_disabled(true, failureReason);
+						}
+					);
 				} else {
 					console.log("set rates: " + rates);
 					window.localStorage.setItem(rate_ident, rates);
@@ -335,23 +337,86 @@ function do_nothing() {
 	console.log("click");
 }
 
-function send_message_to_tab(method, options, onSuccess, onFailure, onResponse) {
-	chrome.tabs.query({}, function(tabs) {
+/**
+ * Promise wrapper for chrome.tabs.executeScript
+ * @param tabId
+ * @param details
+ * @returns {Promise<any>}
+ */
+function executeScriptPromise(tabId, details) {
+	return new Promise((resolve, reject) => {
+		//console.log("executeScriptPromise: " + tabId);
+		chrome.tabs.executeScript(tabId, details, () => {
+			if (chrome.runtime.lastError) {
+				console.log("executeScriptPromise: " + tabId + " reject();");
+				reject(chrome.runtime.lastError.message);
+			} else {
+				console.log("executeScriptPromise: " + tabId + " resolve(ok);");
+				resolve("ok");
+			}
+		});
+	});
+}
+
+/**
+ * Promise wrapper for chrome.tabs.sendMessage
+ * @param tabId
+ * @param item
+ * @returns {Promise<any>}
+ */
+function sendMessagePromise(tabId, item) {
+	return new Promise((resolve, reject) => {
+		chrome.tabs.sendMessage(tabId, item, response => {
+			if (response && ("ok" in response)) {
+				console.log("sendMessagePromise: " + tabId + " resolve(ok);");
+				resolve("ok");
+			} else {
+				console.log("sendMessagePromise: " + tabId + " reject();");
+				if (chrome.runtime.lastError)
+					reject(chrome.runtime.lastError.message);
+				else
+					reject("Something went wrong");
+			}
+		});
+	});
+}
+
+async function send_message_to_tab(method, options, onSuccess, onFailure, onResponse) {
+	chrome.tabs.query({}, async function(tabs) {
 		//console.dir(tabs);
 		var foundTab = false;
+		var lastError = null;
+		var failureReason = "no_more_tabs";
 		for (var i = 0; i < tabs.length; ++i) {
-			//console.log(tabs[i].url);
-			if (tabs[i].url.indexOf("shikimori.org") < 0 &&
-				tabs[i].url.indexOf("shikimori.one") < 0)
+			if ((tabs[i].url.indexOf("shikimori.org") < 0 &&
+					tabs[i].url.indexOf("shikimori.one") < 0) ||
+				tabs[i].url.indexOf("chrome-extension://") >= 0)
 				continue;
 			try {
-				chrome.tabs.sendMessage(tabs[i].id, {
-					method: method,
-					options: options
-				}, function(response) {
-					if (onResponse)
-						onResponse(response);
-				});
+				failureReason = "no_alive_tabs";
+				console.log("send_message_to_tab: " + tabs[i].url);
+
+				const result1 = await executeScriptPromise(tabs[i].id, {
+						file: "content/shikimori/js/main.js"
+					},
+					() => console.log(["executeScriptPromise ", chrome.runtime.lastError]));
+
+				const result = await sendMessagePromise(tabs[i].id, {
+						method: method,
+						options: options
+					},
+					() => console.log(["sendMessagePromise ", chrome.runtime.lastError])
+				);
+
+				lastError = null;
+				if (chrome.runtime.lastError) {
+					lastError = "error: receiving end doesn't exist";
+					//console.error(lastError);
+				}
+
+				if (lastError) {
+					continue;
+				}
 
 				foundTab = true;
 				onSuccess();
@@ -364,7 +429,7 @@ function send_message_to_tab(method, options, onSuccess, onFailure, onResponse) 
 		}
 
 		if (!foundTab)
-			onFailure();
+			onFailure(failureReason);
 	});
 }
 
@@ -455,17 +520,20 @@ function set_player_controls_callbacks() {
 				},
 				function() {
 					invalidate_user_rates(anime_id);
+					setTimeout(function() {
+						//window.location.href = 
+						rerender(chrome.runtime.getURL("index.html") + "?anime_id=" +
+							anime_id + "&episode=" + (episode + 1) +
+							"&hostname=" + get_shikimori_hosting()
+						);
+					}, 1000);
 				},
-				function() {
+				function(failureReason) {
 					console.log("couldn't find a satisfying tab to send message to :(");
-					set_watched_button_disabled(true, "no_more_tabs");
+					set_watched_button_disabled(true, failureReason);
 				}
 			);
 			set_watched_button_disabled(true, false);
-			setTimeout(function() {
-				//window.location.href = 
-				rerender(chrome.runtime.getURL("index.html") + "?anime_id=" + anime_id + "&episode=" + (episode + 1) + "&hostname=" + get_shikimori_hosting());
-			}, 1000);
 		});
 	};
 
@@ -699,9 +767,9 @@ var g_stats_rendered = false;
 async function render_stats(anime_id) {
 	if (g_stats_rendered)
 		return;
-	
-	g_stats_rendered  = true;
-	
+
+	g_stats_rendered = true;
+
 	console.log("stats");
 
 	var rates_scores = await get_rates_scores_stats(anime_id);
@@ -727,9 +795,9 @@ var g_statuses_stats_rendered = false;
 async function render_statuses_stats(anime_id) {
 	if (g_statuses_stats_rendered)
 		return;
-	
-	g_statuses_stats_rendered  = true;
-	
+
+	g_statuses_stats_rendered = true;
+
 	console.log("statuses_stats");
 
 	var rates_statuses_stats = await get_rates_statuses_stats(anime_id);
@@ -762,7 +830,7 @@ function Video() {
 		this.getVideo = function() {
 			try {
 				this.video = document.querySelector("iframe")
-								.contentWindow.document.querySelector("video");
+					.contentWindow.document.querySelector("video");
 			} catch (e) {
 				console.log(e);
 			}
@@ -771,9 +839,13 @@ function Video() {
 
 	this.saveFile = function(name, type, data) {
 		if (data !== null && navigator.msSaveBlob)
-			return navigator.msSaveBlob(new Blob([data], { type: type }), name);
+			return navigator.msSaveBlob(new Blob([data], {
+				type: type
+			}), name);
 		var a = $("<a style='display: none;'/>");
-		var url = window.URL.createObjectURL(new Blob([data], {type: type}));
+		var url = window.URL.createObjectURL(new Blob([data], {
+			type: type
+		}));
 		a.attr("href", url);
 		a.attr("download", name);
 		$("body").append(a);
@@ -819,10 +891,10 @@ function Video() {
 }
 
 try {
-    g_video = new Video();
-    g_video.init();
+	g_video = new Video();
+	g_video.init();
 } catch (e) {
-    console.log(e);
+	console.log(e);
 }
 
 async function render(anime_id, episode) {
@@ -836,7 +908,7 @@ async function render(anime_id, episode) {
 
 	try {
 		episode = parseInt(episode);
-	} catch(e) {
+	} catch (e) {
 		console.log(e);
 		return await render(anime_id, 1);
 	}
@@ -989,7 +1061,7 @@ async function render(anime_id, episode) {
 		render_element('breadcrumbs', render_kwargs);
 		render_element('title', render_kwargs);
 		render_element('menu_logo', render_kwargs);
-		
+
 		render_stats(anime_id);
 
 		render_statuses_stats(anime_id);
