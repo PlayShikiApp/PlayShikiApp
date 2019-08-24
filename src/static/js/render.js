@@ -503,6 +503,8 @@ function set_player_controls_callbacks() {
 		//console.log("click");
 		// END HACK
 
+		var historyState = {};
+
 		get_or_set_user_rate(anime_id, true, function(rates) {
 			if (!rates || rates.length == 0) {
 				console.log("error retrieving user rates");
@@ -520,12 +522,20 @@ function set_player_controls_callbacks() {
 				},
 				function() {
 					invalidate_user_rates(anime_id);
-					setTimeout(function() {
-						//window.location.href = 
-						rerender(chrome.runtime.getURL("index.html") + "?anime_id=" +
+					var href = chrome.runtime.getURL("index.html") + "?anime_id=" +
 							anime_id + "&episode=" + (episode + 1) +
-							"&hostname=" + get_shikimori_hosting()
-						);
+							"&hostname=" + get_shikimori_hosting();
+
+					setTimeout(function() {
+						if (history && history.pushState) {
+							//Change to new page with hash
+							var newPage = window.location.href + "#" + href;
+							window.location.href = newPage;
+							//Remove hash from URL and replace with desired URL
+							history.pushState(historyState, ev.target.innerHTML, href)
+						}
+
+						rerender(href);
 					}, 1000);
 				},
 				function(failureReason) {
