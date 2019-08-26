@@ -33,6 +33,15 @@
             "content/myanimelist/js/main.js"
         ],
         "run_at": "document_idle"
+    }, {
+        "matches": [
+            "*://video.sibnet.ru/shell.php*"
+        ],
+        "js": [
+            "content/sibnet/js/main.js"
+        ],
+        "run_at": "document_idle",
+        "all_frames": true
     }],
     "commands": {
         "capture" : {
@@ -48,6 +57,6 @@
     "browser_action": {
         "default_title": "PlayShiki App"
     },
-    "web_accessible_resources": ["content/shikimori/js/*.*", "content/myanimelist/js/*.*", "content/myanimelist/css/*.*", "static/js/*.*", "static/css/*.*", "static/assets/*.*", "static/img/*.*", "*.*", "players/videojs/*.*", "players/videojs/css/*.*", "players/videojs/js/*.*", "players/anilibria/*.*", "players/anilibria/img/*.*", "players/anilibria/css/*.*", "players/anilibria/js/*.*", "https://raw.github.com/", "https://mozilla.github.io", "https://shikimori.one", "https://shikimori.org"],
+    "web_accessible_resources": ["content/shikimori/js/*.*", "content/myanimelist/js/*.*", "content/myanimelist/css/*.*", "content/sibnet/js/*.*", "static/js/*.*", "static/css/*.*", "static/assets/*.*", "static/img/*.*", "*.*", "players/videojs/*.*", "players/videojs/css/*.*", "players/videojs/js/*.*", "players/anilibria/*.*", "players/anilibria/img/*.*", "players/anilibria/css/*.*", "players/anilibria/js/*.*", "https://raw.github.com/", "https://mozilla.github.io", "https://shikimori.one", "https://shikimori.org", "https://video.sibnet.ru"],
 	"incognito": "split"
 }
