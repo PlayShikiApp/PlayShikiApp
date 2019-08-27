@@ -43,3 +43,35 @@
 1. Данное расширение не собирает личную информацию пользователей или вообще какую-либо информацию с Вашего компьютера, а также не содержит какое-либо вредоносное ПО. Исходный код полностью открыт и его может проверить любой желающий
 2. Исходный код данного расширения не содержит информацию, защищенную авторским правом и какие-либо ссылки на нее
 3. Данный проект распространяется "как есть" под свободной лицензией OSL v3.
+
+## How to build
+
+### Install the dependencies
+```
+sudo apt install ruby2.5 ruby2.5-dev
+sudo gem install bundler -v 2.0.1
+
+npm install
+
+cd app
+bundle install
+yarn install
+cd ..
+```
+
+### To actually do a build
+
+```
+npm run build
+```
+
+Now extension file should appear in the "dist" directory ("dist/PlayShikiApp.xpi").
+
+### Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+### License 
+
+[OSL v3.0](https://github.com/PlayShikiApp/PlayShikiApp/blob/master/LICENSE)
+
