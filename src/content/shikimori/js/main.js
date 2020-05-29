@@ -1,11 +1,52 @@
 var g_user_rates;
 
-var mainObserver = new MutationObserver(add_button);
-var observerConfig = {
-	attributes: true,
-	subtree: true,
-	childList: true
-};
+function add_button() {
+	var infoSection = document.querySelector('#animes_show .c-info-right');
+
+	var watchLink = document.querySelector('#_watchButton');
+	console.log("add_button: init");
+
+	//console.log("start");
+
+	if (infoSection === null || watchLink !== null) {
+		//console.log("infoSection === null || watchLink !== null");
+		return;
+	}
+
+	if (watchLink !== null) {
+		console.log("add_button: exit");
+		mainObserver.disconnect();
+		return;
+	}
+
+	var episode_num = 1;
+	var anime_id = get_anime_id();
+
+	if (!g_user_rates && is_user_authorized()) {
+		return get_user_rates(anime_id, function(rates) {
+			add_button();
+		});
+	}
+
+	if (g_user_rates && g_user_rates.length > 0 && (g_user_rates[0]["status"] === "watching" || g_user_rates[0]["status"] === "rewatching")) {
+			episode_num = g_user_rates[0].episodes + 1;
+	}
+
+	var loc = chrome.runtime.getURL("index.html") + "?anime_id=" + anime_id + "&episode=" + episode_num + "&hostname=" + location.hostname;
+
+	if (!document.querySelector('#_watchButton')) {
+		var WatchButtonElement = document.createElement('div');
+		WatchButtonElement.classList.add('block');
+		WatchButtonElement.innerHTML = '<div class="subheadline m10" style="margin-top: 10px;">Онлайн просмотр</div><a class="b-link_button dark watch-online" target="_blank" id="_watchButton" href="#" style="margin-top: 10px;">Смотреть онлайн</a>';
+
+		infoSection.appendChild(WatchButtonElement);
+		watchLink = WatchButtonElement.querySelector('#_watchButton');
+		watchLink.href = loc;
+
+		console.log("added button");
+		//mainObserver.disconnect();
+	}
+}
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 	//console.dir(request);
@@ -87,7 +128,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 		});
 
 	} else if (request.method === "addButton") {
-		/* nothing */
+		if (window.location.href.indexOf("https://shikimori.one/animes/") !== -1 ||
+		    window.location.href.indexOf("https://shikimori.org/animes/") !== -1) {
+			setTimeout(add_button, 200);
+		}
 	}
 
 	sendResponse({
@@ -165,54 +209,6 @@ function get_anime_id() {
 	return anime_id;
 }
 
-function add_button() {
-	var infoSection = document.querySelector('#animes_show .c-info-right');
-
-	var watchLink = document.querySelector('#_watchButton');
-	console.log("add_button: init");
-
-	//console.log("start");
-
-	if (infoSection === null || watchLink !== null) {
-		//console.log("infoSection === null || watchLink !== null");
-		return;
-	}
-
-	if (watchLink !== null) {
-		console.log("add_button: exit");
-		mainObserver.disconnect();
-		return;
-	}
-
-	var episode_num = 1;
-	var anime_id = get_anime_id();
-
-	if (!g_user_rates && is_user_authorized()) {
-		return get_user_rates(anime_id, function(rates) {
-			add_button();
-		});
-	}
-
-	if (g_user_rates && g_user_rates.length > 0 && (g_user_rates[0]["status"] === "watching" || g_user_rates[0]["status"] === "rewatching")) {
-			episode_num = g_user_rates[0].episodes + 1;
-	}
-
-	var loc = chrome.runtime.getURL("index.html") + "?anime_id=" + anime_id + "&episode=" + episode_num + "&hostname=" + location.hostname;
-
-	if (!document.querySelector('#_watchButton')) {
-		var WatchButtonElement = document.createElement('div');
-		WatchButtonElement.classList.add('block');
-		WatchButtonElement.innerHTML = '<div class="subheadline m10" style="margin-top: 10px;">Онлайн просмотр</div><a class="b-link_button dark watch-online" target="_blank" id="_watchButton" href="#" style="margin-top: 10px;">Смотреть онлайн</a>';
-
-		infoSection.appendChild(WatchButtonElement);
-		watchLink = WatchButtonElement.querySelector('#_watchButton');
-		watchLink.href = loc;
-
-		console.log("added button");
-		//mainObserver.disconnect();
-	}
-}
-
 function start() {
 	if (window.location.href.indexOf('shikimori.org/animes/') === -1 &&
 				window.location.href.indexOf('shikimori.one/animes/') === -1) {
@@ -225,10 +221,9 @@ function start() {
 
 	get_user_rates(anime_id, function(rates) {
 		console.log("get_user_rates");
-		mainObserver.observe(document, observerConfig);
 	});
+	
 
-	add_button();
 }
 
 try {
