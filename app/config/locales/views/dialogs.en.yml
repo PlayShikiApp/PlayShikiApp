@@ -1,7 +1,0 @@
-en:
-  dialogs:
-    dialog:
-      go_to_conversation: go to conversation
-
-    postloader:
-      load_older_messages: Load older messages

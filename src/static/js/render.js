@@ -1081,3 +1081,28 @@ async function render(anime_id, episode) {
 
 	render_statuses_stats(anime_id);
 }
+
+
+$(document).ready(function() {
+	
+	$("#user_profile").hover(
+        function() {
+			
+            $("#user_profile").addClass("active");
+        },
+        function() {
+            $("#user_profile").removeClass("active");
+        }
+    );
+	
+	$("#menu_dropdown").hover(
+        function() {
+			
+            $("#menu_dropdown").addClass("active");
+        },
+        function() {
+            $("#menu_dropdown").removeClass("active");
+        }
+    );
+
+});

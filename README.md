@@ -48,15 +48,7 @@
 
 ### Install the dependencies
 ```
-sudo apt install ruby2.5 ruby2.5-dev
-sudo gem install bundler -v 2.0.1
-
 npm install
-
-cd app
-bundle install
-yarn install
-cd ..
 ```
 
 ### To actually do a build

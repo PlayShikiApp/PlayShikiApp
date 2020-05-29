@@ -1,6 +1,4 @@
-#!/usr/bin/sh
-
-./scripts/build_shiki_assets.sh
+#!/bin/sh
 
 ./node_modules/.bin/gulp && ./node_modules/.bin/webpack --config webpack.config.js
 
