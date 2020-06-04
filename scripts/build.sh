@@ -1,6 +1,7 @@
 #!/bin/sh
 
-./node_modules/.bin/gulp && ./node_modules/.bin/webpack --config webpack.config.js
+./node_modules/.bin/gulp
+#&& ./node_modules/.bin/webpack --config webpack.config.js
 
 SUPPORTED_BROWSERS="chrome firefox opera"
 
@@ -11,7 +12,7 @@ do
 	mkdir -p dist/$i
 	cp -r src/* dist/$i
 	rm dist/$i/index.html.dev
-	rm -f dist/$i/static/js/render.js
+	#rm -f dist/$i/static/js/render.js
 done
 
 rm -f dist/chrome/manifest_mozilla.json

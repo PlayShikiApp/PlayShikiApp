@@ -18,7 +18,6 @@
         "*://shikimori.one/*",
         "*://shikimori.org/*"
     ],
-    "content_security_policy": "script-src 'self' 'unsafe-eval' blob: https://ssl.google-analytics.com https://www.google-analytics.com; object-src 'self'; media-src 'self' blob: https://*.anilibria.tv http://*.anilibria.tv",
     "content_scripts": [{
         "matches": [
             "*://shikimori.org/*",
@@ -51,7 +50,7 @@
     "commands": {
         "capture" : {
             "suggested_key": {
-                "default": "Alt+I" 
+                "default": "Alt+I"
             },
             "description": "Save a screenshot"
         }
