@@ -4,8 +4,9 @@ The extension doesn`t collect, used, stored, or shared personal information.
 Extension stores the following information required for its proper functioning:
 - the type of the video selected (fandub, subtitles or raw) and the variant of the translation, individually for each anime on the site shikimori.one / shikimori.org (later on "site" for the short);
 - the number of episodes watched for each anime;
-- if the user is logged in on the site, the extension will locally store the username to correctly display it in the interface, however it is not required to login on the site to use this extension;
+- if the user is logged in on the site, the extension will locally store the username and the URL to the user avatar to correctly display it in the interface, however it is not required to login on the site to use this extension;
 - extension doesn't store any other user related information than a nickname on the site and doesn't use such information to identify its users.
 The data is saved in the local storage and not sent to anywhere.
+Extension doesn't use / store cookies.
 
 The project is currently hosted on github.com, which is owned by GitHub Inc. (now a subsidiary of Microsoft Corporation), and thus is unrelated to the extension.

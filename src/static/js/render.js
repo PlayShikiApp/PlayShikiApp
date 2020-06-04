@@ -161,9 +161,12 @@ async function get_or_set_user(callback) {
 		try {
 			$.get(`https://${hosting}/api/users/whoami`, function(data) {
 				user = JSON.stringify(data);
-				window.localStorage.setItem('user', user);
 				try {
-					callback(JSON.parse(user));
+					user = JSON.parse(user);
+					user = {"nickname": user["nickname"], "image": user["image"]};
+					window.localStorage.setItem('user', JSON.stringify(user));
+
+					callback(user);
 				} catch (e) {
 					callback(null);
 				}
@@ -173,7 +176,11 @@ async function get_or_set_user(callback) {
 			callback(null);
 		}
 	} else {
-		callback(JSON.parse(user));
+		user = JSON.parse(user);
+		user = {"nickname": user["nickname"], "image": user["image"]};
+		window.localStorage.setItem('user', JSON.stringify(user));
+
+		callback(user);
 	}
 }
 
