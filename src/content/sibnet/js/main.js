@@ -1,9 +1,3 @@
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-	sendResponse({
-		ok: "ok"
-	});
-});
-
 function removeElements(selector) {
 	var number = 0;
 

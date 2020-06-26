@@ -11,16 +11,6 @@
 		xhr.send();
 	}
 
-	chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-		if (request.method === "addButton") {
-			/* nothing */
-		}
-
-		sendResponse({
-			ok: "ok"
-		});
-	});
-
 	var g_button_added = false;
 	var g_style_added = false;
 

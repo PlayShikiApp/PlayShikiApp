@@ -1,5 +1,10 @@
 var g_user_rates;
 
+const mainObserver = new MutationObserver(main);
+const observerConfig = {attributes: true, subtree: true, childList: true};
+mainObserver.observe(document, observerConfig);
+main();
+
 function add_button() {
 	var infoSection = document.querySelector('#animes_show .c-info-right');
 
@@ -10,12 +15,17 @@ function add_button() {
 
 	if (infoSection === null || watchLink !== null) {
 		//console.log("infoSection === null || watchLink !== null");
+		setTimeout(function() {
+			add_button();
+		}, 400);
 		return;
 	}
 
 	if (watchLink !== null) {
 		console.log("add_button: exit");
-		mainObserver.disconnect();
+		setTimeout(function() {
+			add_button();
+		}, 400);
 		return;
 	}
 
@@ -37,7 +47,7 @@ function add_button() {
 	if (!document.querySelector('#_watchButton')) {
 		var WatchButtonElement = document.createElement('div');
 		WatchButtonElement.classList.add('block');
-		WatchButtonElement.innerHTML = '<div class="subheadline m10" style="margin-top: 10px;">Онлайн просмотр</div><a class="b-link_button dark watch-online" target="_blank" id="_watchButton" href="#" style="margin-top: 10px;">Смотреть онлайн</a>';
+		WatchButtonElement.innerHTML = '<div id="watchbutton" class="subheadline m10" style="margin-top: 10px;">Онлайн просмотр</div><a class="b-link_button dark watch-online" target="_blank" id="_watchButton" href="#" style="margin-top: 10px;">Смотреть онлайн</a>';
 
 		infoSection.appendChild(WatchButtonElement);
 		watchLink = WatchButtonElement.querySelector('#_watchButton');
@@ -45,11 +55,15 @@ function add_button() {
 
 		console.log("added button");
 		//mainObserver.disconnect();
+	} else {
+		setTimeout(function() {
+			add_button();
+		}, 400);
 	}
 }
 
+
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-	//console.dir(request);
 	if (request.method === "updateWatched") {
 		console.log("updateWatched");
 		var rate = request.options.rate;
@@ -94,9 +108,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 			});
 		});
 
-		sendResponse({
-			ok: "ok"
-		});
 	} else if (request.method === "createRate") {
 		console.log("createRate");
 		var matches = location.href.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
@@ -133,10 +144,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 			setTimeout(add_button, 200);
 		}
 	}
-
-	sendResponse({
-		ok: "ok"
-	});
+	
+	return Promise.resolve("Dummy response to keep the console quiet");
 });
 
 var g_data = {};
@@ -222,8 +231,12 @@ function start() {
 	get_user_rates(anime_id, function(rates) {
 		console.log("get_user_rates");
 	});
-	
+}
 
+function main() {
+	$(document).ready(function() {
+		add_button();
+	})
 }
 
 try {

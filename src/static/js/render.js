@@ -17,6 +17,7 @@ try {
 		if (command === "capture") {
 			g_video.capture(g_anime_name, g_episode);
 		}
+		return Promise.resolve("Dummy response to keep the console quiet");
 	});
 } catch (e) {
 	console.log(e);
