@@ -28264,7 +28264,6 @@
    */
 
   videojs$1.plugin = function (name$$1, plugin) {
-    log.warn('videojs.plugin() is deprecated; use videojs.registerPlugin() instead');
     return Plugin.registerPlugin(name$$1, plugin);
   };
 
