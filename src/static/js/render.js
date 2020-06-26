@@ -156,14 +156,14 @@ async function get_or_set_user(callback) {
 	var user = window.localStorage.getItem('user');
 
 
-	if (user === null || user === "null" || !IsJsonString(user)) {
+	if (user === null || user === "null" || !IsJsonString(user) || !user.id) {
 		var hosting = get_shikimori_hosting();
 		try {
 			$.get(`https://${hosting}/api/users/whoami`, function(data) {
 				user = JSON.stringify(data);
 				try {
 					user = JSON.parse(user);
-					user = {"nickname": user["nickname"], "image": user["image"]};
+					user = {"nickname": user["nickname"], "image": user["image"], "id": user["id"]};
 					window.localStorage.setItem('user', JSON.stringify(user));
 
 					callback(user);
