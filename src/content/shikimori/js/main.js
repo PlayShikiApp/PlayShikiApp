@@ -15,7 +15,7 @@ function get_user_rates() {
 		try {
 			g_user_rates = encodeURIComponent(bars.getElementsByClassName("horizontal")[0].getAttribute("data-stats"));
 			g_user_stats = encodeURIComponent(bars.getElementsByClassName("horizontal")[1].getAttribute("data-stats"));
-		} catch {
+		} catch(e) {
 			console.log("can't parse user rates!");
 		}
 	}
@@ -55,7 +55,7 @@ function add_button() {
 				current_episode_div = current_episode_div[0];
 				episode_num = parseInt(current_episode_div.textContent) + 1;
 				g_episode_num = episode_num;
-			} catch {
+			} catch(e) {
 				console.log("can't parse current episode number!");
 			}
 		}

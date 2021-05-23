@@ -92,7 +92,7 @@ async function get_rates_scores_stats(id) {
 	try {
 		var rates = getUrlParameter(window.location.href, "rates");
 		return JSON.parse(decodeURIComponent(rates));
-	} catch {
+	} catch(e) {
 		console.log("can't parse scores stats");
 		return [];
 	}	
@@ -102,7 +102,7 @@ async function get_rates_statuses_stats(id) {
 	try {
 		var stats = getUrlParameter(window.location.href, "stats");
 		return JSON.parse(decodeURIComponent(stats));
-	} catch {
+	} catch(e) {
 		console.log("can't parse statuses stats");
 		return [];
 	}	
