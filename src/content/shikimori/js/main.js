@@ -1,4 +1,4 @@
-var g_user_rates;
+var g_episode_num;
 
 const mainObserver = new MutationObserver(main);
 const observerConfig = {attributes: true, subtree: true, childList: true};
@@ -9,7 +9,7 @@ function add_button() {
 	var infoSection = document.querySelector('#animes_show .c-info-right');
 
 	var watchLink = document.querySelector('#_watchButton');
-	console.log("add_button: init");
+	//console.log("add_button: init");
 
 	//console.log("start");
 
@@ -32,14 +32,17 @@ function add_button() {
 	var episode_num = 1;
 	var anime_id = get_anime_id();
 
-	if (!g_user_rates && is_user_authorized()) {
-		return get_user_rates(anime_id, function(rates) {
-			add_button();
-		});
-	}
-
-	if (g_user_rates && g_user_rates.length > 0 && (g_user_rates[0]["status"] === "watching" || g_user_rates[0]["status"] === "rewatching")) {
-			episode_num = g_user_rates[0].episodes + 1;
+	if (!g_episode_num) {
+		var current_episode_div = document.getElementsByClassName("current-episodes");
+		if (current_episode_div.length != 0) {
+			try {
+				current_episode_div = current_episode_div[0];
+				episode_num = parseInt(current_episode_div.textContent) + 1;
+				g_episode_num = episode_num;
+			} catch {
+				console.log("can't parse current episode number!");
+			}
+		}
 	}
 
 	var loc = chrome.runtime.getURL("index.html") + "?anime_id=" + anime_id + "&episode=" + episode_num + "&hostname=" + location.hostname;
@@ -148,65 +151,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 	return Promise.resolve("Dummy response to keep the console quiet");
 });
 
-var g_data = {};
-
-function get(url, callback) {
-	if (url in g_data) {
-		return g_data[url];
-	}
-
-	var xhr = new XMLHttpRequest();
-	xhr.open('GET', url, true);
-	xhr.onreadystatechange = function() {
-		if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
-			g_data[url] = xhr.responseText;
-			callback(xhr.responseText);
-		}
-	};
-	xhr.send();
-}
-
-function IsJsonString(str) {
-	try {
-		JSON.parse(str);
-	} catch (e) {
-		return false;
-	}
-	return true;
-}
-
-var g_user_authorized = true;
-
-function is_user_authorized() {
-	return g_user_authorized;
-}
-
-function get_user_rates(anime_id, callback) {
-	console.log("get_user_rates: init");
-	if (g_user_rates) {
-		console.log("get_user_rates: exit");
-		return callback(g_user_rates);
-	}
-
-	get("https://" + location.hostname + "/api/users/whoami", function(data) {
-		if (!data || data === "null") {
-			g_user_authorized = false;
-			return callback();
-		}
-
-		var user = JSON.parse(data);
-		get("https://" + location.hostname + "/api/v2/user_rates?user_id=" + user.id +
-			"&target_id=" + anime_id + "&target_type=Anime",
-			function(data1) {
-				if (IsJsonString(data1)) {
-					var rates = JSON.parse(data1);
-					g_user_rates = rates;
-					callback(rates);
-				}
-		});
-	});
-}
-
 function get_anime_id() {
 	try {
 		var anime_id = location.pathname.split("-")[0].split("/")[2].replace(/\D/g, "");
@@ -219,28 +163,35 @@ function get_anime_id() {
 }
 
 function start() {
-	if (window.location.href.indexOf('shikimori.org/animes/') === -1 &&
-				window.location.href.indexOf('shikimori.one/animes/') === -1) {
+	if ((window.location.href.indexOf('shikimori.org/animes/') === -1 &&
+				window.location.href.indexOf('shikimori.one/animes/') === -1) ||
+				window.location.href.endsWith('shikimori.org/animes/') ||
+				window.location.href.endsWith('shikimori.one/animes/') ||
+				window.location.href.endsWith('shikimori.org/animes') ||
+				window.location.href.endsWith('shikimori.one/animes')) {
 		return;
 	}
 
 	console.log("PlayShikiApp");
-
-	var anime_id = get_anime_id();
-
-	get_user_rates(anime_id, function(rates) {
-		console.log("get_user_rates");
-	});
 }
 
 function main() {
+	if ((window.location.href.indexOf('shikimori.org/animes/') === -1 &&
+				window.location.href.indexOf('shikimori.one/animes/') === -1) ||
+				window.location.href.endsWith('shikimori.org/animes/') ||
+				window.location.href.endsWith('shikimori.one/animes/') ||
+				window.location.href.endsWith('shikimori.org/animes') ||
+				window.location.href.endsWith('shikimori.one/animes')) {
+		return;
+	}
+
 	$(document).ready(function() {
 		add_button();
 	})
-}
-
-try {
-	start();
-} catch(e) {
-	console.log(e);
+	
+	try {
+		start();
+	} catch(e) {
+		console.log(e);
+	}
 }
