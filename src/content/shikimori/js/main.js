@@ -17,8 +17,6 @@ function get_user_rates() {
 			g_user_stats = encodeURIComponent(bars.getElementsByClassName("horizontal")[1].getAttribute("data-stats"));
 		} catch {
 			console.log("can't parse user rates!");
-			g_user_rates = "";
-			g_user_stats = "";
 		}
 	}
 }
@@ -65,6 +63,13 @@ function add_button() {
 	
 	if (g_user_rates == null || g_user_stats == null) {
 		get_user_rates();
+		console.log("add_button: exit");
+		if (g_user_rates == null || g_user_stats == null) {
+			setTimeout(function() {
+				add_button();
+			}, 400);
+			return;
+		}
 	}
 
 	var loc = chrome.runtime.getURL("index.html") + "?anime_id=" + anime_id + "&episode=" + episode_num + "&hostname=" + location.hostname + "&rates=" + g_user_rates + "&stats=" + g_user_stats;
