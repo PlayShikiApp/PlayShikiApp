@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 
 #./scripts/build_shiki_assets.sh
 
