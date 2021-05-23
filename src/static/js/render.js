@@ -89,19 +89,23 @@ function validate_anime_info(anime_info, id) {
 }
 
 async function get_rates_scores_stats(id) {
-	const anime_info = await get_shiki_anime_info(id);
-	if (!validate_anime_info(anime_info))
-		return;
-
-	return anime_info["rates_scores_stats"];
+	try {
+		var rates = getUrlParameter(window.location.href, "rates");
+		return JSON.parse(decodeURIComponent(rates));
+	} catch {
+		console.log("can't parse scores stats");
+		return [];
+	}	
 }
 
 async function get_rates_statuses_stats(id) {
-	const anime_info = await get_shiki_anime_info(id);
-	if (!validate_anime_info(anime_info))
-		return;
-
-	return anime_info["rates_statuses_stats"];
+	try {
+		var stats = getUrlParameter(window.location.href, "stats");
+		return JSON.parse(decodeURIComponent(stats));
+	} catch {
+		console.log("can't parse statuses stats");
+		return [];
+	}	
 }
 
 async function get_main_genre_url(id) {
