@@ -1,9 +1,27 @@
 var g_episode_num;
+var g_user_rates;
+var g_user_stats;
 
 const mainObserver = new MutationObserver(main);
 const observerConfig = {attributes: true, subtree: true, childList: true};
 mainObserver.observe(document, observerConfig);
 main();
+
+function get_user_rates() {
+	var bars = document.getElementsByClassName("b-animes-menu");
+	
+	if (bars.length != 0) {
+		bars = bars[0];
+		try {
+			g_user_rates = encodeURIComponent(bars.getElementsByClassName("horizontal")[0].getAttribute("data-stats"));
+			g_user_stats = encodeURIComponent(bars.getElementsByClassName("horizontal")[1].getAttribute("data-stats"));
+		} catch {
+			console.log("can't parse user rates!");
+			g_user_rates = "";
+			g_user_stats = "";
+		}
+	}
+}
 
 function add_button() {
 	var infoSection = document.querySelector('#animes_show .c-info-right');
@@ -44,8 +62,12 @@ function add_button() {
 			}
 		}
 	}
+	
+	if (g_user_rates == null || g_user_stats == null) {
+		get_user_rates();
+	}
 
-	var loc = chrome.runtime.getURL("index.html") + "?anime_id=" + anime_id + "&episode=" + episode_num + "&hostname=" + location.hostname;
+	var loc = chrome.runtime.getURL("index.html") + "?anime_id=" + anime_id + "&episode=" + episode_num + "&hostname=" + location.hostname + "&rates=" + g_user_rates + "&stats=" + g_user_stats;
 
 	if (!document.querySelector('#_watchButton')) {
 		var WatchButtonElement = document.createElement('div');
