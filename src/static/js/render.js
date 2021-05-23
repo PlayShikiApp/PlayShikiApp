@@ -1,6 +1,6 @@
 //require("../../jquery-3.4.1.min.js");
 
-const HOST = "https://gist.github.com/Chronomonochrome/aad42e8ae1fea9c7ad570bdd2b090cfa/raw/"
+const HOST = "https://gist.github.com/Chronomonochrome/6a72eec3183f4dab68a2e066d3b2dcf6/raw/"
 
 var g_key;
 var g_key2;
