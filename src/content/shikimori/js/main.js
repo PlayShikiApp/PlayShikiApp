@@ -1,6 +1,7 @@
 var g_episode_num;
 var g_user_rates;
 var g_user_stats;
+var g_button_added = false;
 
 const mainObserver = new MutationObserver(main);
 const observerConfig = {attributes: true, subtree: true, childList: true};
@@ -15,8 +16,8 @@ function get_user_rates() {
 		try {
 			g_user_rates = encodeURIComponent(bars.getElementsByClassName("horizontal")[0].getAttribute("data-stats"));
 			g_user_stats = encodeURIComponent(bars.getElementsByClassName("horizontal")[1].getAttribute("data-stats"));
-		} catch(e) {
-			console.log("can't parse user rates!");
+		} catch {
+			//console.log("can't parse user rates!");
 		}
 	}
 }
@@ -25,7 +26,11 @@ function add_button() {
 	var infoSection = document.querySelector('#animes_show .c-info-right');
 
 	var watchLink = document.querySelector('#_watchButton');
+	var current_episode_div;
 	//console.log("add_button: init");
+	
+	if (g_button_added)
+		return;
 
 	//console.log("start");
 
@@ -44,26 +49,35 @@ function add_button() {
 		}, 400);
 		return;
 	}
+	
+	//console.log("1");
 
 	var episode_num = 1;
 	var anime_id = get_anime_id();
 
-	if (!g_episode_num) {
+	if (!current_episode_div) {
 		var current_episode_div = document.getElementsByClassName("current-episodes");
 		if (current_episode_div.length != 0) {
 			try {
 				current_episode_div = current_episode_div[0];
 				episode_num = parseInt(current_episode_div.textContent) + 1;
 				g_episode_num = episode_num;
-			} catch(e) {
+			} catch {
 				console.log("can't parse current episode number!");
 			}
+		} else {
+			console.log("add_button: restart");
+			setTimeout(function() {
+				add_button();
+			}, 400);
 		}
 	}
 	
+	//console.log("2");
+	
 	if (g_user_rates == null || g_user_stats == null) {
 		get_user_rates();
-		console.log("add_button: exit");
+		//console.log("add_button: exit");
 		if (g_user_rates == null || g_user_stats == null) {
 			setTimeout(function() {
 				add_button();
@@ -71,6 +85,13 @@ function add_button() {
 			return;
 		}
 	}
+	
+	//console.log("3");
+	//console.log("episode_num: " + episode_num);
+	//console.log("current_episode_div: ");
+	//console.dir(current_episode_div);
+	
+	
 
 	var loc = chrome.runtime.getURL("index.html") + "?anime_id=" + anime_id + "&episode=" + episode_num + "&hostname=" + location.hostname + "&rates=" + g_user_rates + "&stats=" + g_user_stats;
 
@@ -84,6 +105,7 @@ function add_button() {
 		watchLink.href = loc;
 
 		console.log("added button");
+		g_button_added = true;
 		//mainObserver.disconnect();
 	} else {
 		setTimeout(function() {
