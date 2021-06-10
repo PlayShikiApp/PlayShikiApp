@@ -8,6 +8,52 @@
   <link href="../videojs/css/video-js.min.css" rel="stylesheet">
   <link href="../videojs/css/videojs-resolution-switcher.css" rel="stylesheet">
   <link href="./css/anilibria.css" rel="stylesheet">
+  
+      <style type="text/css">
+        /* Order of controls in bar, should flow in before fullscreen button.  */
+        .vjs-mute-control {
+          order: 3;
+          -webkit-box-ordinal-group: 3;
+          -moz-box-ordinal-group: 3;
+          -webkit-order: 3;
+          -ms-flex-order: 3;
+        }
+        .vjs-volume-control {
+          order: 4;
+          -webkit-box-ordinal-group: 4;
+          -moz-box-ordinal-group: 4;
+          -webkit-order: 4;
+          -ms-flex-order: 4;
+        }
+        .vjs-progress-control {
+          order: 6;
+          -webkit-box-ordinal-group: 6;
+          -moz-box-ordinal-group: 6;
+          -webkit-order: 6;
+          -ms-flex-order: 6;
+        }
+        .vjs-time-control {
+          order: 7;
+          -webkit-box-ordinal-group: 7;
+          -moz-box-ordinal-group: 7;
+          -webkit-order: 7;
+          -ms-flex-order: 7;
+        }
+        .vjs-fullscreen-control {
+          order: 9;
+          -webkit-box-ordinal-group: 9;
+          -moz-box-ordinal-group: 9;
+          -webkit-order: 9;
+          -ms-flex-order: 9;
+        }
+        .vjs-menu-button {
+          order: 8;
+          -webkit-box-ordinal-group: 8;
+          -moz-box-ordinal-group: 8;
+          -webkit-order: 8;
+          -ms-flex-order: 8;
+        }
+    </style>
 </head>
 <body>
   

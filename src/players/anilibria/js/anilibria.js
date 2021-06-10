@@ -45,7 +45,16 @@ if (url) {
 			seekStep: 5,
 			enableModifiersForNumbers: false
 		});
-		videojs('video_1').videoJsResolutionSwitcher();
-	});
 
+		videojs('video_1').videoJsResolutionSwitcher();
+
+		var control_bar = this.controlBar;
+		control_bar.removeChild(control_bar.volumePanel);
+
+		control_bar.removeChild(control_bar.seekToLive);
+		control_bar.addChild('VolumeControl');
+		control_bar.addChild('MuteToggle');
+
+		document.getElementsByClassName("vjs-volume-control")[0].setAttribute("style", "margin-right: 10px;");
+	});
 }
