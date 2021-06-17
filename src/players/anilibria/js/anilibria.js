@@ -42,7 +42,8 @@ if (url) {
 	var options = {
 		plugins: {
 			persistvolume: {
-				namespace: ""
+				namespace: "",
+				timeUpdateNamespace: url
 			}
 		}
 	};

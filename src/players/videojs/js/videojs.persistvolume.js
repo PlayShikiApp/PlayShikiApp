@@ -114,30 +114,42 @@
   },
 
   defaults = {
-    namespace: ""
+    namespace: "",
+    timeUpdateNamespace: ""
   },
 
   volumePersister = function(options) {
     var player = this;
     var settings = extend({}, defaults, options || {});
 
-    var key = settings.namespace + '-' + 'volume';
-    var muteKey = settings.namespace + '-' + 'mute';
+    var volumeKey = settings.namespace + '-' + 'volume';
+    var volumeMuteKey = settings.namespace + '-' + 'mute';
+
+    var timeKey = settings.timeUpdateNamespace + '-' + 'time';
 
     player.on("volumechange", function() {
-      setStorageItem(key, player.volume());
-      setStorageItem(muteKey, player.muted());
+      setStorageItem(volumeKey, player.volume());
+      setStorageItem(volumeMuteKey, player.muted());
+    });
+
+    player.on("timeupdate", function() {
+      setStorageItem(timeKey, player.currentTime());
     });
 
     player.one("loadedmetadata", function() {
-      var persistedVolume = getStorageItem(key);
+      var persistedVolume = getStorageItem(volumeKey);
       if(persistedVolume !== null){
         player.volume(persistedVolume);
       }
 
-      var persistedMute = getStorageItem(muteKey);
+      var persistedMute = getStorageItem(volumeMuteKey);
       if(persistedMute !== null){
         player.muted('true' === persistedMute);
+      }
+
+      var persistedTime = getStorageItem(timeKey);
+      if(persistedTime !== null){
+        player.currentTime(parseFloat(persistedTime));
       }
     });
   };
