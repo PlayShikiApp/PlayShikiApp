@@ -95,7 +95,7 @@ async function get_rates_scores_stats(id) {
 	} catch(e) {
 		console.log("can't parse scores stats");
 		return [];
-	}	
+	}
 }
 
 async function get_rates_statuses_stats(id) {
@@ -105,7 +105,7 @@ async function get_rates_statuses_stats(id) {
 	} catch(e) {
 		console.log("can't parse statuses stats");
 		return [];
-	}	
+	}
 }
 
 async function get_main_genre_url(id) {
@@ -457,6 +457,14 @@ function set_player_controls_callbacks() {
 
 		if (href.indexOf("hostname=") === -1) {
 			href += "&hostname=" + get_shikimori_hosting();
+		}
+
+		if (href.indexOf("rates=") === -1) {
+			href += "&rates=" + getUrlParameter(window.location.href, "rates");
+		}
+
+		if (href.indexOf("stats=") === -1) {
+			href += "&stats=" + getUrlParameter(window.location.href, "stats");
 		}
 
 		var handler = function(evt) {
