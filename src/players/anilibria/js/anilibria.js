@@ -38,8 +38,16 @@ if (url) {
 	video.innerHTML = playerHTML;
 
 	videojs.log.level('error');
+	
+	var options = {
+		plugins: {
+			persistvolume: {
+				namespace: ""
+			}
+		}
+	};
 
-	videojs('video_1').ready(function() {
+	videojs('video_1', options).ready(function() {
 		this.hotkeys({
 			volumeStep: 0.1,
 			seekStep: 5,
