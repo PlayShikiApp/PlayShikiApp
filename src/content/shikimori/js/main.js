@@ -196,7 +196,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 			setTimeout(add_button, 200);
 		}
 	}
-	
+
 	return Promise.resolve("Dummy response to keep the console quiet");
 });
 
@@ -211,17 +211,12 @@ function get_anime_id() {
 	return anime_id;
 }
 
-function start() {
-	if ((window.location.href.indexOf('shikimori.org/animes/') === -1 &&
-				window.location.href.indexOf('shikimori.one/animes/') === -1) ||
-				window.location.href.endsWith('shikimori.org/animes/') ||
-				window.location.href.endsWith('shikimori.one/animes/') ||
-				window.location.href.endsWith('shikimori.org/animes') ||
-				window.location.href.endsWith('shikimori.one/animes')) {
-		return;
-	}
-
-	console.log("PlayShikiApp");
+function doc_ready(fn) {
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+        setTimeout(fn, 1);
+    } else {
+        document.addEventListener("DOMContentLoaded", fn);
+    }
 }
 
 function main() {
@@ -234,10 +229,8 @@ function main() {
 		return;
 	}
 
-	$(document).ready(function() {
-		add_button();
-	})
-	
+	doc_ready(add_button);
+
 	try {
 		start();
 	} catch(e) {
