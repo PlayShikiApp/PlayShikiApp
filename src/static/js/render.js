@@ -816,6 +816,14 @@ async function render_stats(anime_id) {
 
 var g_statuses_stats_rendered = false;
 
+var statuses_stats_dict = {
+	"planned": "Запланировано",
+	"completed": "Просмотрено",
+	"watching": "Смотрю",
+	"dropped": "Брошено",
+	"on_hold": "Отложено"
+}
+
 async function render_statuses_stats(anime_id) {
 	if (g_statuses_stats_rendered)
 		return;
@@ -836,6 +844,7 @@ async function render_statuses_stats(anime_id) {
 		for (stat of rates_statuses_stats) {
 			stat["title"] = stat["value"];
 			stat["width"] = (stat["value"] * 100 / rates_stat_max).toFixed(2);
+			stat["key"] = statuses_stats_dict[stat["key"]];
 			if (stat["width"] < 15)
 				stat["value"] = "";
 		}
