@@ -127,14 +127,22 @@
 
     var timeKey = settings.timeUpdateNamespace + '-' + 'time';
 
-    player.on("volumechange", function() {
+    /*player.on("volumechange", function() {
       setStorageItem(volumeKey, player.volume());
       setStorageItem(volumeMuteKey, player.muted());
+    });*/
+
+    $(window).on("beforeunload", function() {
+      setStorageItem(volumeKey, player.volume());
+      setStorageItem(volumeMuteKey, player.muted());
+      setStorageItem(timeKey, player.currentTime());
+      //localStorage.setItem('your_video_identifier', currentTime);
+      return; 
     });
 
-    player.on("timeupdate", function() {
+    /*player.on("timeupdate", function() {
       setStorageItem(timeKey, player.currentTime());
-    });
+    });*/
 
     player.one("loadedmetadata", function() {
       var persistedVolume = getStorageItem(volumeKey);
