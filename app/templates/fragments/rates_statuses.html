@@ -2,7 +2,7 @@
                         <div data-bar="horizontal" id="rates_statuses_stats" class="bar simple horizontal">
                            {% for stat in rates_statuses_stats %}
                            <div class="line">
-                              <div class="x_label">{{stat["key"]}}</div>
+                              <div class="x_label">{{stat["name"]}}</div>
                               <div class="bar-container">
                                  <div class="bar s0 min" style="width: {{stat['width']}}%" title="{{stat['title']}}">
                                     <div class="value mini">{{stat["value"]}}</div>

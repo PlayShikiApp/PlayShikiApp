@@ -459,14 +459,6 @@ function set_player_controls_callbacks() {
 			href += "&hostname=" + get_shikimori_hosting();
 		}
 
-		if (href.indexOf("rates=") === -1) {
-			href += "&rates=" + getUrlParameter(window.location.href, "rates");
-		}
-
-		if (href.indexOf("stats=") === -1) {
-			href += "&stats=" + getUrlParameter(window.location.href, "stats");
-		}
-
 		var handler = function(evt) {
 			if (!window.event.ctrlKey) {
 				if (history && history.pushState) {
@@ -805,6 +797,7 @@ async function render_stats(anime_id) {
 	console.log("stats");
 
 	var rates_scores = await get_rates_scores_stats(anime_id);
+	rates_scores = rates_scores.map((a) => ({"name": a[0], "title": a[0], "value": a[1]}));
 	if (rates_scores) {
 		var rates_score_max = rates_scores.reduce((a, b) => ({
 			"value": Math.max(a["value"], b["value"])
@@ -824,14 +817,6 @@ async function render_stats(anime_id) {
 
 var g_statuses_stats_rendered = false;
 
-var statuses_stats_dict = {
-	"planned": "Запланировано",
-	"completed": "Просмотрено",
-	"watching": "Смотрю",
-	"dropped": "Брошено",
-	"on_hold": "Отложено"
-}
-
 async function render_statuses_stats(anime_id) {
 	if (g_statuses_stats_rendered)
 		return;
@@ -840,7 +825,16 @@ async function render_statuses_stats(anime_id) {
 
 	console.log("statuses_stats");
 
+	var statuses_translation = {
+		"planned": "Запланировано",
+		"completed": "Просмотрено",
+		"watching": "Смотрю",
+		"dropped": "Брошено",
+		"on_hold": "Отложено",
+	}
+
 	var rates_statuses_stats = await get_rates_statuses_stats(anime_id);
+	rates_statuses_stats = rates_statuses_stats.map((a) => ({"name": statuses_translation[a[0]], "title": a[0], "value": a[1]}));
 	if (rates_statuses_stats) {
 		var rates_stat_max = rates_statuses_stats.reduce((a, b) => ({
 			"value": Math.max(a["value"], b["value"])
@@ -852,8 +846,11 @@ async function render_statuses_stats(anime_id) {
 		for (stat of rates_statuses_stats) {
 			stat["title"] = stat["value"];
 			stat["width"] = (stat["value"] * 100 / rates_stat_max).toFixed(2);
-			stat["key"] = statuses_stats_dict[stat["key"]];
 			if (stat["width"] < 15)
+				stat["value"] = "";
+			if (stat["width"] < 20 && stat["value"] >= 1000)
+				stat["value"] = "";
+			if (stat["width"] < 24 && stat["value"] >= 10000)
 				stat["value"] = "";
 		}
 		render_element('rates_statuses', {

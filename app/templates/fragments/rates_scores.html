@@ -2,7 +2,7 @@
                         <div data-bar="horizontal" id="rates_scores_stats" class="bar simple horizontal">
                            {% for score in rates_scores %}
                            <div class="line">
-                              <div class="x_label">{{score["key"]}}</div>
+                              <div class="x_label">{{score["name"]}}</div>
                               <div class="bar-container">
                                  <div class="bar s0 min" style="width: {{score['width']}}%" title="{{score['title']}}">
                                     <div class="value mini">{{score["value"]}}</div>
