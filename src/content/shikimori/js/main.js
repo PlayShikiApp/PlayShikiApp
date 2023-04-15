@@ -191,8 +191,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 		});
 
 	} else if (request.method === "addButton") {
-		if (window.location.href.indexOf("https://shikimori.one/animes/") !== -1 ||
-		    window.location.href.indexOf("https://shikimori.org/animes/") !== -1) {
+		if (window.location.href.indexOf("https://shikimori.me/animes/") !== -1) {
 			setTimeout(add_button, 200);
 		}
 	}
@@ -220,12 +219,9 @@ function doc_ready(fn) {
 }
 
 function main() {
-	if ((window.location.href.indexOf('shikimori.org/animes/') === -1 &&
-				window.location.href.indexOf('shikimori.one/animes/') === -1) ||
-				window.location.href.endsWith('shikimori.org/animes/') ||
-				window.location.href.endsWith('shikimori.one/animes/') ||
-				window.location.href.endsWith('shikimori.org/animes') ||
-				window.location.href.endsWith('shikimori.one/animes')) {
+	if ((window.location.href.indexOf('shikimori.me/animes/') === -1 &&
+				window.location.href.indexOf('shikimori.me/animes/') === -1) ||
+				window.location.href.endsWith('shikimori.me/animes/')) {
 		return;
 	}
 
