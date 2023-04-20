@@ -1,9 +1,9 @@
 {
     "manifest_version": 2,
     "name": "PlayShiki App",
-    "description": "Расширение возвращает функционал просмотра аниме на сайте shikimori.one (shikimori.org)",
+    "description": "Расширение возвращает функционал просмотра аниме на сайте shikimori.me (shikimori.org)",
     "homepage_url": "https://github.com/PlayShikiApp/PlayShikiApp",
-    "version": "1.6.4",
+    "version": "1.6.5",
     "browser_specific_settings": {
       "gecko": {
         "id": "{9c3bce87-c930-47ef-a559-ffe702420123}",
@@ -59,5 +59,5 @@
     "browser_action": {
         "default_title": "PlayShiki App"
     },
-    "web_accessible_resources": ["content/shikimori/js/*.*", "content/myanimelist/js/*.*", "content/myanimelist/css/*.*", "content/sibnet/js/*.*", "static/js/*.*", "static/css/*.*", "static/assets/*.*", "static/img/*.*", "*.*", "players/videojs/*.*", "players/videojs/css/*.*", "players/videojs/js/*.*", "players/anilibria/*.*", "players/anilibria/img/*.*", "players/anilibria/css/*.*", "players/anilibria/js/*.*", "https://raw.github.com/", "https://mozilla.github.io", "https://shikimori.one", "https://shikimori.org", "https://video.sibnet.ru"]
+    "web_accessible_resources": ["content/shikimori/js/*.*", "content/myanimelist/js/*.*", "content/myanimelist/css/*.*", "content/sibnet/js/*.*", "static/js/*.*", "static/css/*.*", "static/assets/*.*", "static/img/*.*", "*.*", "players/videojs/*.*", "players/videojs/css/*.*", "players/videojs/js/*.*", "players/anilibria/*.*", "players/anilibria/img/*.*", "players/anilibria/css/*.*", "players/anilibria/js/*.*", "https://raw.github.com/", "https://mozilla.github.io", "https://shikimori.me", "https://shikimori.org", "https://video.sibnet.ru"]
 }

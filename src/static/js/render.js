@@ -58,7 +58,7 @@ async function getKeys() {
 var anime_info = {};
 
 function get_shikimori_hosting() {
-	return (getUrlParameter(window.location.href, "hostname") || "shikimori.one");
+	return (getUrlParameter(window.location.href, "hostname") || "shikimori.me");
 }
 
 async function get_shiki_anime_info(id) {
@@ -401,7 +401,7 @@ async function send_message_to_tab(method, options, onSuccess, onFailure, onResp
 		var failureReason = "no_more_tabs";
 		for (var i = 0; i < tabs.length; ++i) {
 			if ((tabs[i].url.indexOf("shikimori.org") < 0 &&
-					tabs[i].url.indexOf("shikimori.one") < 0) ||
+					tabs[i].url.indexOf("shikimori.me") < 0) ||
 				tabs[i].url.indexOf("chrome-extension://") >= 0)
 				continue;
 			try {
