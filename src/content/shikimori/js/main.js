@@ -1,8 +1,8 @@
 var g_episode_num;
 var g_user_rates;
 var g_user_stats;
-var g_button_added = false;
 var g_current_episode_div;
+var g_count = 0;
 
 const mainObserver = new MutationObserver(main);
 const observerConfig = {attributes: true, subtree: true, childList: true};
@@ -11,7 +11,7 @@ main();
 
 function get_user_rates() {
 	var bars = document.getElementsByClassName("b-animes-menu");
-	
+
 	if (bars.length != 0) {
 		bars = bars[0];
 		try {
@@ -26,13 +26,21 @@ function get_user_rates() {
 function add_button() {
 	var infoSection = document.querySelector('#animes_show .c-info-right');
 
-	var watchLink = document.querySelector('#_watchButton');
+	var watchButton = document.querySelector('#watchbutton');
 
-	if (g_button_added || watchLink !== null) {
-		return;
+	if (g_count > 1)
+		return
+
+	if (watchButton !== null) {
+		console.log("watchButton found")
+		watchButton.remove();
+		watchLink = document.querySelector('#_watchButton');
+		if (watchLink != null)
+			document.querySelector('#_watchButton').remove();
 	}
 
 	if (infoSection === null) {
+		console.log("infoSection === null")
 		setTimeout(function() {
 			add_button();
 		}, 400);
@@ -56,10 +64,11 @@ function add_button() {
 			}
 		}
 	}
-	
+
 	if (g_user_rates == null || g_user_stats == null) {
 		get_user_rates();
 		if (g_user_rates == null || g_user_stats == null) {
+			console.log("counldn't get user rates")
 			setTimeout(function() {
 				add_button();
 			}, 400);
@@ -78,7 +87,10 @@ function add_button() {
 	watchLink.href = loc;
 
 	console.log("added button");
-	g_button_added = true;
+	g_count += 1;
+	setTimeout(function() {
+		add_button();
+	}, 400);
 }
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
