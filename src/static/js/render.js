@@ -1022,7 +1022,7 @@ async function render(anime_id, episode) {
 						console.log(`author result ${result["author"]}`);
 					}
 
-					if (video["hosting"] === result["hosting"]) {
+					if (video["video_hosting"] === result["hosting"]) {
 						current_video_score += DESIRED_VIDEO_HOSTING_WEIGTH;
 						console.log(`hosting result ${result["hosting"]}`);
 					}
