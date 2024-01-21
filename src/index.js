@@ -1,1 +1,1 @@
-require('./static/js/render.js');
+require("./static/js/render.js");

@@ -21,7 +21,7 @@
  */
 
 "use strict";
-(function(factory){
+(function (factory) {
   /*!
    * Custom Universal Module Definition (UMD)
    *
@@ -29,139 +29,144 @@
    * still support requirejs and browserify. This also needs to be closure
    * compiler compatible, so string keys are used.
    */
-  if (typeof define === 'function' && define['amd']) {
-    define(['./video'], function(vjs){ factory(window, document, vjs) });
-  // checking that module is an object too because of umdjs/umd#35
-  } else if (typeof exports === 'object' && typeof module === 'object') {
-    factory(window, document, require('video.js'));
+  if (typeof define === "function" && define["amd"]) {
+    define(["./video"], function (vjs) {
+      factory(window, document, vjs);
+    });
+    // checking that module is an object too because of umdjs/umd#35
+  } else if (typeof exports === "object" && typeof module === "object") {
+    factory(window, document, require("video.js"));
   } else {
     factory(window, document, videojs);
   }
-
-})(function(window, document, vjs) {
+})(function (window, document, vjs) {
   //cookie functions from https://developer.mozilla.org/en-US/docs/DOM/document.cookie
-  var
-  getCookieItem = function(sKey) {
-    if (!sKey || !hasCookieItem(sKey)) { return null; }
-    var reg_ex = new RegExp(
-      "(?:^|.*;\\s*)" +
-      window.escape(sKey).replace(/[\-\.\+\*]/g, "\\$&") +
-      "\\s*\\=\\s*((?:[^;](?!;))*[^;]?).*"
-    );
-    return window.unescape(document.cookie.replace(reg_ex,"$1"));
-  },
-
-  setCookieItem = function(sKey, sValue, vEnd, sPath, sDomain, bSecure) {
-    if (!sKey || /^(?:expires|max\-age|path|domain|secure)$/i.test(sKey)) { return; }
-    var sExpires = "";
-    if (vEnd) {
-      switch (vEnd.constructor) {
-        case Number:
-          sExpires = vEnd === Infinity ? "; expires=Tue, 19 Jan 2038 03:14:07 GMT" : "; max-age=" + vEnd;
-          break;
-        case String:
-          sExpires = "; expires=" + vEnd;
-          break;
-        case Date:
-          sExpires = "; expires=" + vEnd.toGMTString();
-          break;
+  var getCookieItem = function (sKey) {
+      if (!sKey || !hasCookieItem(sKey)) {
+        return null;
       }
-    }
-    document.cookie =
-      window.escape(sKey) + "=" +
-      window.escape(sValue) +
-      sExpires +
-      (sDomain ? "; domain=" + sDomain : "") +
-      (sPath ? "; path=" + sPath : "") +
-      (bSecure ? "; secure" : "");
-  },
-
-  hasCookieItem = function(sKey) {
-    return (new RegExp(
-      "(?:^|;\\s*)" +
-      window.escape(sKey).replace(/[\-\.\+\*]/g, "\\$&") +
-      "\\s*\\=")
-    ).test(document.cookie);
-  },
-
-  hasLocalStorage = function() {
-    try {
-      window.localStorage.setItem('persistVolume', 'persistVolume');
-      window.localStorage.removeItem('persistVolume');
-      return true;
-    } catch(e) {
-      return false;
-    }
-  },
-  getStorageItem = function(key) {
-    return hasLocalStorage() ? window.localStorage.getItem(key) : getCookieItem(key);
-  },
-  setStorageItem = function(key, value) {
-    return hasLocalStorage() ? window.localStorage.setItem(key, value) : setCookieItem(key, value, Infinity, '/');
-  },
-
-  extend = function(obj) {
-    var arg, i, k;
-    for (i = 1; i < arguments.length; i++) {
-      arg = arguments[i];
-      for (k in arg) {
-        if (arg.hasOwnProperty(k)) {
-          obj[k] = arg[k];
+      var reg_ex = new RegExp(
+        "(?:^|.*;\\s*)" +
+          window.escape(sKey).replace(/[\-\.\+\*]/g, "\\$&") +
+          "\\s*\\=\\s*((?:[^;](?!;))*[^;]?).*"
+      );
+      return window.unescape(document.cookie.replace(reg_ex, "$1"));
+    },
+    setCookieItem = function (sKey, sValue, vEnd, sPath, sDomain, bSecure) {
+      if (!sKey || /^(?:expires|max\-age|path|domain|secure)$/i.test(sKey)) {
+        return;
+      }
+      var sExpires = "";
+      if (vEnd) {
+        switch (vEnd.constructor) {
+          case Number:
+            sExpires =
+              vEnd === Infinity
+                ? "; expires=Tue, 19 Jan 2038 03:14:07 GMT"
+                : "; max-age=" + vEnd;
+            break;
+          case String:
+            sExpires = "; expires=" + vEnd;
+            break;
+          case Date:
+            sExpires = "; expires=" + vEnd.toGMTString();
+            break;
         }
       }
-    }
-    return obj;
-  },
+      document.cookie =
+        window.escape(sKey) +
+        "=" +
+        window.escape(sValue) +
+        sExpires +
+        (sDomain ? "; domain=" + sDomain : "") +
+        (sPath ? "; path=" + sPath : "") +
+        (bSecure ? "; secure" : "");
+    },
+    hasCookieItem = function (sKey) {
+      return new RegExp(
+        "(?:^|;\\s*)" +
+          window.escape(sKey).replace(/[\-\.\+\*]/g, "\\$&") +
+          "\\s*\\="
+      ).test(document.cookie);
+    },
+    hasLocalStorage = function () {
+      try {
+        window.localStorage.setItem("persistVolume", "persistVolume");
+        window.localStorage.removeItem("persistVolume");
+        return true;
+      } catch (e) {
+        return false;
+      }
+    },
+    getStorageItem = function (key) {
+      return hasLocalStorage()
+        ? window.localStorage.getItem(key)
+        : getCookieItem(key);
+    },
+    setStorageItem = function (key, value) {
+      return hasLocalStorage()
+        ? window.localStorage.setItem(key, value)
+        : setCookieItem(key, value, Infinity, "/");
+    },
+    extend = function (obj) {
+      var arg, i, k;
+      for (i = 1; i < arguments.length; i++) {
+        arg = arguments[i];
+        for (k in arg) {
+          if (arg.hasOwnProperty(k)) {
+            obj[k] = arg[k];
+          }
+        }
+      }
+      return obj;
+    },
+    defaults = {
+      namespace: "",
+      timeUpdateNamespace: "",
+    },
+    volumePersister = function (options) {
+      var player = this;
+      var settings = extend({}, defaults, options || {});
 
-  defaults = {
-    namespace: "",
-    timeUpdateNamespace: ""
-  },
+      var volumeKey = settings.namespace + "-" + "volume";
+      var volumeMuteKey = settings.namespace + "-" + "mute";
 
-  volumePersister = function(options) {
-    var player = this;
-    var settings = extend({}, defaults, options || {});
+      var timeKey = settings.timeUpdateNamespace + "-" + "time";
 
-    var volumeKey = settings.namespace + '-' + 'volume';
-    var volumeMuteKey = settings.namespace + '-' + 'mute';
-
-    var timeKey = settings.timeUpdateNamespace + '-' + 'time';
-
-    /*player.on("volumechange", function() {
+      /*player.on("volumechange", function() {
       setStorageItem(volumeKey, player.volume());
       setStorageItem(volumeMuteKey, player.muted());
     });*/
 
-    $(window).on("beforeunload", function() {
-      setStorageItem(volumeKey, player.volume());
-      setStorageItem(volumeMuteKey, player.muted());
-      setStorageItem(timeKey, player.currentTime());
-      //localStorage.setItem('your_video_identifier', currentTime);
-      return; 
-    });
+      $(window).on("beforeunload", function () {
+        setStorageItem(volumeKey, player.volume());
+        setStorageItem(volumeMuteKey, player.muted());
+        setStorageItem(timeKey, player.currentTime());
+        //localStorage.setItem('your_video_identifier', currentTime);
+        return;
+      });
 
-    /*player.on("timeupdate", function() {
+      /*player.on("timeupdate", function() {
       setStorageItem(timeKey, player.currentTime());
     });*/
 
-    player.one("loadedmetadata", function() {
-      var persistedVolume = getStorageItem(volumeKey);
-      if(persistedVolume !== null){
-        player.volume(persistedVolume);
-      }
+      player.one("loadedmetadata", function () {
+        var persistedVolume = getStorageItem(volumeKey);
+        if (persistedVolume !== null) {
+          player.volume(persistedVolume);
+        }
 
-      var persistedMute = getStorageItem(volumeMuteKey);
-      if(persistedMute !== null){
-        player.muted('true' === persistedMute);
-      }
+        var persistedMute = getStorageItem(volumeMuteKey);
+        if (persistedMute !== null) {
+          player.muted("true" === persistedMute);
+        }
 
-      var persistedTime = getStorageItem(timeKey);
-      if(persistedTime !== null){
-        player.currentTime(parseFloat(persistedTime));
-      }
-    });
-  };
+        var persistedTime = getStorageItem(timeKey);
+        if (persistedTime !== null) {
+          player.currentTime(parseFloat(persistedTime));
+        }
+      });
+    };
 
   vjs.plugin("persistvolume", volumePersister);
-
 });
